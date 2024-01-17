@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply bg-outer-primary-light;
+  }
+
+  html.dark {
+    @apply bg-outer-primary-dark;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: theme("colors.white");
+  }
+  
+  .dark ::-webkit-scrollbar-track {
+    background-color: theme("colors.zinc.900");
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: theme("borderRadius.lg");
+    background-color: theme("colors.gray.300");
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: theme("colors.zinc.400");
+  }
+  
+  ::-webkit-scrollbar-thumb:active {
+    background-color: theme("colors.zinc.500");
+  }
+  
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: theme("colors.zinc.700");
+  }
+  
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background-color: theme("colors.zinc.600");
+  }
+  
+  .dark ::-webkit-scrollbar-thumb:active {
+    background-color: theme("colors.zinc.500");
+  }
+
+  input[type="text"]:focus {
+    @apply outline-none ring-0;
+  }
+}
+
+@layer components {}
