@@ -6,23 +6,42 @@
 
 const navigation = [
   {
-    label: 'Home',
+    name: 'Home',
     path: '/',
   },
   {
-    label: 'Blog',
+    name: 'Blog',
     path: '/blog',
   },
   {
-    label: 'Tags',
+    name: 'Tags',
     path: '/tags',
   },
 ]
 
 const { isActive } = useActivePath()
+
+const route = useRoute()
+
+const currentNavigationName = computed(() => {
+  const currentPath = route.path
+  const currentNavigation = navigation.find((item) => {
+    return item.path === currentPath
+  })
+  return currentNavigation?.name
+})
+
 const navigationRefs = ref<
   Record<string, Element | ComponentPublicInstance | null>
 >({})
+
+const currentNavigationRef = computed(() => {
+  if (!currentNavigationName.value)
+    return null
+  return navigationRefs.value[currentNavigationName.value]
+})
+
+// const { width } = useElementSize(currentNavigationRef.value)
 </script>
 
 <template>
@@ -34,7 +53,7 @@ const navigationRefs = ref<
         <li
           v-for="item in navigation"
           :key="item.path"
-          :ref="(el) => navigationRefs[item.label] = el"
+          :ref="(el) => navigationRefs[item.name] = el"
           class="relative"
         >
           <NuxtLink
@@ -45,7 +64,7 @@ const navigationRefs = ref<
                 isActive(item.path),
             }"
           >
-            {{ item.label }}
+            {{ item.name }}
           </NuxtLink>
         </li>
         <!-- <li class="relative">
