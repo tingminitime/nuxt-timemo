@@ -8,11 +8,31 @@
   <TheHeader />
 
   <!-- Container that fit into inner section -->
-  <main class="relative mt-16 text-gray-800 dark:text-gray-100 sm:mt-32 sm:px-8 lg:px-16">
+  <!-- <main class="relative mt-16 text-gray-800 dark:text-gray-100 sm:mt-32 sm:px-8 lg:px-16">
     <div class="mx-auto max-w-screen-xl px-4 sm:px-8 lg:px-12">
       <div class="mx-auto flex max-w-2xl flex-col gap-16 lg:max-w-5xl">
         <slot></slot>
       </div>
     </div>
-  </main>
+  </main> -->
+
+  <!-- <main class="relative mt-16 text-gray-800 dark:text-gray-100 sm:mt-32 sm:px-8 lg:px-16">
+    <div class="mx-auto max-w-screen-xlapp">
+      <div class="main-grid grid">
+        <slot></slot>
+      </div>
+    </div>
+  </main> -->
+
+  <AppGridLayout as="main">
+    <slot></slot>
+  </AppGridLayout>
+
+  <!-- Footer -->
+  <AppGridLayout>
+    <TheFooter />
+  </AppGridLayout>
 </template>
+
+<style scoped>
+</style>

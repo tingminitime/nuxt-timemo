@@ -10,6 +10,7 @@ const sameAs = [
 <template>
   <Html
     dir="ltr"
+    lang="zh-Hant"
     class="h-full font-sans antialiased"
   >
     <Head>

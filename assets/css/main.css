@@ -8,14 +8,14 @@
     --theme-icon-fill: hsl(220, 13%, 40%);
     --theme-icon-fill-hover: hsl(220, 13%, 30%);
     scroll-behavior: smooth;
-    @apply bg-outer-primary-light transition-colors duration-200 ease-in-out;
+    @apply bg-outer-primary-light transition-colors duration-200 ease-in-out text-inner-primary-dark;
   }
 
   html.dark {
     --header-mouse-background-color: hsla(185, 85%, 80%, 0.08);
     --theme-icon-fill: hsl(210 10% 70%);
     --theme-icon-fill-hover: hsl(210 15% 90%);
-    @apply bg-outer-primary-dark;
+    @apply bg-outer-primary-dark text-inner-primary-light;
   }
 
   ::-webkit-scrollbar {
@@ -62,4 +62,16 @@
   }
 }
 
-@layer components {}
+@layer components {
+  .main-grid {
+    grid-template-columns: [full-start] minmax(2rem, 1fr) [content-start] minmax(0, 64rem) [content-end] minmax(2rem, 1fr) [full-end];
+  }
+  
+  .main-grid > * {
+    grid-column: content;
+  }
+  
+  .main-grid > .full-bleed {
+    grid-column: full;
+  }
+}
