@@ -11,7 +11,6 @@ function changeColorMode() {
     id="theme-toggle"
     as="button"
     type="button"
-    title="Toggles light & dark"
     class="theme-toggle"
     aria-label="auto"
     aria-live="polite"

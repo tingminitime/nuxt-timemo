@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/content',
     '@nuxtjs/seo',
+    'nuxt-headlessui',
     'nuxt-icon',
     'nuxt-payload-analyzer',
   ],
@@ -26,6 +27,10 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
+  },
+
+  headlessui: {
+    prefix: 'Headless',
   },
 
   pinia: {

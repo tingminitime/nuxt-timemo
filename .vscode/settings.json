@@ -40,6 +40,9 @@
     "yaml"
   ],
 
+  "tailwindCSS.validate": false,
+  "tailwindCSS.codeActions": false,
+
   // Other settings
   "files.associations": {
     "*.css": "postcss"

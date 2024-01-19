@@ -16,14 +16,6 @@
     </div>
   </main> -->
 
-  <!-- <main class="relative mt-16 text-gray-800 dark:text-gray-100 sm:mt-32 sm:px-8 lg:px-16">
-    <div class="mx-auto max-w-screen-xlapp">
-      <div class="main-grid grid">
-        <slot></slot>
-      </div>
-    </div>
-  </main> -->
-
   <AppGridLayout as="main">
     <slot></slot>
   </AppGridLayout>

@@ -8,8 +8,8 @@
 
         <HeaderNavigation class="hidden md:flex" />
 
-        <div class="flex w-full justify-end gap-6 md:absolute md:right-0 md:w-auto">
-          <HeaderNavigationMobile />
+        <div class="flex w-full items-center justify-end gap-6 md:absolute md:right-0 md:w-auto">
+          <HeaderNavigationMobile class="md:hidden" />
           <HeaderSearch />
           <HeaderThemeSwitcher />
         </div>
