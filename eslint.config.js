@@ -76,7 +76,7 @@ export default antfu(
       'tw/migration-from-tailwind-2': 'error',
       'tw/no-arbitrary-value': 'off',
       'tw/no-custom-classname': [
-        'error',
+        'warn',
         {
           whitelist: [
             'my\\[_-](.*)', // You can rewrite this regex

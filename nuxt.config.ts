@@ -15,8 +15,10 @@ export default defineNuxtConfig({
 
   postcss: {
     plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
+      'postcss-import': {},
+      'tailwindcss/nesting': {},
+      'tailwindcss': {},
+      'autoprefixer': {},
     },
   },
 
@@ -38,6 +40,9 @@ export default defineNuxtConfig({
     head: {
       meta: [
         { name: 'description', content: appDescription },
+      ],
+      link: [
+        { rel: 'stylesheet', href: 'https://unpkg.com/open-props/easings.min.css' },
       ],
     },
   },

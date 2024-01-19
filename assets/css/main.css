@@ -4,11 +4,17 @@
 
 @layer base {
   html {
+    --header-mouse-background-color: hsla(185, 85%, 80%, 0.3);
+    --theme-icon-fill: hsl(220, 13%, 40%);
+    --theme-icon-fill-hover: hsl(220, 13%, 30%);
     scroll-behavior: smooth;
-    @apply bg-outer-primary-light;
+    @apply bg-outer-primary-light transition-colors duration-200 ease-in-out;
   }
 
   html.dark {
+    --header-mouse-background-color: hsla(185, 85%, 80%, 0.08);
+    --theme-icon-fill: hsl(210 10% 70%);
+    --theme-icon-fill-hover: hsl(210 15% 90%);
     @apply bg-outer-primary-dark;
   }
 

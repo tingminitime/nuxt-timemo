@@ -3,15 +3,19 @@ defineProps<{
   title: string
   description: string
 }>()
+
+const { isHome } = useActivePath()
 </script>
 
 <template>
   <div class="flex max-w-2xl flex-col gap-6">
-    <img
-      class="size-16 rounded-full"
-      src="/tim-avatar.webp"
-      alt="my avatar"
-    >
+    <div class="size-16 overflow-hidden rounded-full">
+      <img
+        class="object-cover"
+        src="/tim-avatar.webp"
+        alt="my avatar"
+      >
+    </div>
     <h1 class="text-4xl font-bold leading-[3.5rem] tracking-tight sm:text-5xl">
       {{ title }}
     </h1>
