@@ -2,7 +2,7 @@
 const mode = useColorMode()
 
 function changeColorMode() {
-  mode.value = mode.value === 'light' ? 'dark' : 'light'
+  mode.preference = mode.preference === 'light' ? 'dark' : 'light'
 }
 </script>
 
@@ -11,7 +11,7 @@ function changeColorMode() {
     id="theme-toggle"
     as="button"
     type="button"
-    class="theme-toggle"
+    class="theme-toggle flex size-10 items-center justify-center"
     aria-label="auto"
     aria-live="polite"
     @click="changeColorMode"
@@ -108,17 +108,6 @@ function changeColorMode() {
 
 <style scope>
 .theme-toggle {
-  --size: 2rem;
-
-  background: none;
-  border: none;
-  padding: 0;
-
-  inline-size: var(--size);
-  block-size: var(--size);
-  aspect-ratio: 1;
-  border-radius: 50%;
-
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -126,13 +115,9 @@ function changeColorMode() {
   outline-offset: 5px;
 
   > svg {
-    inline-size: 100%;
-    block-size: 100%;
+    inline-size: 75%;
+    block-size: 75%;
     stroke-linecap: round;
-  }
-
-  @media (hover: none) {
-    --size: 48px;
   }
 }
 

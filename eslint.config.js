@@ -81,6 +81,7 @@ export default antfu(
           whitelist: [
             'my\\-(.*)', // You can rewrite this regex
             'main\\-(.*)',
+            'theme-toggle',
           ],
         },
       ],
