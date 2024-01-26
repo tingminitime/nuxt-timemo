@@ -5,8 +5,8 @@ const showNavigationDialog = ref(false)
 </script>
 
 <template>
-  <HeadlessPopover>
-    <ClientOnly>
+  <ClientOnly>
+    <HeadlessPopover>
       <HeaderItem
         :as="PopoverButton"
         type="button"
@@ -21,9 +21,9 @@ const showNavigationDialog = ref(false)
           name="heroicons:chevron-down"
         />
       </HeaderItem>
-    </ClientOnly>
-    <HeaderNavigationDialog v-model:open="showNavigationDialog" />
-  </HeadlessPopover>
+      <HeaderNavigationDialog v-model:open="showNavigationDialog" />
+    </HeadlessPopover>
+  </ClientOnly>
 </template>
 
 <style scope></style>

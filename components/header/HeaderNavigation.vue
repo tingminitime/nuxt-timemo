@@ -86,7 +86,7 @@ useEventListener(navigationRef, 'mousemove', (e) => {
       <!-- Navigation underline effect -->
       <div
         ref="navbarEffect"
-        class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-sky-500/0 via-sky-500  to-sky-500/0 transition dark:from-sky-400/0 dark:via-sky-400 dark:to-sky-400/0"
+        class="absolute -bottom-px left-0 h-px w-full bg-gradient-to-r from-sky-500/0 via-sky-500  to-sky-500/0 transition dark:from-sky-400/0 dark:via-sky-400 dark:to-sky-400/0"
         :class="[navbarEffectReady ? 'opacity-100' : 'opacity-0']"
       >
       </div>

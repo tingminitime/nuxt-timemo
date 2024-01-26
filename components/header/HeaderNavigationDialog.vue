@@ -17,7 +17,7 @@ const { isActive } = useActivePath()
     leave-from-class="opacity-100"
     leave-to-class="opacity-0"
   >
-    <HeadlessPopoverOverlay class="bg-white/1 fixed inset-0 backdrop-blur-sm" />
+    <HeadlessPopoverOverlay class="fixed inset-0 bg-white/10 backdrop-blur-sm" />
   </Transition>
 
   <Transition
@@ -30,7 +30,7 @@ const { isActive } = useActivePath()
   >
     <HeadlessPopoverPanel
       v-slot="{ close }"
-      class="fixed inset-x-4 top-8 z-50 w-full rounded-2xl bg-white/90 p-8 text-gray-800 shadow-xl ring-1 ring-gray-900/5 dark:bg-gray-800/90 dark:text-gray-100 dark:ring-white/10"
+      class="fixed inset-x-4 top-8 z-50 rounded-2xl bg-white/90 p-8 text-gray-800 shadow-xl ring-1 ring-gray-900/5 dark:bg-gray-800/90 dark:text-gray-100 dark:ring-white/10"
     >
       <div class="flex flex-row-reverse items-center justify-between text-gray-500 dark:text-gray-400">
         <button

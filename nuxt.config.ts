@@ -4,13 +4,13 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    '@nuxtjs/color-mode',
+    '@nuxt/ui',
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@nuxt/content',
     '@nuxtjs/seo',
-    'nuxt-headlessui',
     'nuxt-icon',
+    'nuxt-headlessui',
     'nuxt-payload-analyzer',
   ],
 
@@ -25,8 +25,16 @@ export default defineNuxtConfig({
 
   css: ['@/assets/css/main.css'],
 
+  tailwindcss: {
+    cssPath: '~/assets/css/main.css',
+  },
+
   colorMode: {
     classSuffix: '',
+  },
+
+  ui: {
+    icons: ['heroicons', 'simple-icons'],
   },
 
   headlessui: {

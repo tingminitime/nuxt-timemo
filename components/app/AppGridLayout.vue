@@ -10,11 +10,12 @@ defineProps<{
     class="relative mt-16 text-gray-800 dark:text-gray-100 sm:mt-32 sm:px-8 lg:px-16"
   >
     <div class="mx-auto max-w-screen-xl">
-      <div class="main-grid grid max-w-2xl lg:max-w-5xl">
+      <div class="main-grid mx-auto grid max-w-2xl lg:max-w-5xl">
         <slot></slot>
       </div>
     </div>
   </component>
 </template>
 
-<style scope></style>
+<style scope>
+</style>

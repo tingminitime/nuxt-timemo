@@ -79,7 +79,8 @@ export default antfu(
         'warn',
         {
           whitelist: [
-            'my\\[_-](.*)', // You can rewrite this regex
+            'my\\-(.*)', // You can rewrite this regex
+            'main\\-(.*)',
           ],
         },
       ],
