@@ -4,8 +4,15 @@ const { data: pageData } = await useAsyncData(route.path, () => queryContent(rou
 </script>
 
 <template>
-  <div>Blog</div>
-  <pre>{{ pageData }}</pre>
+  <AppHero>
+    <template #title>
+      {{ pageData?.title }}
+    </template>
+    <template #description>
+      {{ pageData?.hero.description }}
+    </template>
+  </AppHero>
+  <div class="flex flex-col gap-8"></div>
 </template>
 
 <style scope></style>

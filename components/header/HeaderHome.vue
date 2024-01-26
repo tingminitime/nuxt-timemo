@@ -13,14 +13,14 @@ const { isHome } = useActivePath()
   >
     <template v-if="!isHome">
       <NuxtLink
-        class="block size-10 p-0.5"
+        class="block size-10 overflow-hidden rounded-full"
         to="/"
         v-bind="$attrs"
       >
         <img
           src="/tim-avatar.webp"
           alt="my avatar"
-          class="block size-9 rounded-full object-cover backdrop-blur"
+          class="size-full object-cover"
         >
       </NuxtLink>
     </template>
