@@ -9,8 +9,8 @@ export const navigation = [
     path: '/',
   },
   {
-    name: 'Blog',
-    path: '/blog',
+    name: 'Articles',
+    path: '/articles',
   },
   {
     name: 'Tags',

@@ -13,7 +13,7 @@ const { isHome } = useActivePath()
   >
     <template v-if="!isHome">
       <NuxtLink
-        class="block size-10 overflow-hidden rounded-full"
+        class="block size-10 shrink-0 overflow-hidden rounded-full"
         to="/"
         v-bind="$attrs"
       >

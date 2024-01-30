@@ -64,14 +64,16 @@
 
 @layer components {
   .main-grid {
-    grid-template-columns: [full-start] minmax(3rem, 1fr) [content-start] minmax(0, 64rem) [content-end] minmax(3rem, 1fr) [full-end];
-  
-    @media screen and (max-width: 767px) {
-      grid-template-columns: 18px [content-start] minmax(1fr, 42rem) [content-end] 18px;
-      grid-template-areas:
-        ". content ."
-        "full full full"
-        ". wide .";
+    grid-template-columns: 18px 1fr 18px;
+    grid-template-areas:
+      ". content ."
+      "full full full"
+      ". wide .";
+  }
+
+  @media screen and (min-width: 768px) {
+    .main-grid {
+      grid-template-columns: [full-start] minmax(3rem, 1fr) [content-start] minmax(0, 64rem) [content-end] minmax(3rem, 1fr) [full-end];
     }
   }
   

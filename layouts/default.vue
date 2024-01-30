@@ -5,7 +5,10 @@
   </div>
 
   <!-- Header -->
-  <TheHeader />
+  <!-- <TheHeader /> -->
+  <AppGridLayout class="mt-6">
+    <TheHeader />
+  </AppGridLayout>
 
   <!-- Container that fit into inner section -->
   <!-- <main class="relative mt-16 text-gray-800 dark:text-gray-100 sm:mt-32 sm:px-8 lg:px-16">
@@ -16,12 +19,15 @@
     </div>
   </main> -->
 
-  <AppGridLayout as="main">
+  <AppGridLayout
+    as="main"
+    class="mt-16 sm:mt-32"
+  >
     <slot></slot>
   </AppGridLayout>
 
   <!-- Footer -->
-  <AppGridLayout>
+  <AppGridLayout class="mt-16 sm:mt-32">
     <TheFooter />
   </AppGridLayout>
 </template>
