@@ -22,7 +22,7 @@ const { data: articles } = await useAsyncData(
   'articles',
   () => queryContent('articles')
     .where({ _type: { $ne: 'yaml' } })
-    .only(['_path', 'title', 'description', 'author', 'tags', 'published_date'])
+    .only(['_path', 'title', 'description', 'author', 'published_date'])
     .find(),
 )
 
@@ -63,7 +63,6 @@ console.log('authors: ', authors.value)
         :to="article._path"
         :title="article.title"
         :description="article.description"
-        :tags="article.tags"
         :published-date="article.published_date"
       />
     </div>

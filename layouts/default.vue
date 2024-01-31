@@ -6,7 +6,7 @@
 
   <!-- Header -->
   <!-- <TheHeader /> -->
-  <AppGridLayout class="mt-6">
+  <AppGridLayout class="sticky top-6 z-50 mt-6">
     <TheHeader />
   </AppGridLayout>
 
@@ -21,13 +21,13 @@
 
   <AppGridLayout
     as="main"
-    class="mt-16 sm:mt-32"
+    class="relative mt-16 sm:mt-32"
   >
     <slot></slot>
   </AppGridLayout>
 
   <!-- Footer -->
-  <AppGridLayout class="mt-16 sm:mt-32">
+  <AppGridLayout class="relative mt-16 sm:mt-32">
     <TheFooter />
   </AppGridLayout>
 </template>

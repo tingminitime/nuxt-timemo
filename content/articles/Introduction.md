@@ -2,6 +2,7 @@
 title: Introduction
 description: My Introduction description.
 author: tim
+category: test
 tags: ["hello", "intro"]
 image: /assets/social/nuxt-cover.png
 cover:

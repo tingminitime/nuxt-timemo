@@ -18,23 +18,7 @@ defineProps<{
         <!-- Cover click range -->
         <span class="absolute inset-0 z-20 sm:rounded-2xl"></span>
         <!-- Article title and publish date -->
-        <div class="flex flex-col items-start justify-between gap-y-2">
-          <span class="relative line-clamp-2 grow font-semibold">{{ title }}</span>
-          <!-- Publish date -->
-          <dl
-            v-if="publishedDate"
-            class="relative order-first shrink-0 text-sm text-gray-600 dark:text-gray-300 md:text-base"
-          >
-            <dt class="sr-only">
-              Published on
-            </dt>
-            <dd>
-              <time :datetime="ISODate(publishedDate)">
-                {{ formatDate(publishedDate) }}
-              </time>
-            </dd>
-          </dl>
-        </div>
+        <span class="relative line-clamp-2 grow text-base font-semibold md:text-lg">{{ title }}</span>
       </NuxtLink>
     </h2>
 
@@ -43,19 +27,22 @@ defineProps<{
       {{ description }}
     </p>
 
-    <!-- Article tags -->
-    <div class="relative z-30 mt-2 flex flex-wrap gap-x-3">
-      <NuxtLink
-        v-for="tag in tags"
-        :key="tag"
-        to="/"
-        class="flex items-center rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-600 transition duration-100 ease-in-out hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-300 hover:dark:bg-gray-500"
-      >
-        <span class="relative shrink-0">
-          {{ tag }}
-        </span>
-      </NuxtLink>
-    </div>
+    <!-- Publish date -->
+    <dl
+      v-if="publishedDate"
+      class="relative shrink-0 text-xs text-gray-500 dark:text-gray-400 md:text-base"
+    >
+      <dt class="sr-only">
+        Published on
+      </dt>
+      <dd>
+        <time :datetime="ISODate(publishedDate)">
+          {{ formatDate(publishedDate) }}
+        </time>
+      </dd>
+    </dl>
+
+    <!-- Article category -->
   </article>
 </template>
 

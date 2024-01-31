@@ -2,6 +2,7 @@
 title: Hello World
 description: Hello world description.
 author: tim
+category: test
 tags: ["hello"]
 image: /assets/social/nuxt-cover.png
 cover:

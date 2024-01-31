@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { PopoverButton } from '@headlessui/vue'
+import { Popover, PopoverButton } from '@headlessui/vue'
 
 const showNavigationDialog = ref(false)
 </script>
 
 <template>
   <ClientOnly>
-    <HeadlessPopover>
+    <Popover>
       <HeaderItem
         :as="PopoverButton"
         type="button"
@@ -22,7 +22,7 @@ const showNavigationDialog = ref(false)
         />
       </HeaderItem>
       <HeaderNavigationDialog v-model:open="showNavigationDialog" />
-    </HeadlessPopover>
+    </Popover>
   </ClientOnly>
 </template>
 
