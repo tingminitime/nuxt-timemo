@@ -1,3 +1,16 @@
+<script setup lang="ts">
+const { y } = useWindowScroll()
+console.log(y.value)
+
+watchEffect(() => {
+  console.log(y.value)
+})
+
+const headerTop = computed(() => {
+  return y.value > 120 ? '-translate-y-3 md:-translate-y-2' : 'translate-y-0'
+})
+</script>
+
 <template>
   <!-- Inner section background -->
   <div class="fixed inset-0 sm:px-8 lg:px-16">
@@ -6,7 +19,11 @@
 
   <!-- Header -->
   <!-- <TheHeader /> -->
-  <AppGridLayout class="sticky top-6 z-50 mt-6">
+  <AppGridLayout
+    class="sticky top-0 z-50 transition-transform"
+    :class="headerTop"
+    inner-mask-class="bg-gradient-to-t dark:from-gray-900/0 from-gray-300/0 dark:via-gray-900/30 via-gray-300/30 dark:to-gray-900/60 to-gray-300/60 py-6"
+  >
     <TheHeader />
   </AppGridLayout>
 
@@ -21,7 +38,7 @@
 
   <AppGridLayout
     as="main"
-    class="relative mt-16 sm:mt-32"
+    class="relative mt-12 sm:mt-28"
   >
     <slot></slot>
   </AppGridLayout>

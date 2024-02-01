@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@nuxt/content',
+    '@nuxt/image',
     '@nuxtjs/seo',
     'nuxt-icon',
     'nuxt-headlessui',

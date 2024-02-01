@@ -37,6 +37,9 @@ export default {
           dark: 'hsl(220, 13%, 18%)',
         },
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
     },
   },
   plugins: [

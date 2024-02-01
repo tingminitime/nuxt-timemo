@@ -22,20 +22,20 @@ const { data: articles } = await useAsyncData(
   'articles',
   () => queryContent('articles')
     .where({ _type: { $ne: 'yaml' } })
-    .only(['_path', 'title', 'description', 'author', 'published_date'])
+    .only(['_path', 'title', 'description', 'author', 'category', 'published_date'])
     .find(),
 )
 
-console.log('articles: ', articles.value)
+// console.log('articles: ', articles.value)
 
 const { data: authors } = await useAsyncData(
-  'author',
+  'authors',
   () => queryContent('/author')
     .where({ _type: { $eq: 'yaml' } })
     .findOne(),
 )
 
-console.log('authors: ', authors.value)
+// console.log('authors: ', authors.value)
 </script>
 
 <template>
@@ -63,6 +63,8 @@ console.log('authors: ', authors.value)
         :to="article._path"
         :title="article.title"
         :description="article.description"
+        :author="article.author"
+        :category="article.category"
         :published-date="article.published_date"
       />
     </div>
