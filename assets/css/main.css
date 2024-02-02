@@ -84,4 +84,11 @@
   .main-grid > .full-bleed {
     grid-column: full;
   }
+
+  .inner-header-mask {
+    @apply relative before:bg-gradient-to-t before:dark:from-gray-900/0 before:from-gray-300/0 before:dark:via-gray-900/40 before:via-gray-300/30 before:dark:to-gray-900/60 before:to-gray-300/60 py-6 before:backdrop-blur-sm before:absolute before:inset-0;
+    &::before {
+      mask: linear-gradient(to bottom , black calc(100% - 2em), transparent);
+    }
+  }
 }

@@ -73,6 +73,9 @@ devDependencies:
   postcss:
     specifier: ^8.4.33
     version: 8.4.33
+  tailwindcss-3d:
+    specifier: ^1.0.4
+    version: 1.0.4(tailwindcss@3.4.1)
   vue:
     specifier: ^3.4.15
     version: 3.4.15(typescript@5.3.3)
@@ -2958,6 +2961,12 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
+    dev: true
+
+  /@swc/helpers@0.5.3:
+    resolution: {integrity: sha512-FaruWX6KdudYloq1AHD/4nU+UsMTdNE8CKyrseXWEcgjDAbvkwJg2QGPAnfIJLIWsjZOSPLOAykK6fuYp4vp4A==}
+    dependencies:
+      tslib: 2.6.2
     dev: true
 
   /@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.1):
@@ -7407,6 +7416,7 @@ packages:
 
   /mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
+    requiresBuild: true
 
   /mdurl@2.0.0:
     resolution: {integrity: sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w==}
@@ -10439,6 +10449,16 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.9
     dev: false
+
+  /tailwindcss-3d@1.0.4(tailwindcss@3.4.1):
+    resolution: {integrity: sha512-sANPhLopZLSWz3qugdkSynPTEH52rq0i/NdQnxoKGKuuiBybppUeeOhpUGG+eX5NcgZcJEXHG4SeDbc8Q0H00w==}
+    peerDependencies:
+      tailwindcss: '>=3.2.0'
+    dependencies:
+      '@swc/helpers': 0.5.3
+      lodash: 4.17.21
+      tailwindcss: 3.4.1
+    dev: true
 
   /tailwindcss@3.4.1:
     resolution: {integrity: sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==}

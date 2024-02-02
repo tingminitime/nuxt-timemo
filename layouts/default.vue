@@ -17,7 +17,7 @@ const headerTop = computed(() => {
   <AppGridLayout
     class="sticky top-0 z-50 transition-transform"
     :class="headerTop"
-    inner-mask-class="bg-gradient-to-t dark:from-gray-900/0 from-gray-300/0 dark:via-gray-900/30 via-gray-300/30 dark:to-gray-900/60 to-gray-300/60 py-6"
+    inner-mask-class="inner-header-mask"
   >
     <TheHeader />
   </AppGridLayout>

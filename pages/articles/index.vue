@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ParsedArticle } from '@/types/article'
+import type { ParsedAuthor } from '@/types/author'
 
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedArticle>(route.path).findOne())
@@ -20,9 +21,9 @@ useSchemaOrg([
 
 const { data: articles } = await useAsyncData(
   'articles',
-  () => queryContent('articles')
+  () => queryContent<ParsedArticle>('articles')
     .where({ _type: { $ne: 'yaml' } })
-    .only(['_path', 'title', 'description', 'author', 'category', 'published_date'])
+    .only(['_path', 'title', 'description', 'author', 'cover', 'category', 'published_date'])
     .find(),
 )
 
@@ -30,12 +31,12 @@ const { data: articles } = await useAsyncData(
 
 const { data: authors } = await useAsyncData(
   'authors',
-  () => queryContent('/author')
+  () => queryContent<ParsedAuthor>('/authors')
     .where({ _type: { $eq: 'yaml' } })
     .findOne(),
 )
 
-// console.log('authors: ', authors.value)
+console.log('authors: ', authors.value)
 </script>
 
 <template>
@@ -65,6 +66,7 @@ const { data: authors } = await useAsyncData(
         :description="article.description"
         :author="article.author"
         :category="article.category"
+        :cover-image="article.cover.src"
         :published-date="article.published_date"
       />
     </div>

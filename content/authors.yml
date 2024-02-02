@@ -1,11 +1,12 @@
-tim:
-  name: Tim Lin
-  title: 菜雞前端
-  url: https://github.com/tingminitime
-  avatar_url: https://github.com/tingminitime.png
+data:
+  - id: tim
+    name: Tim Lin
+    title: 菜雞前端
+    url: https://github.com/tingminitime
+    avatar_url: https://github.com/tingminitime.png
 
-tim-shadow:
-  name: tim shadow
-  title: Yeee
-  url: https://github.com/tingminitime
-  avatar_url: https://github.com/tingminitime.png
+  - id: tim-shadow
+    name: tim shadow
+    title: Yeee
+    url: https://github.com/tingminitime
+    avatar_url: https://github.com/tingminitime.png
