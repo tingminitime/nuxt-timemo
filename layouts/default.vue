@@ -1,10 +1,5 @@
 <script setup lang="ts">
 const { y } = useWindowScroll()
-console.log(y.value)
-
-watchEffect(() => {
-  console.log(y.value)
-})
 
 const headerTop = computed(() => {
   return y.value > 120 ? '-translate-y-3 md:-translate-y-2' : 'translate-y-0'
