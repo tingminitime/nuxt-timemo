@@ -1,4 +1,8 @@
 export default defineAppConfig({
+  ui: {
+    primary: 'sky',
+  },
+
   portfolio: {
     socials: {
       github: {

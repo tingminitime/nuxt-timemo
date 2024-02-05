@@ -4,9 +4,9 @@ description: Lorem Ipsum has been the industry's standard dummy text ever since 
 author: tim
 category: hello
 tags: ["hello"]
-image: /assets/social/3d-website.jpg
+image: /assets/social/cute-penguin.jpg
 cover:
-  src: /assets/articles/3d-website.jpg
+  src: /assets/articles/cute-penguin.jpg
   alt: Nuxt cover image
 published_date: 2024-02-01
 modified_date: 2024-02-02

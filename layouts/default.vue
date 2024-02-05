@@ -33,7 +33,7 @@ const headerTop = computed(() => {
 
   <AppGridLayout
     as="main"
-    class="relative mt-12 sm:mt-28"
+    class="relative mt-8 sm:mt-24"
   >
     <slot></slot>
   </AppGridLayout>

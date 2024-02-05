@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import type { ConcreteComponent } from 'vue'
+import type { LayoutKey } from '#build/types/layouts'
 import type { ParsedArticle } from '@/types/article'
 import type { ParsedAuthor } from '@/types/author'
+
+interface articlesDisplayOption {
+  id: 'cards' | 'list'
+  label: string
+  icon: string
+  layout: LayoutKey
+  component: ConcreteComponent
+}
 
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedArticle>(route.path).findOne())
 
+/* SEO */
 useSeoMeta({
   title: pageData.value?.title,
   ogTitle: pageData.value?.title,
@@ -19,6 +30,7 @@ useSchemaOrg([
   }),
 ])
 
+/* Articles data */
 const { data: articles } = await useAsyncData(
   'articles',
   () => queryContent<ParsedArticle>('articles')
@@ -36,7 +48,34 @@ const { data: authors } = await useAsyncData(
     .findOne(),
 )
 
-console.log('authors: ', authors.value)
+// console.log('authors: ', authors.value)
+
+/* Articles display */
+// const { getArticlesDisplayMethod, setArticlesDisplayMethod } = useUserPreferStore()
+const articlesDisplayOptions: articlesDisplayOption[] = [
+  {
+    id: 'cards',
+    label: 'Cards',
+    icon: 'i-heroicons-squares-2x2-solid',
+    layout: 'articles-cards-layout',
+    component: shallowRef(resolveComponent('ArticleCard')),
+  },
+  {
+    id: 'list',
+    label: 'List',
+    icon: 'i-heroicons-list-bullet',
+    layout: 'articles-list-layout',
+    component: shallowRef(resolveComponent('ArticleItem')),
+  },
+]
+
+if (import.meta.client) {
+  const userPreferStore = useUserPreferStore()
+  userPreferStore.setArticlesDisplayMethod(articlesDisplayOptions[0].id)
+}
+
+const articlesDisplaySelected = ref<articlesDisplayOption>(articlesDisplayOptions[0])
+// const articlesDisplayMethodByUser = ref<ArticleDisplayMethod>('cards')
 </script>
 
 <template>
@@ -50,26 +89,54 @@ console.log('authors: ', authors.value)
   </AppHero>
 
   <div class="flex flex-col gap-8">
-    <!-- Articles search area -->
-    <div></div>
+    <!-- Articles display control -->
+    <div class="flex justify-end">
+      <UButtonGroup
+        size="md"
+        orientation="horizontal"
+      >
+        <USelectMenu
+          v-model="articlesDisplaySelected"
+          :options="articlesDisplayOptions"
+          class="w-28 md:w-32"
+          select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
+          :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
+        >
+          <template #leading>
+            <UIcon
+              :name="articlesDisplaySelected.icon"
+              class="mx-0.5 size-4"
+            />
+          </template>
+        </USelectMenu>
+      </UButtonGroup>
+    </div>
 
     <!-- Articles list -->
-    <div
-      v-if="articles?.length"
-      class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-x-12 md:gap-y-10"
+    <template v-if="articles?.length && articlesDisplaySelected">
+      <NuxtLayout
+        :name="articlesDisplaySelected.layout"
+      >
+        <component
+          :is="articlesDisplaySelected.component"
+          v-for="article in articles"
+          :key="article._path"
+          :to="article._path"
+          :title="article.title"
+          :description="article.description"
+          :author="article.author"
+          :category="article.category"
+          :cover-image="article.cover.src"
+          :published-date="article.published_date"
+        />
+      </NuxtLayout>
+    </template>
+    <p
+      v-else
+      class="text-gray-700 dark:text-gray-300"
     >
-      <ArticleCard
-        v-for="article in articles"
-        :key="article._path"
-        :to="article._path"
-        :title="article.title"
-        :description="article.description"
-        :author="article.author"
-        :category="article.category"
-        :cover-image="article.cover.src"
-        :published-date="article.published_date"
-      />
-    </div>
+      No articles found.
+    </p>
   </div>
 </template>
 

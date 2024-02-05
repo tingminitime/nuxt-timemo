@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
     '@vueuse/nuxt',
     '@nuxt/content',
     '@nuxt/image',
@@ -44,7 +45,7 @@ export default defineNuxtConfig({
   },
 
   pinia: {
-    storesDirs: ['./store/**'],
+    storesDirs: ['./stores/**'],
   },
 
   build: {
