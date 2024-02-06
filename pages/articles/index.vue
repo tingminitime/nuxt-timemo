@@ -4,7 +4,7 @@ import type { LayoutKey } from '#build/types/layouts'
 import type { ParsedArticle } from '@/types/article'
 import type { ParsedAuthor } from '@/types/author'
 
-interface articlesDisplayOption {
+interface ArticlesDisplayOption {
   id: 'cards' | 'list'
   label: string
   icon: string
@@ -51,8 +51,7 @@ const { data: authors } = await useAsyncData(
 // console.log('authors: ', authors.value)
 
 /* Articles display */
-// const { getArticlesDisplayMethod, setArticlesDisplayMethod } = useUserPreferStore()
-const articlesDisplayOptions: articlesDisplayOption[] = [
+const articlesDisplayOptions: ArticlesDisplayOption[] = [
   {
     id: 'cards',
     label: 'Cards',
@@ -69,13 +68,7 @@ const articlesDisplayOptions: articlesDisplayOption[] = [
   },
 ]
 
-if (import.meta.client) {
-  const userPreferStore = useUserPreferStore()
-  userPreferStore.setArticlesDisplayMethod(articlesDisplayOptions[0].id)
-}
-
-const articlesDisplaySelected = ref<articlesDisplayOption>(articlesDisplayOptions[0])
-// const articlesDisplayMethodByUser = ref<ArticleDisplayMethod>('cards')
+const articlesDisplaySelected = ref<ArticlesDisplayOption>(articlesDisplayOptions[0])
 </script>
 
 <template>
@@ -98,7 +91,7 @@ const articlesDisplaySelected = ref<articlesDisplayOption>(articlesDisplayOption
         <USelectMenu
           v-model="articlesDisplaySelected"
           :options="articlesDisplayOptions"
-          class="w-28 md:w-32"
+          class="w-32 md:w-36"
           select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
           :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
         >

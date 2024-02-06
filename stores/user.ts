@@ -1,26 +1,20 @@
-export type ArticleDisplayMethod = 'cards' | 'list'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
-export const useUserPreferStore = defineStore(
-  'user-prefer',
-  () => {
-    const articlesDisplayMethod = ref<ArticleDisplayMethod>('cards')
+type ArticlesDisplayMethod = 'cards' | 'list'
 
-    function setArticlesDisplayMethod(method: ArticleDisplayMethod) {
-      articlesDisplayMethod.value = method
-    }
+export const useUserPreferStore = defineStore('user-prefer', () => {
+  /* Current articles display */
+  const articlesDisplayMethod = ref<ArticlesDisplayMethod>('cards')
 
-    function getArticlesDisplayMethod() {
-      return articlesDisplayMethod.value
-    }
+  function setArticlesDisplayMethod(method: ArticlesDisplayMethod) {
+    articlesDisplayMethod.value = method
+  }
 
-    return {
-      setArticlesDisplayMethod,
-      getArticlesDisplayMethod,
-    }
-  },
-  {
-    persist: {
-      storage: persistedState.localStorage,
-    },
-  },
-)
+  return {
+    articlesDisplayMethod,
+    setArticlesDisplayMethod,
+  }
+})
+
+if (import.meta.hot)
+  import.meta.hot.accept(acceptHMRUpdate(useUserPreferStore, import.meta.hot))
