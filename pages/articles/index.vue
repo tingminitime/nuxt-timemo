@@ -1,16 +1,6 @@
 <script setup lang="ts">
-import type { ConcreteComponent } from 'vue'
-import type { LayoutKey } from '#build/types/layouts'
 import type { ParsedArticle } from '@/types/article'
 import type { ParsedAuthor } from '@/types/author'
-
-interface ArticlesDisplayOption {
-  id: 'cards' | 'list'
-  label: string
-  icon: string
-  layout: LayoutKey
-  component: ConcreteComponent
-}
 
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedArticle>(route.path).findOne())
@@ -50,27 +40,7 @@ const { data: authors } = await useAsyncData(
 
 // console.log('authors: ', authors.value)
 
-/* Articles display */
-// const articlesDisplayOptions: ArticlesDisplayOption[] = [
-//   {
-//     id: 'cards',
-//     label: 'Cards',
-//     icon: 'i-heroicons-squares-2x2-solid',
-//     layout: 'articles-cards-layout',
-//     component: shallowRef(resolveComponent('ArticleCard')),
-//   },
-//   {
-//     id: 'list',
-//     label: 'List',
-//     icon: 'i-heroicons-list-bullet',
-//     layout: 'articles-list-layout',
-//     component: shallowRef(resolveComponent('ArticleItem')),
-//   },
-// ]
-
-const userPrefer = useUserPrefer()
-
-const articlesDisplaySelected = ref<ArticlesDisplayOption>(userPrefer.articlesDisplayOptions[0])
+const { articlesDisplayOptions, currentArticlesDisplayMethod, currentArticlesDisplayOption, currentArticleComponent } = useUserPrefer()
 </script>
 
 <template>
@@ -91,15 +61,17 @@ const articlesDisplaySelected = ref<ArticlesDisplayOption>(userPrefer.articlesDi
         orientation="horizontal"
       >
         <USelectMenu
-          v-model="articlesDisplaySelected"
-          :options="userPrefer.articlesDisplayOptions"
+          v-model="currentArticlesDisplayMethod"
+          :options="articlesDisplayOptions"
           class="w-32 md:w-36"
           select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
           :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
+          value-attribute="id"
+          option-attribute="label"
         >
           <template #leading>
             <UIcon
-              :name="articlesDisplaySelected.icon"
+              :name="currentArticlesDisplayOption.icon"
               class="mx-0.5 size-4"
             />
           </template>
@@ -108,12 +80,12 @@ const articlesDisplaySelected = ref<ArticlesDisplayOption>(userPrefer.articlesDi
     </div>
 
     <!-- Articles list -->
-    <template v-if="articles?.length && articlesDisplaySelected">
+    <template v-if="articles?.length && currentArticlesDisplayOption">
       <NuxtLayout
-        :name="articlesDisplaySelected.layout"
+        :name="currentArticlesDisplayOption.layout"
       >
         <component
-          :is="articlesDisplaySelected.component"
+          :is="currentArticleComponent"
           v-for="article in articles"
           :key="article._path"
           :to="article._path"
