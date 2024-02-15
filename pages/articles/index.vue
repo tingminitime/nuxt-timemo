@@ -40,7 +40,12 @@ const { data: authors } = await useAsyncData(
 
 // console.log('authors: ', authors.value)
 
-const { articlesDisplayOptions, currentArticlesDisplayMethod, currentArticlesDisplayOption, currentArticleComponent } = useUserPrefer()
+const {
+  articlesDisplayOptions,
+  currentArticlesDisplayMethod,
+  currentArticlesDisplayOption,
+  currentArticleComponent,
+} = useUserPrefer()
 </script>
 
 <template>

@@ -5,12 +5,13 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/ui',
-    '@nuxtjs/color-mode',
-    '@pinia/nuxt',
-    '@vueuse/nuxt',
     '@nuxt/content',
     '@nuxt/image',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/google-fonts',
     '@nuxtjs/seo',
+    '@vueuse/nuxt',
+    '@pinia/nuxt',
     'nuxt-icon',
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
@@ -39,6 +40,12 @@ export default defineNuxtConfig({
     icons: ['heroicons', 'simple-icons'],
   },
 
+  googleFonts: {
+    families: {
+      'Noto+Sans+TC': [400, 500, 700, 900],
+    },
+  },
+
   headlessui: {
     prefix: 'Headless',
   },
@@ -61,11 +68,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  // components: {
-  //   global: true,
-  //   dirs: ['~/components'],
-  // },
 
   typescript: {
     tsConfig: {

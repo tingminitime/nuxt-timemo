@@ -17,7 +17,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter var', '"Noto Sans TC"', ...defaultTheme.fontFamily.sans],
       },
       height: {
         screen: ['100vh', '100dvh'],
