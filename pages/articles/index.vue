@@ -51,24 +51,26 @@ const { data: authors } = await useAsyncData(
 // console.log('authors: ', authors.value)
 
 /* Articles display */
-const articlesDisplayOptions: ArticlesDisplayOption[] = [
-  {
-    id: 'cards',
-    label: 'Cards',
-    icon: 'i-heroicons-squares-2x2-solid',
-    layout: 'articles-cards-layout',
-    component: shallowRef(resolveComponent('ArticleCard')),
-  },
-  {
-    id: 'list',
-    label: 'List',
-    icon: 'i-heroicons-list-bullet',
-    layout: 'articles-list-layout',
-    component: shallowRef(resolveComponent('ArticleItem')),
-  },
-]
+// const articlesDisplayOptions: ArticlesDisplayOption[] = [
+//   {
+//     id: 'cards',
+//     label: 'Cards',
+//     icon: 'i-heroicons-squares-2x2-solid',
+//     layout: 'articles-cards-layout',
+//     component: shallowRef(resolveComponent('ArticleCard')),
+//   },
+//   {
+//     id: 'list',
+//     label: 'List',
+//     icon: 'i-heroicons-list-bullet',
+//     layout: 'articles-list-layout',
+//     component: shallowRef(resolveComponent('ArticleItem')),
+//   },
+// ]
 
-const articlesDisplaySelected = ref<ArticlesDisplayOption>(articlesDisplayOptions[0])
+const userPrefer = useUserPrefer()
+
+const articlesDisplaySelected = ref<ArticlesDisplayOption>(userPrefer.articlesDisplayOptions[0])
 </script>
 
 <template>
@@ -90,7 +92,7 @@ const articlesDisplaySelected = ref<ArticlesDisplayOption>(articlesDisplayOption
       >
         <USelectMenu
           v-model="articlesDisplaySelected"
-          :options="articlesDisplayOptions"
+          :options="userPrefer.articlesDisplayOptions"
           class="w-32 md:w-36"
           select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
           :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
