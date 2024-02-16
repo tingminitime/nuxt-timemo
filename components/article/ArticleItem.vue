@@ -18,7 +18,7 @@ defineProps<{
         <!-- Cover click range -->
         <span class="absolute inset-0 z-30 sm:rounded-2xl"></span>
         <!-- Article title and publish date -->
-        <span class="relative z-20 block grow overflow-hidden truncate text-base font-semibold leading-6 drop-shadow-md md:h-[3em] md:text-lg md:leading-7">
+        <span class="relative z-20 block grow overflow-hidden truncate text-base font-medium leading-6 drop-shadow-md md:h-[3em] md:text-lg md:leading-7">
           {{ title }}
         </span>
       </NuxtLink>

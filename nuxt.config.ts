@@ -11,10 +11,12 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxtjs/seo',
     '@vueuse/nuxt',
+    '@vueuse/motion/nuxt',
     '@pinia/nuxt',
     'nuxt-icon',
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
+    'dayjs-nuxt',
   ],
 
   postcss: {
@@ -42,8 +44,11 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      'Noto+Sans+TC': [400, 500, 700, 900],
+      'Inter': true,
+      'Noto+Sans+TC': [400, 500, 600, 700, 900],
     },
+    display: 'swap',
+    download: false,
   },
 
   headlessui: {
@@ -52,6 +57,13 @@ export default defineNuxtConfig({
 
   pinia: {
     storesDirs: ['./stores/**'],
+  },
+
+  dayjs: {
+    locales: ['zh-tw'],
+    plugins: ['relativeTime', 'utc', 'timezone'],
+    defaultLocale: 'zh-tw',
+    defaultTimezone: 'Asia/Taipei',
   },
 
   build: {

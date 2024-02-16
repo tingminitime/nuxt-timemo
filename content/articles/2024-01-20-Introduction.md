@@ -8,8 +8,8 @@ image: /assets/articles/3d-website.jpg
 cover:
   src: /assets/articles/3d-website.jpg
   alt: Nuxt cover image
-published_date: 2024-01-20
-modified_date: 2024-01-30
+published_date: 2024-01-20 18:00:00
+modified_date: 2024-01-30 18:00:00
 ---
 
 # Introduction

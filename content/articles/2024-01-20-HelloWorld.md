@@ -8,8 +8,8 @@ image: /assets/articles/cute-cats.jpg
 cover:
   src: /assets/articles/cute-cats.jpg
   alt: Nuxt cover image
-published_date: 2024-01-20
-modified_date: 2024-01-30
+published_date: 2024-01-20 14:00:00
+modified_date: 2024-01-30 14:00:00
 ---
 
 # Hello

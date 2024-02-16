@@ -1,17 +1,11 @@
 export function formatDate(date: string | Date): string {
-  if (typeof date === 'string')
-    date = new Date(date)
+  const dayjs = useDayjs()
 
-  return date.toLocaleDateString('zh-TW', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).replace(/\//g, '-')
+  return dayjs.tz(date).format('YYYY-MM-DD')
 }
 
 export function ISODate(date: string | Date): string {
-  if (typeof date === 'string')
-    date = new Date(date)
+  const dayjs = useDayjs()
 
-  return date.toISOString()
+  return dayjs.tz(date).toISOString()
 }

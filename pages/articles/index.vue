@@ -20,12 +20,17 @@ useSchemaOrg([
   }),
 ])
 
+const { data: groupedArticles } = await useGetAllPublishedPosts()
+
+console.log('groupArticles: ', groupedArticles.value)
+
 /* Articles data */
 const { data: articles } = await useAsyncData(
   'articles',
-  () => queryContent<ParsedArticle>('articles')
+  () => queryContent<ParsedArticle>('/articles/')
     .where({ _type: { $ne: 'yaml' } })
-    .only(['_path', 'title', 'description', 'author', 'cover', 'category', 'published_date'])
+    .sort({ published_date: -1 })
+    .only(['_path', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
     .find(),
 )
 

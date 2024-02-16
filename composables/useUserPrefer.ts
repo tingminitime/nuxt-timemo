@@ -17,7 +17,6 @@ export function useUserPrefer() {
       label: 'Cards',
       icon: 'i-heroicons-squares-2x2-solid',
       layout: 'articles-cards-layout',
-      // component: shallowRef(ArticleCard),
       component: 'ArticleCard',
     },
     {
@@ -25,7 +24,6 @@ export function useUserPrefer() {
       label: 'List',
       icon: 'i-heroicons-list-bullet',
       layout: 'articles-list-layout',
-      // component: shallowRef(ArticleItem),
       component: 'ArticleItem',
     },
   ])
