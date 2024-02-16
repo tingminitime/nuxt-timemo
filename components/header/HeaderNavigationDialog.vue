@@ -1,9 +1,6 @@
 <script setup lang="ts">
+import { PopoverOverlay, PopoverPanel } from '@headlessui/vue'
 import { navigation } from '@/constants'
-
-defineProps<{
-  open: boolean
-}>()
 
 const { isActive } = useActivePath()
 </script>
@@ -17,7 +14,7 @@ const { isActive } = useActivePath()
     leave-from-class="opacity-100"
     leave-to-class="opacity-0"
   >
-    <HeadlessPopoverOverlay class="fixed inset-0 bg-white/10 backdrop-blur-sm" />
+    <PopoverOverlay class="fixed inset-0 h-screen bg-white/10 backdrop-blur-sm" />
   </Transition>
 
   <Transition
@@ -28,7 +25,7 @@ const { isActive } = useActivePath()
     leave-from-class="opacity-100 scale-100"
     leave-to-class="opacity-0 scale-95"
   >
-    <HeadlessPopoverPanel
+    <PopoverPanel
       v-slot="{ close }"
       class="fixed inset-x-4 top-8 z-50 rounded-2xl bg-white/90 p-8 text-gray-800 shadow-xl ring-1 ring-gray-900/5 dark:bg-gray-800/90 dark:text-gray-100 dark:ring-white/10"
     >
@@ -69,7 +66,7 @@ const { isActive } = useActivePath()
           </li>
         </ul>
       </nav>
-    </HeadlessPopoverPanel>
+    </PopoverPanel>
   </Transition>
 </template>
 

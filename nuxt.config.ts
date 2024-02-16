@@ -5,14 +5,18 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/ui',
-    '@nuxtjs/color-mode',
-    '@pinia/nuxt',
-    '@vueuse/nuxt',
     '@nuxt/content',
+    '@nuxt/image',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/google-fonts',
     '@nuxtjs/seo',
+    '@vueuse/nuxt',
+    '@vueuse/motion/nuxt',
+    '@pinia/nuxt',
     'nuxt-icon',
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
+    'dayjs-nuxt',
   ],
 
   postcss: {
@@ -38,12 +42,28 @@ export default defineNuxtConfig({
     icons: ['heroicons', 'simple-icons'],
   },
 
+  googleFonts: {
+    families: {
+      'Inter': true,
+      'Noto+Sans+TC': [400, 500, 600, 700, 900],
+    },
+    display: 'swap',
+    download: false,
+  },
+
   headlessui: {
     prefix: 'Headless',
   },
 
   pinia: {
-    storesDirs: ['./store/**'],
+    storesDirs: ['./stores/**'],
+  },
+
+  dayjs: {
+    locales: ['zh-tw'],
+    plugins: ['relativeTime', 'utc', 'timezone'],
+    defaultLocale: 'zh-tw',
+    defaultTimezone: 'Asia/Taipei',
   },
 
   build: {

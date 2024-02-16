@@ -17,7 +17,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter var', '"Noto Sans TC"', ...defaultTheme.fontFamily.sans],
       },
       height: {
         screen: ['100vh', '100dvh'],
@@ -37,6 +37,9 @@ export default {
           dark: 'hsl(220, 13%, 18%)',
         },
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
     },
   },
   plugins: [
@@ -44,5 +47,6 @@ export default {
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/container-queries'),
+    require('tailwindcss-3d'),
   ],
 }

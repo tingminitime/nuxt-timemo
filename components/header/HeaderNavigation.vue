@@ -72,7 +72,7 @@ useEventListener(navigationRef, 'mousemove', (e) => {
         >
           <NuxtLink
             :to="item.path"
-            class="relative block px-3 py-2 text-sm font-medium text-gray-800 transition hover:text-sky-500 dark:text-gray-100 hover:dark:text-sky-400"
+            class="relative block px-3 py-2 text-sm text-gray-800 transition hover:text-sky-500 dark:text-gray-100 hover:dark:text-sky-400"
             :class="{
               'text-sky-500 dark:text-sky-400':
                 isActive(item.path),

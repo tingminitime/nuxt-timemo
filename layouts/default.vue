@@ -1,3 +1,11 @@
+<script setup lang="ts">
+const { y } = useWindowScroll()
+
+const headerTop = computed(() => {
+  return y.value > 120 ? '-translate-y-3 md:-translate-y-2' : 'translate-y-0'
+})
+</script>
+
 <template>
   <!-- Inner section background -->
   <div class="fixed inset-0 sm:px-8 lg:px-16">
@@ -6,7 +14,11 @@
 
   <!-- Header -->
   <!-- <TheHeader /> -->
-  <AppGridLayout class="mt-6">
+  <AppGridLayout
+    class="sticky top-0 z-50 transition-transform"
+    :class="headerTop"
+    inner-mask-class="inner-header-mask"
+  >
     <TheHeader />
   </AppGridLayout>
 
@@ -21,13 +33,13 @@
 
   <AppGridLayout
     as="main"
-    class="mt-16 sm:mt-32"
+    class="relative mt-8 sm:mt-24"
   >
     <slot></slot>
   </AppGridLayout>
 
   <!-- Footer -->
-  <AppGridLayout class="mt-16 sm:mt-32">
+  <AppGridLayout class="relative mt-16 sm:mt-32">
     <TheFooter />
   </AppGridLayout>
 </template>

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { ParsedArticle } from '@/types/article'
+import type { ParsedAuthor } from '@/types/author'
 
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedArticle>(route.path).findOne())
 
+/* SEO */
 useSeoMeta({
   title: pageData.value?.title,
   ogTitle: pageData.value?.title,
@@ -18,24 +20,37 @@ useSchemaOrg([
   }),
 ])
 
+const { data: groupedArticles } = await useGetAllPublishedPosts()
+
+console.log('groupArticles: ', groupedArticles.value)
+
+/* Articles data */
 const { data: articles } = await useAsyncData(
   'articles',
-  () => queryContent('articles')
+  () => queryContent<ParsedArticle>('/articles/')
     .where({ _type: { $ne: 'yaml' } })
-    .only(['_path', 'title', 'description', 'author', 'tags', 'published_date'])
+    .sort({ published_date: -1 })
+    .only(['_path', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
     .find(),
 )
 
-console.log('articles: ', articles.value)
+// console.log('articles: ', articles.value)
 
 const { data: authors } = await useAsyncData(
-  'author',
-  () => queryContent('/author')
+  'authors',
+  () => queryContent<ParsedAuthor>('/authors')
     .where({ _type: { $eq: 'yaml' } })
     .findOne(),
 )
 
-console.log('authors: ', authors.value)
+// console.log('authors: ', authors.value)
+
+const {
+  articlesDisplayOptions,
+  currentArticlesDisplayMethod,
+  currentArticlesDisplayOption,
+  currentArticleComponent,
+} = useUserPrefer()
 </script>
 
 <template>
@@ -49,24 +64,56 @@ console.log('authors: ', authors.value)
   </AppHero>
 
   <div class="flex flex-col gap-8">
-    <!-- Articles search area -->
-    <div></div>
+    <!-- Articles display control -->
+    <div class="flex justify-end">
+      <UButtonGroup
+        size="md"
+        orientation="horizontal"
+      >
+        <USelectMenu
+          v-model="currentArticlesDisplayMethod"
+          :options="articlesDisplayOptions"
+          class="w-32 md:w-36"
+          select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
+          :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
+          value-attribute="id"
+          option-attribute="label"
+        >
+          <template #leading>
+            <UIcon
+              :name="currentArticlesDisplayOption.icon"
+              class="mx-0.5 size-4"
+            />
+          </template>
+        </USelectMenu>
+      </UButtonGroup>
+    </div>
 
     <!-- Articles list -->
-    <div
-      v-if="articles?.length"
-      class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-x-12 md:gap-y-10"
+    <template v-if="articles?.length && currentArticlesDisplayOption">
+      <NuxtLayout
+        :name="currentArticlesDisplayOption.layout"
+      >
+        <component
+          :is="currentArticleComponent"
+          v-for="article in articles"
+          :key="article._path"
+          :to="article._path"
+          :title="article.title"
+          :description="article.description"
+          :author="article.author"
+          :category="article.category"
+          :cover-image="article.cover.src"
+          :published-date="article.published_date"
+        />
+      </NuxtLayout>
+    </template>
+    <p
+      v-else
+      class="text-gray-700 dark:text-gray-300"
     >
-      <ArticleCard
-        v-for="article in articles"
-        :key="article._path"
-        :to="article._path"
-        :title="article.title"
-        :description="article.description"
-        :tags="article.tags"
-        :published-date="article.published_date"
-      />
-    </div>
+      No articles found.
+    </p>
   </div>
 </template>
 
