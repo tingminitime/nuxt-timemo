@@ -2,7 +2,20 @@
 
 ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/tingminitime/nuxt-timemo/dev/nuxt/master?color=00dc82)　![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/tingminitime/nuxt-timemo/%40nuxt%2Fui/master?color=00dc82)　![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/tingminitime/nuxt-timemo/dev/%40nuxt%2Fcontent/master?color=00dc82)
 
-🏠 My personal site base on Nuxt 3, WIP.
+🏠 My personal site base on Nuxt 3.
+
+## WIP
+
+- [x] Header
+- [x] Navigation
+- [x] Theme mode
+- [ ] Search
+- [ ] Search page
+- [ ] Home page
+- [x] Articles List page
+- [ ] Article page
+- [ ] Categories and tags page
+- [ ] Footer
 
 ## Prerequistes
 

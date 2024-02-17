@@ -13,7 +13,7 @@ export const navigation = [
     path: '/articles',
   },
   {
-    name: 'Tags',
-    path: '/tags',
+    name: 'Categories',
+    path: '/categories',
   },
 ]
