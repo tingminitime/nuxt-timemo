@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ParsedArticle } from '@/types/article'
-import type { ParsedAuthor } from '@/types/author'
+import { useGetAllAuthors } from '~/composables/useGetAllAuthors'
+import { useGetArticleCategories } from '~/composables/useGetArticleCategories'
 
 const route = useRoute()
-const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedArticle>(route.path).findOne())
+const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
 
 /* SEO */
 useSeoMeta({
@@ -20,35 +20,18 @@ useSchemaOrg([
   }),
 ])
 
-const { data: groupedArticles } = await useGetAllPublishedPosts()
-
-console.log('groupArticles: ', groupedArticles.value)
-
 /* Articles data */
-const { data: articles } = await useAsyncData(
-  'articles',
-  () => queryContent<ParsedArticle>('/articles/')
-    .where({ _type: { $ne: 'yaml' } })
-    .sort({ published_date: -1 })
-    .only(['_path', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
-    .find(),
-)
+const { data: groupedArticlesByYear } = await useGetAllPublishedPosts()
 
-// console.log('articles: ', articles.value)
+const { data: authors } = await useGetAllAuthors()
 
-const { data: authors } = await useAsyncData(
-  'authors',
-  () => queryContent<ParsedAuthor>('/authors')
-    .where({ _type: { $eq: 'yaml' } })
-    .findOne(),
-)
-
-// console.log('authors: ', authors.value)
+const { data: articleCatories } = await useGetArticleCategories()
 
 const {
   articlesDisplayOptions,
   currentArticlesDisplayMethod,
   currentArticlesDisplayOption,
+  currentArticleLayoutComponent,
   currentArticleComponent,
 } = useUserPrefer()
 </script>
@@ -90,13 +73,19 @@ const {
     </div>
 
     <!-- Articles list -->
-    <template v-if="articles?.length && currentArticlesDisplayOption">
-      <NuxtLayout
-        :name="currentArticlesDisplayOption.layout"
+    <div
+      v-if="groupedArticlesByYear?.length && currentArticlesDisplayOption"
+      class="flex flex-col gap-y-6"
+    >
+      <component
+        :is="currentArticleLayoutComponent"
+        v-for="groupedArticles in groupedArticlesByYear"
+        :key="groupedArticles.year"
+        :year="groupedArticles.year"
       >
         <component
           :is="currentArticleComponent"
-          v-for="article in articles"
+          v-for="article in groupedArticles.articles"
           :key="article._path"
           :to="article._path"
           :title="article.title"
@@ -104,10 +93,11 @@ const {
           :author="article.author"
           :category="article.category"
           :cover-image="article.cover.src"
-          :published-date="article.published_date"
+          :published-date-format="article.published_date_format"
+          :published-date-iso-string="article.published_date_iso_string"
         />
-      </NuxtLayout>
-    </template>
+      </component>
+    </div>
     <p
       v-else
       class="text-gray-700 dark:text-gray-300"

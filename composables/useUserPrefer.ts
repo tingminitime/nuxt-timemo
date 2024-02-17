@@ -1,12 +1,10 @@
-import type { LayoutKey } from '#build/types/layouts'
-import { ArticleCard, ArticleItem } from '#components'
+import { ArticleCard, ArticleCardsLayout, ArticleItem, ArticleListLayout } from '#components'
 
 interface ArticlesDisplayOption {
   id: 'cards' | 'list'
   label: string
   icon: string
-  layout: LayoutKey
-  component: string
+  // layout: LayoutKey
 }
 
 export function useUserPrefer() {
@@ -16,21 +14,28 @@ export function useUserPrefer() {
       id: 'cards',
       label: 'Cards',
       icon: 'i-heroicons-squares-2x2-solid',
-      layout: 'articles-cards-layout',
-      component: 'ArticleCard',
+      // layout: 'article-cards-layout',
     },
     {
       id: 'list',
       label: 'List',
       icon: 'i-heroicons-list-bullet',
-      layout: 'articles-list-layout',
-      component: 'ArticleItem',
+      // layout: 'article-list-layout',
     },
   ])
 
   const currentArticlesDisplayMethod = useState('articlesDisplayMethod', () => 'cards')
 
   const currentArticlesDisplayOption = computed(() => articlesDisplayOptions.value.find(option => option.id === currentArticlesDisplayMethod.value) || articlesDisplayOptions.value[0])
+
+  const currentArticleLayoutComponent = computed(() => {
+    switch (currentArticlesDisplayMethod.value) {
+      case 'cards':
+        return ArticleCardsLayout
+      case 'list':
+        return ArticleListLayout
+    }
+  })
 
   const currentArticleComponent = computed(() => {
     switch (currentArticlesDisplayMethod.value) {
@@ -45,6 +50,7 @@ export function useUserPrefer() {
     articlesDisplayOptions,
     currentArticlesDisplayMethod,
     currentArticlesDisplayOption,
+    currentArticleLayoutComponent,
     currentArticleComponent,
   }
 }

@@ -106,6 +106,7 @@ export default defineNuxtConfig({
       // @ts-expect-error: Unreachable code error
       search: true,
     },
+    ignores: ['drafts'],
     documentDriven: false,
     highlight: {
       theme: {
