@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useGetAllAuthors } from '~/composables/useGetAllAuthors'
-import { useGetArticleCategories } from '~/composables/useGetArticleCategories'
+import { useGetArticleCategories } from '~/composables/useGetCategories'
 
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
@@ -21,11 +21,13 @@ useSchemaOrg([
 ])
 
 /* Articles data */
-const { data: groupedArticlesByYear } = await useGetAllPublishedPosts()
+const { getAllPublishedPosts } = useGetAllPublishedPosts()
+const { data: groupedArticlesByYear } = await getAllPublishedPosts()
 
 const { data: authors } = await useGetAllAuthors()
 
-const { data: articleCatories } = await useGetArticleCategories()
+const { getArticleCategories, findCategoryTitleByPath } = useGetArticleCategories()
+const { data: articleCatories } = await getArticleCategories()
 
 const {
   articlesDisplayOptions,

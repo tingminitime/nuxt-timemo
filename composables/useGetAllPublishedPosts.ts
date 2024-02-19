@@ -33,20 +33,26 @@ function transform(articles: ParsedArticle[]) {
 
 const IGNORED_PATH: string[] = []
 
-export function useGetAllPublishedPosts() {
-  const getAllPublishedPosts = () => {
+function getAllPublishedPosts() {
+  const queryAllPublishedPosts = () => {
     return queryContent<ParsedArticle>('/articles/')
       .where({ _type: { $ne: 'yaml' } })
       .sort({ published_date: -1 })
-      .only(['_path', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
+      .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
       .find()
       .then((res) => {
         return res.filter(post => !IGNORED_PATH.includes(post._path) && !post.draft) as ParsedArticle[]
       })
   }
 
-  return useAsyncData('groupArticles', getAllPublishedPosts, {
+  return useAsyncData('group-articles', queryAllPublishedPosts, {
     default: () => [],
     transform,
   })
+}
+
+export function useGetAllPublishedPosts() {
+  return {
+    getAllPublishedPosts,
+  }
 }
