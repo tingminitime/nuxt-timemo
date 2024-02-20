@@ -1,3 +1,4 @@
+import type { NavItem } from '@nuxt/content/types'
 import type { ParsedArticle } from '~/types/article'
 import { group } from '~/utils/group'
 
@@ -33,7 +34,7 @@ function transform(articles: ParsedArticle[]) {
 
 const IGNORED_PATH: string[] = []
 
-function getAllPublishedPosts() {
+function getAllPublishedPosts(categories: NavItem | undefined) {
   const queryAllPublishedPosts = () => {
     return queryContent<ParsedArticle>('/articles/')
       .where({ _type: { $ne: 'yaml' } })
@@ -41,7 +42,20 @@ function getAllPublishedPosts() {
       .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
       .find()
       .then((res) => {
-        return res.filter(post => !IGNORED_PATH.includes(post._path) && !post.draft) as ParsedArticle[]
+        const posts = res.filter(post => !IGNORED_PATH.includes(post._path) && !post.draft)
+
+        if (!categories)
+          return posts as ParsedArticle[]
+
+        const postsWithCategory = posts.map((post) => {
+          const category = findCategoryTitleByPath(categories, post._path)
+          return {
+            ...post,
+            category,
+          }
+        })
+
+        return postsWithCategory as ParsedArticle[]
       })
   }
 

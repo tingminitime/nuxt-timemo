@@ -2,7 +2,6 @@
 title: Inside Hello
 description: 這是一篇在 articles/hello/inside-hello/ 路徑下的文章。
 author: tim
-category: hello
 tags: ["hello"]
 image: /assets/articles/cat-meme-1.jpg
 cover:
