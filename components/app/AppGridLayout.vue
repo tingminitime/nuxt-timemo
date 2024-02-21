@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   as?: string
+  innerAs?: string
   innerMaskClass?: string
 }>()
 </script>
@@ -14,9 +15,12 @@ defineProps<{
       class="mx-auto max-w-screen-xl"
       :class="innerMaskClass"
     >
-      <div class="main-grid mx-auto grid max-w-3xl md:max-w-5xl">
+      <component
+        :is="innerAs ? innerAs : 'div'"
+        class="main-grid mx-auto grid max-w-3xl md:max-w-5xl"
+      >
         <slot></slot>
-      </div>
+      </component>
     </div>
   </component>
 </template>

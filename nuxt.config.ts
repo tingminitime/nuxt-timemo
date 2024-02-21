@@ -113,7 +113,7 @@ export default defineNuxtConfig({
         default: 'github-light',
         dark: 'github-dark',
       },
-      preload: ['vue', 'vue-html'],
+      langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'scss', 'vue-html', 'python', 'bash', 'javascript', 'typescript'],
     },
   },
 

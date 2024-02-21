@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>Article Content Body</div>
+  <div class="prose prose-gray w-full max-w-full dark:prose-invert">
+    <slot></slot>
+  </div>
 </template>
 
 <style scope></style>

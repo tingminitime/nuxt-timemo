@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { ParsedArticle } from '~/types/article'
+import type { ParsedContent } from '@nuxt/content/types'
 
 const route = useRoute()
-const { data: pageData, error } = await useAsyncData(route.path, () => queryContent<ParsedArticle>(route.path).findOne())
+const { data: pageData, error } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
 
 if (error.value) {
   throw createError({
@@ -55,7 +55,9 @@ useSchemaOrg([
 </script>
 
 <template>
-  <div>Article Page</div>
+  <ArticleLayout>
+    <ContentRenderer :value="(pageData as ParsedContent)" />
+  </ArticleLayout>
 </template>
 
 <style scope></style>

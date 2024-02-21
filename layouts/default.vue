@@ -1,8 +1,16 @@
 <script setup lang="ts">
+const route = useRoute()
+const isArticlePage = route.name === 'articles-slug'
+
 const { y } = useWindowScroll()
+const yRef = ref(0)
+
+watch(() => y.value, (value) => {
+  yRef.value = value
+})
 
 const headerTop = computed(() => {
-  return y.value > 120 ? '-translate-y-3 md:-translate-y-2' : 'translate-y-0'
+  return yRef.value > 120 ? '-translate-y-3 md:-translate-y-2' : 'translate-y-0'
 })
 </script>
 
@@ -13,7 +21,6 @@ const headerTop = computed(() => {
   </div>
 
   <!-- Header -->
-  <!-- <TheHeader /> -->
   <AppGridLayout
     class="sticky top-0 z-50 transition-transform"
     :class="headerTop"
@@ -22,17 +29,9 @@ const headerTop = computed(() => {
     <TheHeader />
   </AppGridLayout>
 
-  <!-- Container that fit into inner section -->
-  <!-- <main class="relative mt-16 text-gray-800 dark:text-gray-100 sm:mt-32 sm:px-8 lg:px-16">
-    <div class="mx-auto max-w-screen-xl px-4 sm:px-8 lg:px-12">
-      <div class="mx-auto flex max-w-2xl flex-col gap-16 lg:max-w-5xl">
-        <slot></slot>
-      </div>
-    </div>
-  </main> -->
-
   <AppGridLayout
     as="main"
+    :inner-as="isArticlePage ? 'article' : 'div'"
     class="relative mt-8 sm:mt-24"
   >
     <slot></slot>
