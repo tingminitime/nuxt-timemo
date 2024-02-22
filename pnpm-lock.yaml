@@ -25,6 +25,9 @@ devDependencies:
   '@iconify-json/simple-icons':
     specifier: ^1.1.91
     version: 1.1.91
+  '@iconify-json/vscode-icons':
+    specifier: ^1.1.33
+    version: 1.1.33
   '@nuxt/content':
     specifier: ^2.12.0
     version: 2.12.0(nuxt@3.10.2)(vue@3.4.19)
@@ -1312,6 +1315,12 @@ packages:
 
   /@iconify-json/tabler@1.1.105:
     resolution: {integrity: sha512-USJbNfa0fAHBLilxTKn70wkvFnopmfcomfpqD0ul/69uyZnonztHhyrbM8MI9Ua4eYXaPymoB7tuZ+Ionx6xfg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/vscode-icons@1.1.33:
+    resolution: {integrity: sha512-Aj1SoViQ5dw9hrYc4PHK8/vHpZREUA158jhnyNsD95uhN40mmeLuq+4o9OxiSakgLlac9R5OKpnp8tHTCgMhCA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

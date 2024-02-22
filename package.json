@@ -19,6 +19,7 @@
     "@antfu/eslint-config": "^2.6.4",
     "@iconify-json/heroicons": "^1.1.20",
     "@iconify-json/simple-icons": "^1.1.91",
+    "@iconify-json/vscode-icons": "^1.1.33",
     "@nuxt/content": "^2.12.0",
     "@nuxt/devtools": "latest",
     "@nuxtjs/google-fonts": "^3.1.3",

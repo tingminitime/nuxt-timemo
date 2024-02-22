@@ -22,9 +22,19 @@ defineProps<{
   </div>
 </template>
 
-<style scope>
-:deep(pre code .line) {
+<style scoped>
+:deep(code) {
   display: block;
-  min-height: 1rem;
+  width: fit-content;
+  min-width: 100%;
+}
+
+:deep(.shiki code span.highlight),
+:deep(.shiki code span.highlighted) {
+  background-color: var(--shiki-code-line-highlight-color);
+  display: inline-block;
+  margin: 0 -24px;
+  padding: 0 24px;
+  width: calc(100% + 48px);
 }
 </style>

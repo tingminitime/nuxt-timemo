@@ -17,9 +17,11 @@ modified_date: 2024-02-17 16:30:00
 This is the first post about Vue.js
 第一篇關於 Vue.js 的文章
 
+Markdown image
+
 ![Vue](/assets/articles/vue-banner-1.jpg)
 
-[Vue](https://vuejs.org/)
+Custom image component
 
 ::content-image{src="/assets/articles/vue-banner-1.jpg"}
 ::
@@ -30,11 +32,17 @@ This is the first post about Vue.js
 ##### Header 5
 ###### Header 6
 
-Shiki (式, a Japanese word for "Style") is a beautiful and powerful syntax highlighter based on TextMate grammar and themes, the same engine as VS Code's syntax highlighting. Provides very accurate and fast syntax highlighting for almost any mainstream programming language.
+[Shiki](https://shiki.style/) (式, a Japanese word for "Style") is a beautiful and powerful syntax highlighter based on TextMate grammar and themes, the same engine as VS Code's syntax highlighting. Provides very accurate and fast syntax highlighting for almost any mainstream programming language.
 
 No custom RegExp to maintain, no custom CSS to maintain, no custom HTML to maintain. And as your favorite languages and themes in VS Code evolve - your syntax highlighting will evolve too.
 
 Oh by the way, all the code blocks in this site are highlighted by Shiki, as you'd expect :)
+
+[Link 1](https://vuejs.org/)
+
+[Link 2](https://vuejs.org/)
+
+[Link 3](https://vuejs.org/)
 
 **Bold** *Italic* ***Bold and Italic***
 
@@ -46,57 +54,85 @@ Oh by the way, all the code blocks in this site are highlighted by Shiki, as you
 2. List 2
 3. List 3
 
-> Blockquote
-
-::alert{type="info"}
-Info alert.
-::
-
-::alert{type="success"}
-Success alert.
-::
-
-::alert{type="warning"}
-Warning alert.
-::
-
-::alert{type="danger"}
-Danger alert.
-::
-
-<!-- ::alert{type="info"}
-This is an Alert component for info.
-:: -->
-
----
-
-| Header 1 | Header 2 | Header 3 |
-| -------- | -------- | -------- |
-| Content 1 | Content 2 | Content 3 |
-| Content 4 | Content 5 | Content 6 |
-
----
-
 - [ ] Task 1
 - [ ] Task 2
 - [ ] Task 3
 
-`code inline`
+> Blockquote
+
+::alert
+This is an Alert component.
+::
+
+::alert{type="info"}
+This is an Alert component for info.
+::
+
+::alert{type="info" title="Info"}
+Info alert.
+
+`Inline Code`
+
+```js
+console.log('Code block')
+```
+::
+
+::alert{type="success" title="Success"}
+Success alert.
+
+`Inline Code`
+
+```js
+console.log('Code block')
+```
+::
+
+::alert{type="warning" title="Warning"}
+Warning alert.
+
+`Inline Code`
+
+```js
+console.log('Code block')
+```
+::
+
+::alert{type="danger" title="Danger"}
+Danger alert.
+
+`Inline Code`
+
+```js
+console.log('Code block')
+```
+::
+
+`inline code`
+
+[Link `inline code`](https://vuejs.org/)
 
 JavaScript code block
 
-```js [file.js]{4-6,7} meta-info=val
+```js [file.js] meta-info=val
 export default () => {
-  console.log('Code block')
+  console.log('Code block') // [!code highlight]
 }
 ```
 
-```ts [server/api/search.ts]
+```ts {1,3-4} [server/api/search.ts]
 const test: number = 123
 
 export default defineEventHandler(async (event) => {
   return 'Hello search'
 })
+```
+
+```js [test.js]
+function increase(num) {
+  return num + 1 // [!code --]
+  return num + 2 // [!code ++]
+}
 ```
 
 HTML code block
@@ -165,3 +201,10 @@ echo "Hello World"
 
 pnpm run install
 ```
+
+---
+
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+| Content 1 | Content 2 | Content 3 |
+| Content 4 | Content 5 | Content 6 |
