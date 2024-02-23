@@ -1,17 +1,28 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   code: string
 }>()
 
+// const copyButtonRef = ref<HTMLButtonElement>()
+
+// const { copyButtonHandler, copied } = useCopyCode()
+
+// useEventListener(copyButtonRef, 'click', (e: MouseEvent) => {
+//   copyButtonHandler(e)
+// })
+
 const { copy, copied, isSupported } = useClipboard()
+const filteredCode = props.code.replace(/ \/\/ \[!code.*?\]/g, '')
 </script>
 
 <template>
   <ClientOnly>
     <button
+      id="copy-button"
       type="button"
-      class="group/copy absolute bottom-2 right-2 z-10 flex size-8 items-center justify-center rounded bg-white/90 p-1 opacity-0 transition group-hover:opacity-100 dark:bg-gray-800/90"
-      @click="copy(code)"
+      class="group/copy absolute bottom-2.5 right-2 z-10 flex size-8 items-center justify-center rounded bg-white/90 p-1 opacity-0 transition group-hover:opacity-100 dark:bg-gray-800/90"
+      :class="copied ? 'opacity-100' : 'opacity-0'"
+      @click="copy(filteredCode)"
     >
       <span
         v-if="copied"

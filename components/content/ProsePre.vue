@@ -22,7 +22,6 @@ defineProps<{
       <ArticleCodeCopy :code="code" />
     </div>
   </div>
-  <!-- <pre :class="class"><slot></slot></pre> -->
 </template>
 
 <style scoped>
