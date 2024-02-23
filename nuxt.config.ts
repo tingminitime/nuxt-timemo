@@ -90,6 +90,18 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      trailingSlash: true,
+      siteUrl: 'https://timemo.site',
+      siteName: 'timemo',
+      siteDescription:
+        'timemo WIP',
+      language: 'zh-TW',
+      titleSeparator: '·',
+    },
+  },
+
   site: {
     url: 'https://timemo.site',
     name: 'timemo',
@@ -120,7 +132,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: ['/'],
-      crawlLinks: false, // TODO: enable this when the site is ready
+      crawlLinks: true, // TODO: enable this when the site is ready
       failOnError: false,
     },
   },
