@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --shiki-code-line-highlight-color: hsla(0, 0%, 88%, 0.16);
+    --shiki-code-line-diff-remove-color: hsla(350, 90%, 60%, 0.16);
+    --shiki-code-line-diff-remove-symbol-color: hsla(0, 45%, 63%);
+    --shiki-code-line-diff-add-color: hsla(160, 84%, 40%, 0.16);
+    --shiki-code-line-diff-add-symbol-color: hsla(151, 65%, 54%);
+    --shiki-code-line-height: 1.7;
+  }
+
   html {
     --header-mouse-background-color: hsla(185, 85%, 80%, 0.3);
     --theme-icon-fill: hsl(220, 13%, 40%);
@@ -16,6 +25,80 @@
     --theme-icon-fill: hsl(210 10% 70%);
     --theme-icon-fill-hover: hsl(210 15% 90%);
     @apply bg-outer-primary-dark text-inner-primary-light;
+  }
+  
+  pre[class*=language-],
+  pre[class*=language-] code {
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    tab-size: 4;
+    hyphens: none;
+  }
+
+  pre[class*=language-] {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    /* padding: 16px 0; */
+    background: transparent;
+    overflow-x: auto;
+  }
+
+  pre[class*=language-] code {
+    /* display: flex;
+    flex-direction: column; */
+    display: block;
+    padding: 0 40px 0 24px;
+    width: fit-content;
+    min-width: 100%;
+    line-height: var(--shiki-code-line-height);
+    font-size: 0.875em;
+  }
+  
+  pre[class*=language-].shiki code .highlight,
+  pre[class*=language-].shiki code .highlighted {
+    background-color: var(--shiki-code-line-highlight-color);
+    display: block;
+    margin: 0 -40px 0 -24px;
+    padding: 0 40px 0 24px;
+    width: calc(100% + 64px);
+  }
+
+  pre[class*=language-].shiki code .diff {
+    display: block;
+    margin: 0 -40px 0 -24px;
+    padding: 0 40px 0 24px;
+    width: calc(100% + 64px);
+
+    &:before {
+      position: absolute;
+      left: 10px;
+    }
+  }
+
+  pre[class*=language-].shiki code .diff.remove {
+    background-color: var(--shiki-code-line-diff-remove-color);
+    opacity: 0.7;
+
+    &:before {
+      content: "−";
+      color: var(--shiki-code-line-diff-remove-symbol-color);
+      display: inline-block;
+    }
+  }
+
+  pre[class*=language-].shiki code .diff.add {
+    background-color: var(--shiki-code-line-diff-add-color);
+
+    &:before {
+      content: "+";
+      color: var(--shiki-code-line-diff-add-symbol-color);
+      display: inline-block;
+    }
   }
 
   ::-webkit-scrollbar {

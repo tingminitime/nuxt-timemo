@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { NavItem } from '@nuxt/content/types'
 import { useGetAllAuthors } from '~/composables/useGetAllAuthors'
-import { useGetArticleCategories } from '~/composables/useGetArticleCategories'
+import { useGetArticleCategories } from '~/composables/useGetCategories'
 
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
@@ -21,11 +22,13 @@ useSchemaOrg([
 ])
 
 /* Articles data */
-const { data: groupedArticlesByYear } = await useGetAllPublishedPosts()
+const { getArticleCategories } = useGetArticleCategories()
+const { data: articleCatories } = await getArticleCategories()
+
+const { getAllPublishedPosts } = useGetAllPublishedPosts()
+const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleCatories.value as NavItem | undefined)
 
 const { data: authors } = await useGetAllAuthors()
-
-const { data: articleCatories } = await useGetArticleCategories()
 
 const {
   articlesDisplayOptions,

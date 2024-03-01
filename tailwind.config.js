@@ -1,6 +1,6 @@
-/** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+/** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
   content: [
@@ -40,6 +40,37 @@ export default {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
+      typography: theme => ({
+        DEFAULT: {
+          css: {
+            'h1 a,h2 a,h3 a,h4 a,h5 a,h6 a': {
+              'text-decoration-line': 'none',
+            },
+            'p a': {
+              'color': theme('colors.sky.500'),
+              'text-decoration-line': 'none',
+              'transition-property': 'all',
+              'transition-timing-function': theme('transitionTimingFunction.easeIn'),
+              'transition-duration': theme('transitionDuration.150'),
+            },
+            'p a:hover': {
+              'color': theme('colors.sky.600'),
+              'transition-property': 'all',
+              'transition-timing-function': theme('transitionTimingFunction.easeIn'),
+              'transition-duration': theme('transitionDuration.150'),
+            },
+            '.dark p a': {
+              color: theme('colors.sky.400'),
+            },
+            '.dark p a:hover': {
+              color: theme('colors.sky.300'),
+            },
+            'img': {
+              'border-radius': '0.5rem',
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [

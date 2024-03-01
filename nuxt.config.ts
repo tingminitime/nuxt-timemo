@@ -39,7 +39,7 @@ export default defineNuxtConfig({
   },
 
   ui: {
-    icons: ['heroicons', 'simple-icons'],
+    icons: ['heroicons', 'simple-icons', 'vscode-icons'],
   },
 
   googleFonts: {
@@ -90,6 +90,18 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      trailingSlash: true,
+      siteUrl: 'https://timemo.site',
+      siteName: 'timemo',
+      siteDescription:
+        'timemo WIP',
+      language: 'zh-TW',
+      titleSeparator: '·',
+    },
+  },
+
   site: {
     url: 'https://timemo.site',
     name: 'timemo',
@@ -113,14 +125,14 @@ export default defineNuxtConfig({
         default: 'github-light',
         dark: 'github-dark',
       },
-      preload: ['vue', 'vue-html'],
+      langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'scss', 'vue-html', 'python', 'bash', 'javascript', 'typescript'],
     },
   },
 
   nitro: {
     prerender: {
       routes: ['/'],
-      crawlLinks: false, // TODO: enable this when the site is ready
+      crawlLinks: true, // TODO: enable this when the site is ready
       failOnError: false,
     },
   },
