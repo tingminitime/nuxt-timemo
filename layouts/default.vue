@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const route = useRoute()
-const isArticlePage = route.name === 'articles-slug'
-
+/* --- Prevent hydration errors caused by different class names between SSR and CSR --- */
 const { y } = useWindowScroll()
 const yRef = ref(0)
 
@@ -12,6 +10,7 @@ watch(() => y.value, (value) => {
 const headerTop = computed(() => {
   return yRef.value > 120 ? '-translate-y-3 md:-translate-y-2' : 'translate-y-0'
 })
+/* -------- */
 </script>
 
 <template>
@@ -31,7 +30,6 @@ const headerTop = computed(() => {
 
   <AppGridLayout
     as="main"
-    :inner-as="isArticlePage ? 'article' : 'div'"
     class="relative mt-8 sm:mt-24"
   >
     <slot></slot>

@@ -3,14 +3,6 @@ const props = defineProps<{
   code: string
 }>()
 
-// const copyButtonRef = ref<HTMLButtonElement>()
-
-// const { copyButtonHandler, copied } = useCopyCode()
-
-// useEventListener(copyButtonRef, 'click', (e: MouseEvent) => {
-//   copyButtonHandler(e)
-// })
-
 const { copy, copied, isSupported } = useClipboard()
 const filteredCode = props.code.replace(/ \/\/ \[!code.*?\]/g, '')
 </script>
@@ -18,10 +10,11 @@ const filteredCode = props.code.replace(/ \/\/ \[!code.*?\]/g, '')
 <template>
   <ClientOnly>
     <button
+      v-if="isSupported"
       id="copy-button"
       type="button"
-      class="group/copy absolute bottom-2.5 right-2 z-10 flex size-8 items-center justify-center rounded bg-white/90 p-1 opacity-0 transition group-hover:opacity-100 dark:bg-gray-800/90"
-      :class="copied ? 'opacity-100' : 'opacity-0'"
+      class="group/copy absolute bottom-2.5 right-2 z-10 flex size-8 items-center justify-center rounded bg-white/90 p-1 transition dark:bg-gray-800/90 md:opacity-0 md:group-hover:opacity-100"
+      :class="copied ? 'md:opacity-100' : 'md:opacity-0'"
       @click="copy(filteredCode)"
     >
       <span

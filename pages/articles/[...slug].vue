@@ -55,7 +55,7 @@ useSchemaOrg([
 </script>
 
 <template>
-  <ArticleLayout>
+  <ArticleLayout :toc="pageData?.body?.toc">
     <ContentRenderer :value="(pageData as ParsedContent)" />
   </ArticleLayout>
 </template>

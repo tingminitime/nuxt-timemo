@@ -1,9 +1,11 @@
 <script setup lang="ts">
 defineProps<{
   as?: string
-  innerAs?: string
   innerMaskClass?: string
 }>()
+
+const route = useRoute()
+const isArticlePage = route.name === 'articles-slug'
 </script>
 
 <template>
@@ -16,8 +18,9 @@ defineProps<{
       :class="innerMaskClass"
     >
       <component
-        :is="innerAs ? innerAs : 'div'"
-        class="main-grid mx-auto grid max-w-3xl md:max-w-5xl"
+        :is="isArticlePage ? 'article' : 'div'"
+        class="main-grid mx-auto grid max-w-3xl"
+        :class="isArticlePage ? 'md:max-w-6xl' : 'md:max-w-5xl'"
       >
         <slot></slot>
       </component>
