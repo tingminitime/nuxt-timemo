@@ -15,14 +15,24 @@ defineProps<{
         v-for="link in toc.links"
         :key="link.id"
       >
-        <span>{{ link.text }}</span>
+        <NuxtLink
+          :to="`#${link.id}`"
+          class="block"
+        >
+          {{ link.text }}
+        </NuxtLink>
         <template v-if="link.children">
           <ul class="my-2 ml-4 space-y-2 pl-2">
             <li
               v-for="child in link.children"
               :key="child.id"
             >
-              <span>{{ child.text }}</span>
+              <NuxtLink
+                :to="`#${child.id}`"
+                class="block"
+              >
+                {{ child.text }}
+              </NuxtLink>
             </li>
           </ul>
         </template>
