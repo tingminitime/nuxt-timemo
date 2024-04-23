@@ -21,9 +21,17 @@ export default antfu(
     },
     javascript: {
       overrides: {
-        'unused-imports/no-unused-vars': 'warn',
-        'unused-imports/no-unused-imports': 'warn',
         'no-unused-vars': 'warn',
+        'unused-imports/no-unused-vars': [
+          'warn',
+          {
+            vars: 'all',
+            varsIgnorePattern: '^_',
+            args: 'after-used',
+            argsIgnorePattern: '^_',
+          },
+        ],
+        'unused-imports/no-unused-imports': 'warn',
       },
     },
     ignores: [
@@ -60,7 +68,7 @@ export default antfu(
   /* From the second arguments they are ESLint Flat Configs */
   {
     rules: {
-      'no-unused-vars': 'off',
+      'no-unused-vars': 'warn',
       'node/prefer-global/process': 'off',
     },
   },
