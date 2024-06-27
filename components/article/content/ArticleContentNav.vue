@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Toc } from '@nuxt/content/types'
+import type { Toc } from '@nuxt/content'
 
 defineProps<{
   toc: Toc

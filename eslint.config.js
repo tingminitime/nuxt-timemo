@@ -47,7 +47,7 @@ export default antfu(
       'nuxt.d.ts',
       '.DS_Store',
       '.vscode/',
-      '*.md',
+      '**/*.md',
       'netlify.toml',
       'README.md',
       'package.json',

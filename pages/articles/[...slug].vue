@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ParsedContent } from '@nuxt/content/types'
+import type { ParsedContent } from '@nuxt/content'
 
 const route = useRoute()
 const { data: pageData, error } = await useAsyncData(route.path, () => queryContent(route.path).findOne())

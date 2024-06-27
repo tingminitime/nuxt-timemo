@@ -1,4 +1,4 @@
-import type { NavItem } from '@nuxt/content/types'
+import type { NavItem } from '@nuxt/content'
 
 export function useGetArticleCategories() {
   function transformIntoArticles(navigation: Array<NavItem>) {

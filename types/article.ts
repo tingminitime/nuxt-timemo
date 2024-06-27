@@ -1,5 +1,5 @@
 // Refer : https://content.nuxt.com/usage/typescript
-import type { MarkdownParsedContent } from '@nuxt/content/dist/runtime/types'
+import type { MarkdownParsedContent } from '@nuxt/content'
 
 export interface ParsedArticle extends MarkdownParsedContent {
   title: string
