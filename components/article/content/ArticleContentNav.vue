@@ -1,3 +1,4 @@
+<!-- TODO: hover and navigate effect -->
 <script setup lang="ts">
 import type { Toc } from '@nuxt/content'
 
@@ -5,7 +6,11 @@ defineProps<{
   toc: Toc
 }>()
 
-// const { activeHeadings } = useScrollSpyHeadings()
+const { activeHeadings } = useTocScroll()
+
+function isHeadingActive(id: string) {
+  activeHeadings.value.includes(id)
+}
 </script>
 
 <template>
