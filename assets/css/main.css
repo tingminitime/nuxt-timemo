@@ -17,7 +17,7 @@
     --theme-icon-fill: hsl(220, 13%, 40%);
     --theme-icon-fill-hover: hsl(220, 13%, 30%);
     scroll-behavior: smooth;
-    @apply bg-outer-primary-light transition-colors duration-200 ease-in-out text-inner-primary-dark;
+    @apply bg-outer-primary-light text-inner-primary-dark;
   }
 
   html.dark {
