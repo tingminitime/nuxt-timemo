@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NavItem } from '@nuxt/content/types'
+import type { NavItem } from '@nuxt/content'
 import { useGetAllAuthors } from '~/composables/useGetAllAuthors'
 import { useGetArticleCategories } from '~/composables/useGetCategories'
 

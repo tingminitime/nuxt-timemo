@@ -15,7 +15,7 @@ export function useCopyCode() {
       if (!siblingPre)
         return
 
-      const isShell = /language-(shellscript|shell|bash|sh|zsh)/.test(
+      const isShell = /language-(?:shellscript|shell|bash|sh|zsh)/.test(
         siblingPre.className,
       )
 

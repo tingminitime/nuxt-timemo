@@ -1,4 +1,4 @@
-import type { NavItem } from '@nuxt/content/types'
+import type { NavItem } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
 import { group } from '~/utils/group'
 
@@ -43,20 +43,20 @@ export function useGetAllPublishedPosts() {
         .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
         .find()
         .then((res) => {
-          const posts = res.filter(post => !IGNORED_PATH.includes(post._path) && !post.draft)
+          const posts = res.filter(post => !IGNORED_PATH.includes(post._path as string) && !post.draft)
 
           if (!categories)
-            return posts as ParsedArticle[]
+            return posts as unknown as ParsedArticle[]
 
           const postsWithCategory = posts.map((post) => {
-            const category = findCategoryTitleByPath(categories, post._path)
+            const category = findCategoryTitleByPath(categories, post._path as string)
             return {
               ...post,
               category,
             }
           })
 
-          return postsWithCategory as ParsedArticle[]
+          return postsWithCategory as unknown as ParsedArticle[]
         })
     }
 

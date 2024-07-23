@@ -1,4 +1,4 @@
-import type { NavItem } from '@nuxt/content/types'
+import type { NavItem } from '@nuxt/content'
 
 export function findCategoryTitleByPath(categories: NavItem, path: string): string {
   if (categories._path === path)

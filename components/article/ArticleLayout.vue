@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Toc } from '@nuxt/content/types'
+import type { Toc } from '@nuxt/content'
 
 defineProps<{
   title?: string
@@ -10,8 +10,8 @@ defineProps<{
 
 <template>
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-[158px_660px_158px]">
-    <div class="row-start-2 w-full lg:col-start-1 lg:row-span-2 lg:row-start-1">
-      <ArticleContentNav
+    <div class="row-start-2 w-full lg:col-start-3 lg:row-span-2 lg:row-start-1">
+      <ArticleToc
         v-if="toc"
         :toc="toc"
       />

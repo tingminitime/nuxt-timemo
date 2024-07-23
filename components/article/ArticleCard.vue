@@ -13,7 +13,7 @@ defineProps<{
 
 <template>
   <article
-    class="group relative flex flex-col gap-y-2 overflow-hidden rounded-xl border border-gray-300 bg-inner-primary-light drop-shadow-lg transition-all duration-100 ease-in translate-z-0 dark:border-gray-500 dark:bg-inner-primary-dark sm:rounded-2xl md:hover:bg-gray-200/30 md:hover:-translate-y-0.5 md:hover:translate-z-0 md:hover:dark:border-gray-400 md:dark:hover:dark:bg-gray-700/20"
+    class="group relative flex flex-col gap-y-2 overflow-hidden rounded-xl border border-gray-300 bg-inner-primary-light drop-shadow-lg transition-all duration-100 ease-in translate-z-0 dark:border-gray-500 dark:bg-inner-primary-dark sm:rounded-2xl md:hover:bg-gray-200/15 md:hover:-translate-y-0.5 md:hover:translate-z-0 md:hover:dark:border-gray-400 md:dark:hover:dark:bg-gray-700/20"
   >
     <!-- Article image -->
     <div class="aspect-h-9 aspect-w-16 relative w-full">
