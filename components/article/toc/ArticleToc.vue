@@ -1,6 +1,6 @@
-<!-- TODO: hover and navigate effect -->
 <script setup lang="ts">
 import type { Toc } from '@nuxt/content'
+import { NuxtLink } from '#components'
 
 defineProps<{
   toc: Toc
@@ -9,7 +9,7 @@ defineProps<{
 const { activeHeadings } = useTocScroll()
 
 function isHeadingActive(id: string) {
-  activeHeadings.value.includes(id)
+  return activeHeadings.value.includes(id)
 }
 </script>
 
@@ -20,24 +20,28 @@ function isHeadingActive(id: string) {
         v-for="link in toc.links"
         :key="link.id"
       >
-        <NuxtLink
+        <ArticleTocItem
+          :is="NuxtLink"
           :to="`#${link.id}`"
           class="block"
+          :class="isHeadingActive(link.id) ? 'text-sky-500 dark:text-sky-400' : ''"
         >
           {{ link.text }}
-        </NuxtLink>
+        </ArticleTocItem>
         <template v-if="link.children">
-          <ul class="my-2 ml-4 space-y-2 pl-2">
+          <ul class="my-2 ml-2 space-y-2 border-l border-gray-300 dark:border-gray-600">
             <li
               v-for="child in link.children"
               :key="child.id"
             >
-              <NuxtLink
+              <ArticleTocItem
+                :is="NuxtLink"
                 :to="`#${child.id}`"
-                class="block"
+                class="block pl-4"
+                :class="isHeadingActive(child.id) ? 'text-sky-500 dark:text-sky-400' : ''"
               >
                 {{ child.text }}
-              </NuxtLink>
+              </ArticleTocItem>
             </li>
           </ul>
         </template>

@@ -16,8 +16,6 @@ export function useTocScroll() {
     entries.forEach((entry) => {
       const id = entry.target.id
 
-      console.log('[observerCallback]id:', id)
-
       if (entry.isIntersecting)
         visibleHeadings.value = [...visibleHeadings.value, id]
       else

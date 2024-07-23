@@ -6,6 +6,8 @@ const props = defineProps<{
   error: NuxtError
 }>()
 
+const router = useRouter()
+
 const sameAs = [
   siteUrl,
   'https://github.com/tingminitime',
@@ -42,7 +44,7 @@ useSeoMeta({
       <div>
         <p>{{ error.statusCode }}</p>
         <p>{{ error.message }}</p>
-        <UButton>
+        <UButton @click="router.replace('/')">
           Back to home
         </UButton>
       </div>
