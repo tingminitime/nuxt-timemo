@@ -16,15 +16,15 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.23.0",
-    "@iconify-json/heroicons": "^1.1.22",
-    "@iconify-json/simple-icons": "^1.1.109",
+    "@antfu/eslint-config": "^2.24.0",
+    "@iconify-json/heroicons": "^1.1.23",
+    "@iconify-json/simple-icons": "^1.1.111",
     "@iconify-json/vscode-icons": "^1.1.36",
-    "@nuxt/content": "^2.13.1",
+    "@nuxt/content": "^2.13.2",
     "@nuxt/devtools": "latest",
     "@nuxtjs/google-fonts": "^3.2.0",
-    "@nuxtjs/seo": "2.0.0-rc.15",
-    "@pinia/nuxt": "^0.5.1",
+    "@nuxtjs/seo": "2.0.0-rc.16",
+    "@pinia/nuxt": "^0.5.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.7",
@@ -38,16 +38,16 @@
     "nuxt": "^3.12.4",
     "nuxt-headlessui": "^1.2.0",
     "nuxt-payload-analyzer": "^0.1.4",
-    "pinia": "^2.1.7",
-    "postcss": "^8.4.39",
+    "pinia": "^2.2.0",
+    "postcss": "^8.4.40",
     "tailwindcss-3d": "^1.0.6",
-    "vue": "^3.4.32",
+    "vue": "^3.4.34",
     "vue-router": "^4.4.0",
-    "vue-tsc": "^2.0.26"
+    "vue-tsc": "^2.0.29"
   },
   "dependencies": {
     "@nuxt/image": "^1.7.0",
-    "@nuxt/ui": "^2.17.0",
+    "@nuxt/ui": "^2.18.2",
     "ufo": "^1.5.4"
   }
 }
