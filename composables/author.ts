@@ -7,7 +7,12 @@ export function useGetAllAuthors() {
       .findOne()
   }
 
+  const transform = (authors: ParsedAuthor) => {
+    return authors.data
+  }
+
   return useAsyncData('authors', getAllAuthors, {
     default: () => [],
+    transform,
   })
 }

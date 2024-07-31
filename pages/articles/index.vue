@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NavItem } from '@nuxt/content'
-import { useGetAllAuthors } from '~/composables/useGetAllAuthors'
+import { useGetAllAuthors } from '~/composables/author'
 import { useGetArticleCategories } from '~/composables/useGetCategories'
 
 const route = useRoute()
