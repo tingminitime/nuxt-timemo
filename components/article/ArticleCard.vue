@@ -13,13 +13,13 @@ defineProps<{
 
 <template>
   <article
-    class="group relative flex flex-col gap-y-2 overflow-hidden rounded-xl border border-gray-300 bg-inner-primary-light drop-shadow-lg transition-all duration-100 ease-in translate-z-0 dark:border-gray-500 dark:bg-inner-primary-dark sm:rounded-2xl md:hover:bg-gray-200/15 md:hover:-translate-y-0.5 md:hover:translate-z-0 md:hover:dark:border-gray-400 md:dark:hover:dark:bg-gray-700/20"
+    class="group relative flex flex-col gap-y-2 overflow-hidden rounded-xl border border-gray-300 bg-inner-primary-light drop-shadow-lg transition-all duration-100 ease-in translate-z-0 dark:border-gray-500 dark:bg-inner-primary-dark sm:rounded-2xl md:hover:-translate-y-0.5 md:hover:translate-z-0"
   >
     <!-- Article image -->
-    <div class="aspect-h-9 aspect-w-16 relative w-full">
+    <div class="aspect-h-9 aspect-w-16 relative w-full overflow-hidden">
       <NuxtImg
         :src="coverImage"
-        class="object-cover"
+        class="object-cover transition-transform ease-in group-hover:scale-105"
         format="webp"
         sizes="50vw md:75vw lg:800px"
         :placeholder="[16, 9, 80, 10]"
@@ -70,7 +70,7 @@ defineProps<{
             Category
           </dt>
           <dd class="flex items-center gap-x-1">
-            <Icon name="i-heroicons-folder-arrow-down-20-solid" />
+            <Icon name="i-heroicons-folder-open-solid" />
             <span>{{ category }}</span>
           </dd>
         </dl>

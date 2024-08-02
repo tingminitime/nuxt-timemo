@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@vueuse/motion/nuxt',
     '@pinia/nuxt',
-    'nuxt-icon',
+    '@nuxt/icon',
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
     'dayjs-nuxt',
@@ -36,10 +36,6 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
-  },
-
-  ui: {
-    icons: ['heroicons', 'simple-icons', 'vscode-icons'],
   },
 
   googleFonts: {

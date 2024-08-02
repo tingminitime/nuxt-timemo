@@ -20,7 +20,7 @@ const isArticlePage = route.name === 'articles-slug'
       <component
         :is="isArticlePage ? 'article' : 'div'"
         class="main-grid mx-auto grid max-w-3xl"
-        :class="isArticlePage ? 'md:max-w-6xl' : 'md:max-w-5xl'"
+        :class="isArticlePage ? 'md:max-w-7xl' : 'md:max-w-5xl'"
       >
         <slot></slot>
       </component>

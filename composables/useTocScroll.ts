@@ -44,7 +44,12 @@ export function useTocScroll() {
       activeHeadings.value = val
   })
 
-  onBeforeMount(() => (observer.value = new IntersectionObserver(observerCallback, { rootMargin: '0px 0px -30% 0px' })))
+  onBeforeMount(() => (
+    observer.value = new IntersectionObserver(
+      observerCallback,
+      { rootMargin: '0px 0px -30% 0px' },
+    )
+  ))
 
   onMounted(() => {
     updateHeadings([
