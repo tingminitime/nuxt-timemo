@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PopoverOverlay, PopoverPanel } from '@headlessui/vue'
-import { navigation } from '@/constants'
+import { navigation } from '~/constants'
 
 const { isActive } = useActivePath()
 </script>

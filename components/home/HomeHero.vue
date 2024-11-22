@@ -4,7 +4,7 @@ defineProps<{
   description: string
 }>()
 
-const { isHome } = useActivePath()
+// const { isHome } = useActivePath()
 </script>
 
 <template>

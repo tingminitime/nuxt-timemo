@@ -90,6 +90,10 @@ export default antfu(
             'my\\-(.*)', // You can rewrite this regex
             'main\\-(.*)',
             'theme-toggle',
+            'sun',
+            'sun-and-moon',
+            'sun-beams',
+            'moon',
           ],
         },
       ],

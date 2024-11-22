@@ -1,4 +1,4 @@
-import type { ParsedAuthor } from '@/types/author'
+import type { ParsedAuthor } from '~/types/author'
 
 export function useGetAllAuthors() {
   const getAllAuthors = () => {

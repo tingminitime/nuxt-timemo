@@ -28,7 +28,7 @@ const { data: articleCatories } = await getArticleCategories()
 const { getAllPublishedPosts } = useGetAllPublishedPosts()
 const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleCatories.value as NavItem | undefined)
 
-const { data: authors } = await useGetAllAuthors()
+const { data: _authors } = await useGetAllAuthors()
 
 const {
   articlesDisplayOptions,

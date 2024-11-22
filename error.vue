@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { appName, siteUrl } from './constants'
 import type { NuxtError } from '#app'
+import { appName, siteUrl } from './constants'
 
 const props = defineProps<{
   error: NuxtError
