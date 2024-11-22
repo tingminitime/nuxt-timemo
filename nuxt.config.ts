@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['@/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
 
   tailwindcss: {
     cssPath: '~/assets/css/main.css',
@@ -77,15 +77,6 @@ export default defineNuxtConfig({
     },
   },
 
-  typescript: {
-    tsConfig: {
-      compilerOptions: {
-        strict: true,
-        // types: [],
-      },
-    },
-  },
-
   runtimeConfig: {
     public: {
       trailingSlash: true,
@@ -128,10 +119,10 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: ['/'],
-      crawlLinks: true, // TODO: enable this when the site is ready
+      crawlLinks: true,
       failOnError: false,
     },
   },
 
-  compatibilityDate: '2024-08-24',
+  compatibilityDate: '2024-11-22',
 })
