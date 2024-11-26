@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+
 defineProps<{
   as?: string
-  innerMaskClass?: string
+  innerWrapperClass?: HTMLAttributes['class']
 }>()
 
 const route = useRoute()
@@ -15,7 +17,7 @@ const isArticlePage = route.name === 'articles-slug'
   >
     <div
       class="mx-auto max-w-screen-xl"
-      :class="innerMaskClass"
+      :class="innerWrapperClass"
     >
       <component
         :is="isArticlePage ? 'article' : 'div'"

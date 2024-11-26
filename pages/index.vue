@@ -5,7 +5,7 @@ const { data: page } = await useAsyncData('home', () => {
 
 /* SEO */
 useSeoMeta({
-  title: 'Home',
+  title: '首頁',
 })
 </script>
 

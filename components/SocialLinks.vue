@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+
+const props = defineProps<{
+  ulClass?: HTMLAttributes['class']
+}>()
+
 const socials = usePortfolio().value.socials
 </script>
 
@@ -7,7 +13,7 @@ const socials = usePortfolio().value.socials
     <h2 class="sr-only">
       Social Links
     </h2>
-    <ul class="flex gap-4">
+    <ul :class="cn('flex gap-4', props.ulClass)">
       <li
         v-for="social in socials"
         :key="social.name"
@@ -16,10 +22,13 @@ const socials = usePortfolio().value.socials
           :to="social.url"
           target="_blank"
           rel="noopener"
-          class="block size-6 text-gray-500 transition ease-in hover:text-gray-800 dark:text-gray-400 hover:dark:text-gray-200"
-          :class="social.iconClass"
+          class="block text-gray-500 transition ease-in hover:text-gray-800 dark:text-gray-400 hover:dark:text-gray-200"
         >
           <span class="sr-only">{{ social.name }}</span>
+          <Icon
+            size="24"
+            :name="social.iconClass"
+          />
         </NuxtLink>
       </li>
     </ul>

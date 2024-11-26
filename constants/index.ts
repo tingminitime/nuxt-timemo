@@ -5,15 +5,15 @@ export const siteUrl = 'https://timemo.site'
 
 export const navigation = [
   {
-    name: 'Home',
+    name: '首頁',
     path: '/',
   },
   {
-    name: 'Articles',
+    name: '文章',
     path: '/articles',
   },
   {
-    name: 'Categories',
+    name: '分類',
     path: '/categories',
   },
 ]
