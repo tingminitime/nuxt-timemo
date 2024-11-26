@@ -2,6 +2,11 @@
 const { data: page } = await useAsyncData('home', () => {
   return queryContent('/').findOne()
 })
+
+/* SEO */
+useSeoMeta({
+  title: 'Home',
+})
 </script>
 
 <template>

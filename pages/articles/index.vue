@@ -52,27 +52,29 @@ const {
   <div class="flex flex-col gap-8">
     <!-- Articles display control -->
     <div class="flex justify-end">
-      <UButtonGroup
-        size="md"
-        orientation="horizontal"
-      >
-        <USelectMenu
-          v-model="currentArticlesDisplayMethod"
-          :options="articlesDisplayOptions"
-          class="w-32 md:w-36"
-          select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
-          :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
-          value-attribute="id"
-          option-attribute="label"
+      <ClientOnly>
+        <UButtonGroup
+          size="md"
+          orientation="horizontal"
         >
-          <template #leading>
-            <UIcon
-              :name="currentArticlesDisplayOption.icon"
-              class="mx-0.5 size-4"
-            />
-          </template>
-        </USelectMenu>
-      </UButtonGroup>
+          <USelectMenu
+            v-model="currentArticlesDisplayMethod"
+            :options="articlesDisplayOptions"
+            class="w-32 md:w-36"
+            select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
+            :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
+            value-attribute="id"
+            option-attribute="label"
+          >
+            <template #leading>
+              <UIcon
+                :name="currentArticlesDisplayOption.icon"
+                class="mx-0.5 size-4"
+              />
+            </template>
+          </USelectMenu>
+        </UButtonGroup>
+      </ClientOnly>
     </div>
 
     <!-- Articles list -->
