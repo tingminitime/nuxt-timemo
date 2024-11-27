@@ -40,12 +40,14 @@ useSeoMeta({
         type="image/ico"
       />
     </Head>
-    <Body>
-      <div>
-        <p>{{ error.statusCode }}</p>
+    <Body class="flex min-h-screen items-center justify-center">
+      <div class="mb-8 flex flex-col items-center gap-y-4 bg-transparent">
+        <p class="text-7xl font-bold">
+          {{ error.statusCode }}
+        </p>
         <p>{{ error.message }}</p>
         <UButton @click="router.replace('/')">
-          Back to home
+          Go back home
         </UButton>
       </div>
     </Body>
