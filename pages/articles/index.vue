@@ -15,6 +15,12 @@ useSeoMeta({
 })
 
 useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: '首頁', item: '/' },
+      { name: '文章' },
+    ],
+  }),
   // Refer : https://unhead.unjs.io/schema-org/schema/webpage
   defineWebPage({
     '@type': 'CollectionPage',
@@ -23,10 +29,10 @@ useSchemaOrg([
 
 /* Articles data */
 const { getArticleCategories } = useGetArticleCategories()
-const { data: articleCatories } = await getArticleCategories()
+const { data: articleCategories } = await getArticleCategories()
 
 const { getAllPublishedPosts } = useGetAllPublishedPosts()
-const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleCatories.value as NavItem | undefined)
+const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleCategories.value as NavItem | undefined)
 
 const { data: _authors } = await useGetAllAuthors()
 

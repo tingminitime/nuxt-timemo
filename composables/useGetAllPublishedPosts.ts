@@ -1,6 +1,5 @@
 import type { NavItem } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
-import { group } from '~/utils/group'
 
 export function useGetAllPublishedPosts() {
   function transform(articles: ParsedArticle[]) {
@@ -9,10 +8,8 @@ export function useGetAllPublishedPosts() {
 
     const articlesClone = structuredClone(articles)
 
-    const groupedArticles = group(articlesClone, (current) => {
-      if (!current.published_date)
-        return ''
-      return new Date(current.published_date).getFullYear() || ''
+    const groupedArticles = Object.groupBy(articlesClone, ({ published_date }) => {
+      return new Date(published_date).getFullYear() || ''
     })
 
     const entries = Object.entries(groupedArticles)
@@ -22,7 +19,7 @@ export function useGetAllPublishedPosts() {
       .map(([year, articles]) => {
         return {
           year,
-          articles: articles.map((article) => {
+          articles: (articles ?? []).map((article) => {
             return {
               ...article,
               published_date_iso_string: article.published_date ? ISODate(article.published_date) : '',

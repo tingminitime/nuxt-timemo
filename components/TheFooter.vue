@@ -22,7 +22,7 @@ import { navigation } from '~/constants'
       <SocialLinks ul-class="gap-x-2" />
     </div>
 
-    <div class="mt-10 text-center text-gray-400 dark:text-gray-500">
+    <div class="mt-2 text-gray-400 dark:text-gray-500">
       &#169; 2024 timemo
     </div>
   </div>

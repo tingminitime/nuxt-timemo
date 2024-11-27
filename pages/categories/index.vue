@@ -11,6 +11,12 @@ useSeoMeta({
 })
 
 useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: '首頁', item: '/' },
+      { name: '分類' },
+    ],
+  }),
   // Refer : https://unhead.unjs.io/schema-org/schema/webpage
   defineWebPage({
     '@type': 'CollectionPage',
