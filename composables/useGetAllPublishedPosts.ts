@@ -32,7 +32,7 @@ export function useGetAllPublishedPosts() {
 
   const IGNORED_PATH: string[] = []
 
-  function getAllPublishedPosts(categories: NavItem | undefined) {
+  function getAllPublishedPosts(categories: NavItem[] | never[]) {
     const queryAllPublishedPosts = () => {
       return queryContent<ParsedArticle>('/articles/')
         .where({ _type: { $ne: 'yaml' } })
@@ -46,7 +46,18 @@ export function useGetAllPublishedPosts() {
             return posts as unknown as ParsedArticle[]
 
           const postsWithCategory = posts.map((post) => {
-            const category = findCategoryTitleByPath(categories, post._path as string)
+            const category = categories.reduce((result, category) => {
+              const directory = category._path.split('/').pop()
+
+              if (!directory)
+                return result
+
+              if (post._path?.includes(directory))
+                result = category.title
+
+              return result
+            }, '')
+
             return {
               ...post,
               category,

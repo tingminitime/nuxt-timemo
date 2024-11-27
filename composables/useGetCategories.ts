@@ -1,17 +1,14 @@
 import type { NavItem } from '@nuxt/content'
 
 export function useGetArticleCategories() {
-  /**
-   * 找到 `_path` 為 `/articles` 的物件
-   */
-  function transformIntoArticles(navigation: Array<NavItem>) {
+  function transform(navigation: Array<NavItem>) {
     if (!navigation)
       return []
 
     const targetCategoryPath = '/articles'
     const category = navigation.find(category => category._path === targetCategoryPath)
 
-    return category || null
+    return getDirectories(category)
   }
 
   /**
@@ -19,15 +16,34 @@ export function useGetArticleCategories() {
    *
    * @see https://content.nuxt.com/composables/fetch-content-navigation
    */
-  function getArticleCategories() {
-    return useAsyncData('article-categories', () => fetchContentNavigation(), {
+  function getDirectories(node: NavItem | undefined): NavItem[] {
+    const directories: NavItem[] = []
+
+    if (!node)
+      return directories
+
+    if ('children' in node) {
+      directories.push({
+        title: node.title,
+        _path: node._path,
+      })
+
+      node.children?.forEach((child) => {
+        directories.push(...getDirectories(child))
+      })
+    }
+
+    return directories
+  }
+
+  function getFlatArticleCategories() {
+    return useAsyncData('article-flat-categories', () => fetchContentNavigation(), {
       default: () => [],
-      transform: transformIntoArticles,
+      transform,
     })
   }
 
   return {
-    getArticleCategories,
-    findCategoryTitleByPath,
+    getFlatArticleCategories,
   }
 }

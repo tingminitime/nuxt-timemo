@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { NavItem } from '@nuxt/content'
 import { useGetAllAuthors } from '~/composables/author'
 import { useGetArticleCategories } from '~/composables/useGetCategories'
 
@@ -27,15 +26,6 @@ useSchemaOrg([
   }),
 ])
 
-/* Articles data */
-const { getArticleCategories } = useGetArticleCategories()
-const { data: articleCategories } = await getArticleCategories()
-
-const { getAllPublishedPosts } = useGetAllPublishedPosts()
-const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleCategories.value as NavItem | undefined)
-
-const { data: _authors } = await useGetAllAuthors()
-
 const {
   articlesDisplayOptions,
   currentArticlesDisplayMethod,
@@ -43,6 +33,15 @@ const {
   currentArticleLayoutComponent,
   currentArticleComponent,
 } = useUserPrefer()
+
+/* Articles data */
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
+const { getAllPublishedPosts } = useGetAllPublishedPosts()
+const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
+
+const { data: _authors } = await useGetAllAuthors()
 </script>
 
 <template>
