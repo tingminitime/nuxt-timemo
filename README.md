@@ -19,7 +19,7 @@
 
 ## Prerequistes
 
-- Node.js >= v20.0.0
+- Node.js >= v22.0.0
 - pnpm >= v9.0.0
 - [VS Code](https://code.visualstudio.com/)
 
