@@ -22,6 +22,11 @@ useSchemaOrg([
     '@type': 'CollectionPage',
   }),
 ])
+
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
+const { data: navigation } = await useAsyncData('navigation', () => fetchContentNavigation())
 </script>
 
 <template>

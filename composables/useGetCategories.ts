@@ -5,10 +5,10 @@ export function useGetArticleCategories() {
     if (!navigation)
       return []
 
-    const targetCategoryPath = '/articles'
-    const category = navigation.find(category => category._path === targetCategoryPath)
+    const articlesPath = '/articles'
+    const articlesNav = navigation.find(nav => nav._path === articlesPath)
 
-    return getDirectories(category)
+    return getDirectories(articlesNav)
   }
 
   /**

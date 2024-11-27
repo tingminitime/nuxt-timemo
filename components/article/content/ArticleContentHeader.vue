@@ -4,6 +4,7 @@ const props = defineProps<{
   title?: string
   publishDate?: string | Date
   modifiedDate?: string | Date
+  categoryId?: string
   category?: string
   author?: string
 }>()
@@ -19,7 +20,7 @@ const isPublishedDateEqualModifiedDate = computed(() => {
 <template>
   <div class="space-y-8 xl:sticky xl:top-[5.5rem] xl:max-h-[calc(100dvh-5.5rem)] xl:overflow-y-auto">
     <div class="space-y-4">
-      <h1 class="text-2xl font-bold lg:text-4xl">
+      <h1 class="text-3xl font-bold lg:text-4xl">
         {{ title }}
       </h1>
 
@@ -31,7 +32,7 @@ const isPublishedDateEqualModifiedDate = computed(() => {
           <!-- TODO: 連結到 Categories 對應分類 -->
           <NuxtLink
             v-if="category"
-            to="/"
+            :to="`/categories/${categoryId}`"
             class="flex items-center gap-x-1 p-1 text-gray-500 transition duration-150 ease-in hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
           >
             <UIcon

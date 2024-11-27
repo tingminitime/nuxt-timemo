@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useGetAllAuthors } from '~/composables/author'
-import { useGetArticleCategories } from '~/composables/useGetCategories'
-
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
 
@@ -101,6 +98,7 @@ const { data: _authors } = await useGetAllAuthors()
           :title="article.title"
           :description="article.description"
           :author="article.author"
+          :category-id="article._dir"
           :category="article.category"
           :cover-image="article.cover.src"
           :published-date-format="article.published_date_format"

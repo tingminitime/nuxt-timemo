@@ -37,7 +37,7 @@ export function useGetAllPublishedPosts() {
       return queryContent<ParsedArticle>('/articles/')
         .where({ _type: { $ne: 'yaml' } })
         .sort({ published_date: -1 })
-        .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
+        .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'published_date', 'draft'])
         .find()
         .then((res) => {
           const posts = res.filter(post => !IGNORED_PATH.includes(post._path as string) && !post.draft)
@@ -47,12 +47,12 @@ export function useGetAllPublishedPosts() {
 
           const postsWithCategory = posts.map((post) => {
             const category = categories.reduce((result, category) => {
-              const directory = category._path.split('/').pop()
+              const directory = category._path.split('/').at(-1)
 
               if (!directory)
                 return result
 
-              if (post._path?.includes(directory))
+              if (post._dir?.includes(directory))
                 result = category.title
 
               return result

@@ -5,6 +5,7 @@ defineProps<{
   title?: string
   publishDate?: string | Date
   modifiedDate?: string | Date
+  categoryId?: string
   category?: string
   toc: Toc | undefined
 }>()
@@ -28,7 +29,8 @@ defineProps<{
         :title
         :publish-date="publishDate"
         :modified-date="modifiedDate"
-        :category
+        :category-id="categoryId"
+        :category="category"
       />
     </header>
 

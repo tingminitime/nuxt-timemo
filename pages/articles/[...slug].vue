@@ -8,6 +8,13 @@ const { data: pageData, error } = await useAsyncData(
   () => queryContent<ParsedArticle>(route.path).findOne(),
 )
 
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
+const categoryTitle = computed(() => {
+  return articleFlatCategories.value.find(category => category._path.split('/').pop() === pageData.value?._dir)?.title
+})
+
 if (error.value) {
   throw createError({
     statusCode: 404,
@@ -63,7 +70,8 @@ useSchemaOrg([
     :title="pageData?.title"
     :publish-date="pageData?.published_date"
     :modified-date="pageData?.modified_date"
-    :category="pageData?.category"
+    :category-id="pageData?._dir"
+    :category="categoryTitle"
     :toc="pageData?.body?.toc"
   >
     <ContentRenderer :value="(pageData as ParsedContent)" />

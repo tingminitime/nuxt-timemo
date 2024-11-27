@@ -4,3 +4,4 @@ hero:
   description: (Hero) Blog posts, dev notes, and other writings.
 navigation:
   title: 未分類
+  id: unclassified
