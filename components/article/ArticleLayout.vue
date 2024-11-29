@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Toc } from '@nuxt/content'
+import type { Author } from '~/types/author'
 
 defineProps<{
   title?: string
@@ -7,6 +8,7 @@ defineProps<{
   modifiedDate?: string | Date
   categoryId?: string
   category?: string
+  authorData?: Author
   toc: Toc | undefined
 }>()
 </script>
@@ -31,6 +33,7 @@ defineProps<{
         :modified-date="modifiedDate"
         :category-id="categoryId"
         :category="category"
+        :author-data="authorData"
       />
     </header>
 

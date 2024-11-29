@@ -37,8 +37,6 @@ const { data: articleFlatCategories } = await getFlatArticleCategories()
 
 const { getAllPublishedPosts } = useGetAllPublishedPosts()
 const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
-
-const { data: _authors } = await useGetAllAuthors()
 </script>
 
 <template>

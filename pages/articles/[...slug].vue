@@ -11,8 +11,14 @@ const { data: pageData, error } = await useAsyncData(
 const { getFlatArticleCategories } = useGetArticleCategories()
 const { data: articleFlatCategories } = await getFlatArticleCategories()
 
+const { data: authors } = await useGetAllAuthors()
+
 const categoryTitle = computed(() => {
   return articleFlatCategories.value.find(category => category._path.split('/').pop() === pageData.value?._dir)?.title
+})
+
+const authorData = computed(() => {
+  return authors.value.find(author => author.id === pageData.value?.author)
 })
 
 if (error.value) {
@@ -72,6 +78,7 @@ useSchemaOrg([
     :modified-date="pageData?.modified_date"
     :category-id="pageData?._dir"
     :category="categoryTitle"
+    :author-data="authorData"
     :toc="pageData?.body?.toc"
   >
     <ContentRenderer :value="(pageData as ParsedContent)" />
