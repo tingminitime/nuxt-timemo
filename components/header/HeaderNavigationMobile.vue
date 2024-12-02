@@ -16,8 +16,8 @@ const popoverButtonId = useId()
     >
       <span>前往</span>
       <Icon
-        class="h-auto w-3 stroke-gray-500 group-hover:stroke-gray-700 dark:group-hover:stroke-gray-400"
-        name="heroicons:chevron-down"
+        class="size-3 stroke-gray-500 group-hover:stroke-gray-700 dark:group-hover:stroke-gray-400"
+        name="i-heroicons:chevron-down"
       />
     </HeaderItem>
     <HeaderNavigationDialog />

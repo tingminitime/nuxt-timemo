@@ -1,11 +1,15 @@
 <!-- TODO: 取得作者名、文章發佈、修改日期 -->
 <script setup lang="ts">
+import { getSocialLinkData } from '~/constants'
+import type { Author } from '~/types/author'
+
 const props = defineProps<{
   title?: string
   publishDate?: string | Date
   modifiedDate?: string | Date
+  categoryId?: string
   category?: string
-  author?: string
+  authorData?: Author
 }>()
 
 const publishDateFormat = computed(() => formatDate(props.publishDate ?? ''))
@@ -14,12 +18,25 @@ const modifiedDateFormat = computed(() => formatDate(props.modifiedDate ?? ''))
 const isPublishedDateEqualModifiedDate = computed(() => {
   return publishDateFormat.value === modifiedDateFormat.value
 })
+
+const dropdownItems = computed(() => {
+  const items = props.authorData?.social_links.map((social) => {
+    const socialLinkData = getSocialLinkData(social.type)
+    return {
+      label: socialLinkData.name,
+      icon: socialLinkData.icon,
+      url: social.url,
+    }
+  })
+
+  return [items || []]
+})
 </script>
 
 <template>
   <div class="space-y-8 xl:sticky xl:top-[5.5rem] xl:max-h-[calc(100dvh-5.5rem)] xl:overflow-y-auto">
     <div class="space-y-4">
-      <h1 class="text-2xl font-bold lg:text-4xl">
+      <h1 class="text-3xl font-bold lg:text-4xl">
         {{ title }}
       </h1>
 
@@ -28,13 +45,12 @@ const isPublishedDateEqualModifiedDate = computed(() => {
           發佈日期
         </dt>
         <dd class="flex items-center gap-x-3 text-sm text-gray-500 dark:text-gray-400">
-          <!-- TODO: 連結到 Categories 對應分類 -->
           <NuxtLink
             v-if="category"
-            to="/"
+            :to="`/categories/${categoryId}`"
             class="flex items-center gap-x-1 p-1 text-gray-500 transition duration-150 ease-in hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
           >
-            <UIcon
+            <Icon
               name="i-heroicons-folder-open-solid"
               class="mt-0.5"
             />
@@ -69,19 +85,47 @@ const isPublishedDateEqualModifiedDate = computed(() => {
         src="/tim-avatar.webp"
         class="relative size-9 shrink-0 overflow-hidden rounded-full object-cover"
       />
-      <!-- TODO: 取得作者資訊 -->
-      <div class="flex flex-col text-sm text-gray-500 dark:text-gray-300">
-        <p class="truncate">
-          Tim Lin
+      <div class="flex flex-col text-sm">
+        <p class="truncate text-gray-700 dark:text-gray-200">
+          {{ authorData?.name || 'Unknown' }}
         </p>
-        <NuxtLink
-          to="https://github.com/tingminitime"
-          target="_blank"
-          rel="author noopener"
-          class="transition ease-in hover:text-gray-800 dark:hover:text-gray-200"
-        >
-          @timlin
-        </NuxtLink>
+
+        <ClientOnly>
+          <UDropdown
+            :items="dropdownItems"
+            mode="hover"
+            :popper="{ placement: 'bottom-start' }"
+          >
+            <button
+              type="button"
+              class="text-gray-500 transition dark:text-gray-400 md:hover:text-sky-500 dark:md:hover:text-sky-100"
+            >
+              @{{ authorData?.id }}
+            </button>
+
+            <template #item="{ item }">
+              <NuxtLink
+                external
+                :to="item.url"
+                target="_blank"
+                class="flex w-full items-center justify-between"
+              >
+                <div class="flex items-center gap-x-2">
+                  <Icon
+                    :name="item.icon"
+                    size="16"
+                  />
+                  <span class="truncate">{{ item.label }}</span>
+                </div>
+
+                <Icon
+                  name="i-heroicons-arrow-top-right-on-square-20-solid"
+                  class="text-gray-400 dark:text-gray-500"
+                />
+              </NuxtLink>
+            </template>
+          </UDropdown>
+        </ClientOnly>
       </div>
     </address>
   </div>

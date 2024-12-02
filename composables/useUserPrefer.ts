@@ -1,4 +1,9 @@
-import { ArticleCard, ArticleCardsLayout, ArticleItem, ArticleListLayout } from '#components'
+import {
+  ArticleCard,
+  ArticleCardsLayout,
+  ArticleItem,
+  ArticleListLayout,
+} from '#components'
 
 interface ArticlesDisplayOption {
   id: 'cards' | 'list'
@@ -26,7 +31,11 @@ export function useUserPrefer() {
 
   const currentArticlesDisplayMethod = useState('articlesDisplayMethod', () => 'cards')
 
-  const currentArticlesDisplayOption = computed(() => articlesDisplayOptions.value.find(option => option.id === currentArticlesDisplayMethod.value) || articlesDisplayOptions.value[0])
+  const currentArticlesDisplayOption = computed(() => {
+    return articlesDisplayOptions.value.find(
+      option => option.id === currentArticlesDisplayMethod.value,
+    ) || articlesDisplayOptions.value[0]
+  })
 
   const currentArticleLayoutComponent = computed(() => {
     switch (currentArticlesDisplayMethod.value) {

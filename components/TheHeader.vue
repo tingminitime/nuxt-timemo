@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <header class="sticky top-6 z-50 flex w-full justify-center sm:px-8 lg:px-16">
+  <div class="sticky top-6 z-50 flex w-full justify-center sm:px-8 lg:px-16">
     <HeaderHome class="md:absolute md:left-0" />
 
     <HeaderNavigation class="hidden md:flex" />
@@ -11,7 +11,7 @@
       <HeaderSearch />
       <HeaderThemeSwitcher />
     </div>
-  </header>
+  </div>
 </template>
 
 <style scope></style>

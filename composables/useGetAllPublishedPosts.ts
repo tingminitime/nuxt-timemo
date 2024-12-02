@@ -1,6 +1,5 @@
 import type { NavItem } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
-import { group } from '~/utils/group'
 
 export function useGetAllPublishedPosts() {
   function transform(articles: ParsedArticle[]) {
@@ -9,10 +8,8 @@ export function useGetAllPublishedPosts() {
 
     const articlesClone = structuredClone(articles)
 
-    const groupedArticles = group(articlesClone, (current) => {
-      if (!current.published_date)
-        return ''
-      return new Date(current.published_date).getFullYear() || ''
+    const groupedArticles = Object.groupBy(articlesClone, ({ published_date }) => {
+      return new Date(published_date).getFullYear() || ''
     })
 
     const entries = Object.entries(groupedArticles)
@@ -22,7 +19,7 @@ export function useGetAllPublishedPosts() {
       .map(([year, articles]) => {
         return {
           year,
-          articles: articles.map((article) => {
+          articles: (articles ?? []).map((article) => {
             return {
               ...article,
               published_date_iso_string: article.published_date ? ISODate(article.published_date) : '',
@@ -35,12 +32,12 @@ export function useGetAllPublishedPosts() {
 
   const IGNORED_PATH: string[] = []
 
-  function getAllPublishedPosts(categories: NavItem | undefined) {
+  function getAllPublishedPosts(categories: NavItem[] | never[]) {
     const queryAllPublishedPosts = () => {
       return queryContent<ParsedArticle>('/articles/')
         .where({ _type: { $ne: 'yaml' } })
         .sort({ published_date: -1 })
-        .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'category', 'published_date', 'draft'])
+        .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'published_date', 'draft'])
         .find()
         .then((res) => {
           const posts = res.filter(post => !IGNORED_PATH.includes(post._path as string) && !post.draft)
@@ -49,7 +46,23 @@ export function useGetAllPublishedPosts() {
             return posts as unknown as ParsedArticle[]
 
           const postsWithCategory = posts.map((post) => {
-            const category = findCategoryTitleByPath(categories, post._path as string)
+            const category = categories.reduce((title, category) => {
+              if (!post._path)
+                return title
+
+              const sliceEnd = category._path.split('/').length >= 3 ? 3 : 2
+
+              const mainCategoryPath = post._path
+                .split('/')
+                .slice(0, sliceEnd)
+                .join('/')
+
+              if (category._path?.startsWith(mainCategoryPath))
+                title = category.title
+
+              return title
+            }, '')
+
             return {
               ...post,
               category,

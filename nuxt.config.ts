@@ -90,7 +90,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: 'https://timemo.site',
+    url: process.env.NUXT_SITE_URL || 'https://timemo.site',
     name: 'timemo',
     description: 'My dev notes.',
     defaultLocale: 'zh-TW',

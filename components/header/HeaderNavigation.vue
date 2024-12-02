@@ -65,20 +65,20 @@ useEventListener(navigationRef, 'mousemove', (e) => {
     >
       <ul class="flex">
         <li
-          v-for="item in navigation"
-          :key="item.path"
+          v-for="nav in navigation"
+          :key="nav.path"
           class="relative"
-          :data-navbar="item.name"
+          :data-navbar="nav.name"
         >
           <NuxtLink
-            :to="item.path"
+            :to="nav.path"
             class="relative block px-3 py-2 text-sm text-gray-800 transition hover:text-sky-500 dark:text-gray-100 hover:dark:text-sky-400"
             :class="{
               'text-sky-500 dark:text-sky-400':
-                isActive(item.path),
+                isActive(nav.path),
             }"
           >
-            {{ item.name }}
+            {{ nav.name }}
           </NuxtLink>
         </li>
       </ul>

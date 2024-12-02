@@ -21,9 +21,10 @@ const headerTop = computed(() => {
 
   <!-- Header -->
   <AppGridLayout
+    as="header"
     class="sticky top-0 z-50 transition-transform"
     :class="headerTop"
-    inner-mask-class="inner-header-mask"
+    inner-wrapper-class="inner-header-mask"
   >
     <TheHeader />
   </AppGridLayout>
@@ -36,7 +37,11 @@ const headerTop = computed(() => {
   </AppGridLayout>
 
   <!-- Footer -->
-  <AppGridLayout class="relative mt-16 sm:mt-32">
+  <AppGridLayout
+    as="footer"
+    class="relative mt-16 sm:mt-32"
+    inner-wrapper-class="border-t border-gray-900/5 dark:border-white/10"
+  >
     <TheFooter />
   </AppGridLayout>
 </template>

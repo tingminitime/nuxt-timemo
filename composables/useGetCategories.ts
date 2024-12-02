@@ -1,17 +1,28 @@
 import type { NavItem } from '@nuxt/content'
 
+interface NavItemWithCategory extends NavItem {
+  slug?: string
+  icon?: string
+  count?: number
+}
+
 export function useGetArticleCategories() {
-  /**
-   * 找到 `_path` 為 `/articles` 的物件
-   */
-  function transformIntoArticles(navigation: Array<NavItem>) {
-    if (!navigation)
-      return []
+  const countNonDirectoryItems = (node: NavItem): number => {
+    let count = 0
 
-    const targetCategoryPath = '/articles'
-    const category = navigation.find(category => category._path === targetCategoryPath)
+    if (!node.children)
+      return 0
 
-    return category || null
+    node.children.forEach((child) => {
+      if ('children' in child) {
+        count += countNonDirectoryItems(child)
+      }
+      else {
+        count++
+      }
+    })
+
+    return count
   }
 
   /**
@@ -19,15 +30,56 @@ export function useGetArticleCategories() {
    *
    * @see https://content.nuxt.com/composables/fetch-content-navigation
    */
-  function getArticleCategories() {
-    return useAsyncData('article-categories', () => fetchContentNavigation(), {
+  function getDirectories(node: NavItem | undefined): NavItemWithCategory[] {
+    const directories: NavItemWithCategory[] = []
+
+    if (!node)
+      return directories
+
+    if ('children' in node) {
+      const rootCount = node.children?.filter(child => !('children' in child)).length ?? 0
+      directories.push({
+        _path: node._path,
+        title: node.title,
+        slug: node._path.split('/').pop(),
+        icon: node.icon,
+        count: rootCount,
+      })
+    }
+
+    node.children?.forEach((child) => {
+      if ('children' in child) {
+        directories.push({
+          _path: child._path,
+          title: child.title,
+          slug: child._path.split('/').pop(),
+          icon: child.icon,
+          count: countNonDirectoryItems(child),
+        })
+      }
+    })
+
+    return directories
+  }
+
+  function transform(navigation: Array<NavItem>) {
+    if (!navigation)
+      return []
+
+    const articlesPath = '/articles'
+    const articlesNav = navigation.find(nav => nav._path === articlesPath)
+
+    return getDirectories(articlesNav)
+  }
+
+  function getFlatArticleCategories() {
+    return useAsyncData('article-flat-categories', () => fetchContentNavigation(), {
       default: () => [],
-      transform: transformIntoArticles,
+      transform,
     })
   }
 
   return {
-    getArticleCategories,
-    findCategoryTitleByPath,
+    getFlatArticleCategories,
   }
 }

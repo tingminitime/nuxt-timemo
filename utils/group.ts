@@ -1,6 +1,6 @@
 /**
  * Group an array of objects by a key
- * TODO: Use Object.groupBy() when Safari supports it
+ * TODO: Use Object.groupBy() when Safari and Nodejs supports it
  */
 export function group<S extends string | number, T>(
   list: T[],

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import type { NavItem } from '@nuxt/content'
-import { useGetAllAuthors } from '~/composables/author'
-import { useGetArticleCategories } from '~/composables/useGetCategories'
-
 const route = useRoute()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
 
@@ -15,20 +11,17 @@ useSeoMeta({
 })
 
 useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: '首頁', item: '/' },
+      { name: '文章' },
+    ],
+  }),
   // Refer : https://unhead.unjs.io/schema-org/schema/webpage
   defineWebPage({
     '@type': 'CollectionPage',
   }),
 ])
-
-/* Articles data */
-const { getArticleCategories } = useGetArticleCategories()
-const { data: articleCatories } = await getArticleCategories()
-
-const { getAllPublishedPosts } = useGetAllPublishedPosts()
-const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleCatories.value as NavItem | undefined)
-
-const { data: _authors } = await useGetAllAuthors()
 
 const {
   articlesDisplayOptions,
@@ -37,6 +30,13 @@ const {
   currentArticleLayoutComponent,
   currentArticleComponent,
 } = useUserPrefer()
+
+/* Articles data */
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
+const { getAllPublishedPosts } = useGetAllPublishedPosts()
+const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
 </script>
 
 <template>
@@ -52,27 +52,29 @@ const {
   <div class="flex flex-col gap-8">
     <!-- Articles display control -->
     <div class="flex justify-end">
-      <UButtonGroup
-        size="md"
-        orientation="horizontal"
-      >
-        <USelectMenu
-          v-model="currentArticlesDisplayMethod"
-          :options="articlesDisplayOptions"
-          class="w-32 md:w-36"
-          select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
-          :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
-          value-attribute="id"
-          option-attribute="label"
+      <ClientOnly>
+        <UButtonGroup
+          size="md"
+          orientation="horizontal"
         >
-          <template #leading>
-            <UIcon
-              :name="currentArticlesDisplayOption.icon"
-              class="mx-0.5 size-4"
-            />
-          </template>
-        </USelectMenu>
-      </UButtonGroup>
+          <USelectMenu
+            v-model="currentArticlesDisplayMethod"
+            :options="articlesDisplayOptions"
+            class="w-32 md:w-36"
+            select-class="cursor-pointer bg-inner-primary-light dark:bg-inner-primary-dark md:text-base"
+            :ui-menu="{ background: 'bg-outer-primary-light dark:bg-outer-primary-dark' }"
+            value-attribute="id"
+            option-attribute="label"
+          >
+            <template #leading>
+              <UIcon
+                :name="currentArticlesDisplayOption.icon"
+                class="mx-0.5 size-4"
+              />
+            </template>
+          </USelectMenu>
+        </UButtonGroup>
+      </ClientOnly>
     </div>
 
     <!-- Articles list -->
@@ -94,6 +96,7 @@ const {
           :title="article.title"
           :description="article.description"
           :author="article.author"
+          :category-id="article._dir"
           :category="article.category"
           :cover-image="article.cover.src"
           :published-date-format="article.published_date_format"

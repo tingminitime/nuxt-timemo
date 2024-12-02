@@ -3,10 +3,34 @@ import type { ParsedContent } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
 
 const route = useRoute()
+
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
 const { data: pageData, error } = await useAsyncData(
   route.path,
   () => queryContent<ParsedArticle>(route.path).findOne(),
 )
+
+const { data: authors } = await useGetAllAuthors()
+
+const category = computed(() => {
+  if (!pageData.value?._path)
+    return
+
+  const sliceEnd = pageData.value?._dir === 'articles' ? 2 : 3
+
+  const postCategoryPath = pageData.value?._path
+    .split('/')
+    .slice(0, sliceEnd)
+    .join('/')
+
+  return articleFlatCategories.value.find(category => category._path === postCategoryPath)
+})
+
+const authorData = computed(() => {
+  return authors.value.find(author => author.id === pageData.value?.author)
+})
 
 if (error.value) {
   throw createError({
@@ -63,7 +87,9 @@ useSchemaOrg([
     :title="pageData?.title"
     :publish-date="pageData?.published_date"
     :modified-date="pageData?.modified_date"
-    :category="pageData?.category"
+    :category-id="category?.slug"
+    :category="category?.title"
+    :author-data="authorData"
     :toc="pageData?.body?.toc"
   >
     <ContentRenderer :value="(pageData as ParsedContent)" />

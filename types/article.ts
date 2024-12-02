@@ -2,10 +2,11 @@
 import type { MarkdownParsedContent } from '@nuxt/content'
 
 export interface ParsedArticle extends MarkdownParsedContent {
+  _dir: string
   title: string
   description: string
-  author: string
   category: string
+  author: string
   tags: string[]
   image: string
   cover: {
