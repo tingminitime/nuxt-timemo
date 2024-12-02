@@ -5,3 +5,4 @@ hero:
 navigation:
   title: 未分類
   id: unclassified
+  icon: i-heroicons-globe-alt

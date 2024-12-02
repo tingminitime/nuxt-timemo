@@ -36,6 +36,27 @@ const { data: navigation } = await useAsyncData('navigation', () => fetchContent
       分類
     </template>
   </AppHero>
+
+  <div>
+    <ul class="flex flex-col gap-2">
+      <li
+        v-for="category in articleFlatCategories"
+        :key="category._path"
+      >
+        <NuxtLink
+          :to="`/categories/${category.slug}`"
+          class="group flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200"
+        >
+          <Icon
+            v-if="category.icon"
+            :name="category.icon"
+            class="md:size-6"
+          />
+          <span class="text-gray-700 md:group-hover:text-sky-500">{{ category.title }}&nbsp;(12)</span>
+        </NuxtLink>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scope></style>

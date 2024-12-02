@@ -46,16 +46,21 @@ export function useGetAllPublishedPosts() {
             return posts as unknown as ParsedArticle[]
 
           const postsWithCategory = posts.map((post) => {
-            const category = categories.reduce((result, category) => {
-              const directory = category._path.split('/').at(-1)
+            const category = categories.reduce((title, category) => {
+              if (!post._path)
+                return title
 
-              if (!directory)
-                return result
+              const sliceEnd = category._path.split('/').length >= 3 ? 3 : 2
 
-              if (post._dir?.includes(directory))
-                result = category.title
+              const mainCategoryPath = post._path
+                .split('/')
+                .slice(0, sliceEnd)
+                .join('/')
 
-              return result
+              if (category._path?.startsWith(mainCategoryPath))
+                title = category.title
+
+              return title
             }, '')
 
             return {

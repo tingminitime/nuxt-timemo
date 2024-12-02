@@ -13,6 +13,7 @@ defineProps<{
 </script>
 
 <template>
+  <!-- TODO: 加上主要圖片 -->
   <article class="group relative z-0 p-3 max-md:rounded-lg max-md:bg-white md:px-4">
     <!-- Hover effect -->
     <div class="absolute inset-0 z-0 rounded-xl opacity-0 transition-all duration-150 ease-in scale-95 md:rounded-xl md:bg-gray-300/30 md:group-hover:opacity-100 md:group-hover:scale-100 md:dark:bg-gray-600/20"></div>

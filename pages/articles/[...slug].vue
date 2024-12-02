@@ -3,18 +3,29 @@ import type { ParsedContent } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
 
 const route = useRoute()
+
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
 const { data: pageData, error } = await useAsyncData(
   route.path,
   () => queryContent<ParsedArticle>(route.path).findOne(),
 )
 
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
-
 const { data: authors } = await useGetAllAuthors()
 
-const categoryTitle = computed(() => {
-  return articleFlatCategories.value.find(category => category._path.split('/').pop() === pageData.value?._dir)?.title
+const category = computed(() => {
+  if (!pageData.value?._path)
+    return
+
+  const sliceEnd = pageData.value?._dir === 'articles' ? 2 : 3
+
+  const postCategoryPath = pageData.value?._path
+    .split('/')
+    .slice(0, sliceEnd)
+    .join('/')
+
+  return articleFlatCategories.value.find(category => category._path === postCategoryPath)
 })
 
 const authorData = computed(() => {
@@ -76,8 +87,8 @@ useSchemaOrg([
     :title="pageData?.title"
     :publish-date="pageData?.published_date"
     :modified-date="pageData?.modified_date"
-    :category-id="pageData?._dir"
-    :category="categoryTitle"
+    :category-id="category?.slug"
+    :category="category?.title"
     :author-data="authorData"
     :toc="pageData?.body?.toc"
   >
