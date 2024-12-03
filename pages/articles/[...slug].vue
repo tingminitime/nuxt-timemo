@@ -14,12 +14,21 @@ const { data: pageData, error } = await useAsyncData(
 
 const { data: authors } = await useGetAllAuthors()
 
-const category = computed(() => {
+if (error.value) {
+  throw createError({
+    statusCode: 404,
+    message: 'Page not found',
+  })
+}
+
+/**
+ * Find category data by the current page path
+ */
+const categoryData = computed(() => {
   if (!pageData.value?._path)
     return
 
   const sliceEnd = pageData.value?._dir === 'articles' ? 2 : 3
-
   const postCategoryPath = pageData.value?._path
     .split('/')
     .slice(0, sliceEnd)
@@ -31,13 +40,6 @@ const category = computed(() => {
 const authorData = computed(() => {
   return authors.value.find(author => author.id === pageData.value?.author)
 })
-
-if (error.value) {
-  throw createError({
-    statusCode: 404,
-    message: 'Page not found',
-  })
-}
 
 /* SEO */
 useSeoMeta({
@@ -87,8 +89,8 @@ useSchemaOrg([
     :title="pageData?.title"
     :publish-date="pageData?.published_date"
     :modified-date="pageData?.modified_date"
-    :category-id="category?.slug"
-    :category="category?.title"
+    :category-id="categoryData?.slug"
+    :category="categoryData?.title"
     :author-data="authorData"
     :toc="pageData?.body?.toc"
   >

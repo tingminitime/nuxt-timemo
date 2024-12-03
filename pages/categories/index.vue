@@ -25,12 +25,9 @@ useSchemaOrg([
 
 const { getFlatArticleCategories } = useGetArticleCategories()
 const { data: articleFlatCategories } = await getFlatArticleCategories()
-
-const { data: navigation } = await useAsyncData('navigation', () => fetchContentNavigation())
 </script>
 
 <template>
-  <!-- TODO: 頁面呈現方式依照文章的分類 (Category) 排版 -->
   <AppHero class="mb-8">
     <template #title>
       分類
@@ -45,14 +42,14 @@ const { data: navigation } = await useAsyncData('navigation', () => fetchContent
       >
         <NuxtLink
           :to="`/categories/${category.slug}`"
-          class="group flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200"
+          class="flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200"
         >
           <Icon
             v-if="category.icon"
             :name="category.icon"
             class="md:size-6"
           />
-          <span class="text-gray-700 md:group-hover:text-sky-500">{{ category.title }}&nbsp;(12)</span>
+          <span class="text-gray-700">{{ category.title }}&nbsp;({{ category.count || '0' }})</span>
         </NuxtLink>
       </li>
     </ul>

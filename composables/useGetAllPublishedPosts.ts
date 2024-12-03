@@ -32,12 +32,12 @@ export function useGetAllPublishedPosts() {
 
   const IGNORED_PATH: string[] = []
 
-  function getAllPublishedPosts(categories: NavItem[] | never[]) {
+  function getAllPublishedPosts(categories: NavItem[] | never[], path: string = '/articles/') {
     const queryAllPublishedPosts = () => {
-      return queryContent<ParsedArticle>('/articles/')
+      return queryContent<ParsedArticle>(path)
         .where({ _type: { $ne: 'yaml' } })
         .sort({ published_date: -1 })
-        .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'published_date', 'draft'])
+        .only(['_path', '_dir', 'title', 'description', 'author', 'cover', 'published_date', 'modified_date', 'draft'])
         .find()
         .then((res) => {
           const posts = res.filter(post => !IGNORED_PATH.includes(post._path as string) && !post.draft)

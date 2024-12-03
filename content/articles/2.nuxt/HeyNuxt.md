@@ -8,7 +8,7 @@ cover:
   src: /assets/articles/nuxt-cover.webp
   alt: Nuxt banner
 published_date: 2024-11-29
-modified_date: 2024-11-29
+modified_date: 2024-12-03
 ---
 
 This is the first post about Nuxt3
