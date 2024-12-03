@@ -70,6 +70,15 @@ export default antfu(
     rules: {
       'no-console': 'warn',
       'node/prefer-global/process': 'off',
+      'no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+        },
+      ],
     },
   },
   {

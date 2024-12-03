@@ -1,7 +1,7 @@
 <!-- TODO: 取得作者名、文章發佈、修改日期 -->
 <script setup lang="ts">
-import { getSocialLinkData } from '~/constants'
 import type { Author } from '~/types/author'
+import { getSocialLinkData } from '~/constants'
 
 const props = defineProps<{
   title?: string
