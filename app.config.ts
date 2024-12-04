@@ -18,6 +18,11 @@ export default defineAppConfig({
         url: 'https://github.com/tingminitime',
         iconClass: 'i-simple-icons-github',
       },
+      linkedin: {
+        name: 'LinkedIn',
+        url: 'https://www.linkedin.com/in/timemo/',
+        iconClass: 'i-simple-icons-linkedin',
+      },
       codepen: {
         name: 'Codepen',
         url: 'https://codepen.io/jake1155/pens/public',

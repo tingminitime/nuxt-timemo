@@ -3,6 +3,7 @@ import type { ParsedContent } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
 
 const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
 
 const { getFlatArticleCategories } = useGetArticleCategories()
 const { data: articleFlatCategories } = await getFlatArticleCategories()
@@ -44,7 +45,7 @@ const authorData = computed(() => {
 /* SEO */
 useSeoMeta({
   title: pageData.value?.title,
-  ogTitle: pageData.value?.title,
+  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   description: pageData.value?.description,
   ogDescription: pageData.value?.description,
 })
