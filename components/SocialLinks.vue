@@ -20,14 +20,15 @@ const socials = usePortfolio().value.socials
       >
         <NuxtLink
           :to="social.url"
+          :aria-label="social.name"
           target="_blank"
           rel="noopener"
-          class="block text-gray-500 transition ease-in hover:text-gray-800 dark:text-gray-400 hover:dark:text-gray-200"
+          class="block size-6 text-gray-500 transition ease-in hover:text-gray-800 dark:text-gray-400 hover:dark:text-gray-200"
         >
           <span class="sr-only">{{ social.name }}</span>
           <Icon
-            size="24"
             :name="social.iconClass"
+            size="24"
           />
         </NuxtLink>
       </li>

@@ -30,7 +30,10 @@ defineProps<{
     <div class="p-4 sm:px-6">
       <div class="md:h-28">
         <h2>
-          <NuxtLink :to="to">
+          <NuxtLink
+            :to="to"
+            :aria-label="`前往 - ${title}`"
+          >
             <!-- Cover click range -->
             <span class="absolute inset-0 z-30 sm:rounded-2xl"></span>
             <!-- Article title and publish date -->

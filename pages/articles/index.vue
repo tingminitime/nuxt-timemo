@@ -1,11 +1,27 @@
 <script setup lang="ts">
 const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
 const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
+
+const {
+  articlesDisplayOptions,
+  currentArticlesDisplayMethod,
+  currentArticlesDisplayOption,
+  currentArticleLayoutComponent,
+  currentArticleComponent,
+} = useUserPrefer()
+
+/* Articles data */
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
+const { getAllPublishedPosts } = useGetPublishedPosts()
+const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
 
 /* SEO */
 useSeoMeta({
   title: pageData.value?.title,
-  ogTitle: pageData.value?.title,
+  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   description: pageData.value?.description,
   ogDescription: pageData.value?.description,
 })
@@ -22,21 +38,6 @@ useSchemaOrg([
     '@type': 'CollectionPage',
   }),
 ])
-
-const {
-  articlesDisplayOptions,
-  currentArticlesDisplayMethod,
-  currentArticlesDisplayOption,
-  currentArticleLayoutComponent,
-  currentArticleComponent,
-} = useUserPrefer()
-
-/* Articles data */
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
-
-const { getAllPublishedPosts } = useGetAllPublishedPosts()
-const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
 </script>
 
 <template>

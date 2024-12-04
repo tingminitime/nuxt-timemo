@@ -12,6 +12,7 @@ import { navigation } from '~/constants'
         >
           <NuxtLink
             :to="nav.path"
+            :aria-label="`前往${nav.name}頁面`"
             class="p-1 text-gray-700 hover:text-sky-500 dark:text-gray-300 dark:hover:text-sky-400"
           >
             {{ nav.name }}
@@ -19,11 +20,11 @@ import { navigation } from '~/constants'
         </li>
       </ul>
 
-      <SocialLinks ul-class="gap-x-2" />
+      <SocialLinks ul-class="gap-x-4" />
     </div>
 
     <div class="mt-2 text-gray-400 dark:text-gray-500">
-      &#169; 2024 timemo
+      &#169; {{ new Date().getFullYear() }} timemo
     </div>
   </div>
 </template>

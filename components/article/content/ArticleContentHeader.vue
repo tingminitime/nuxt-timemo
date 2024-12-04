@@ -1,7 +1,7 @@
 <!-- TODO: 取得作者名、文章發佈、修改日期 -->
 <script setup lang="ts">
-import { getSocialLinkData } from '~/constants'
 import type { Author } from '~/types/author'
+import { getSocialLinkData } from '~/constants'
 
 const props = defineProps<{
   title?: string
@@ -48,6 +48,7 @@ const dropdownItems = computed(() => {
           <NuxtLink
             v-if="category"
             :to="`/categories/${categoryId}`"
+            :aria-label="`前往分類頁面 - ${category}`"
             class="flex items-center gap-x-1 p-1 text-gray-500 transition duration-150 ease-in hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
           >
             <Icon
@@ -107,6 +108,7 @@ const dropdownItems = computed(() => {
               <NuxtLink
                 external
                 :to="item.url"
+                :aria-label="`開啟外部連結 - ${item.label}`"
                 target="_blank"
                 class="flex w-full items-center justify-between"
               >

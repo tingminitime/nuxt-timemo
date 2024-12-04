@@ -9,12 +9,14 @@
 - [x] Header
 - [x] Navigation
 - [x] Theme mode
+- [ ] Home page
 - [ ] Search
 - [ ] Search page
-- [ ] Home page
-- [x] Articles List page
+- [x] Articles list page
 - [x] Article page
-- [ ] Categories and tags page
+- [ ] Add OG Image to pages
+- [ ] Add dynamic OG image to articles
+- [x] Categories and tags page
 - [x] Footer
 
 ## Prerequistes

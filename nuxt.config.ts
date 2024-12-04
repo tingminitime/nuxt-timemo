@@ -83,7 +83,7 @@ export default defineNuxtConfig({
       siteUrl: 'https://timemo.site',
       siteName: 'timemo',
       siteDescription:
-        'timemo WIP',
+        'My dev notes.',
       language: 'zh-TW',
       titleSeparator: '·',
     },

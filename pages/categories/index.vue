@@ -1,11 +1,22 @@
 <script setup lang="ts">
 const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
+
 const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
+
+const { getFlatArticleCategories } = useGetArticleCategories()
+const { data: articleFlatCategories } = await getFlatArticleCategories()
+
+const prerenderCategoriesRoutes = computed(() => {
+  return articleFlatCategories.value.map(category => `/categories/${category.slug}`)
+})
+
+prerenderRoutes(prerenderCategoriesRoutes.value)
 
 /* SEO */
 useSeoMeta({
   title: pageData.value?.title,
-  ogTitle: pageData.value?.title,
+  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   description: pageData.value?.description,
   ogDescription: pageData.value?.description,
 })
@@ -22,15 +33,9 @@ useSchemaOrg([
     '@type': 'CollectionPage',
   }),
 ])
-
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
-
-const { data: navigation } = await useAsyncData('navigation', () => fetchContentNavigation())
 </script>
 
 <template>
-  <!-- TODO: 頁面呈現方式依照文章的分類 (Category) 排版 -->
   <AppHero class="mb-8">
     <template #title>
       分類
@@ -45,14 +50,15 @@ const { data: navigation } = await useAsyncData('navigation', () => fetchContent
       >
         <NuxtLink
           :to="`/categories/${category.slug}`"
-          class="group flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200"
+          :aria-label="`前往分類頁面 - ${category.title}`"
+          class="flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200 md:dark:hover:bg-sky-700"
         >
           <Icon
             v-if="category.icon"
             :name="category.icon"
             class="md:size-6"
           />
-          <span class="text-gray-700 md:group-hover:text-sky-500">{{ category.title }}&nbsp;(12)</span>
+          <span class="text-gray-700 dark:text-gray-300">{{ category.title }}&nbsp;({{ category.count || '0' }})</span>
         </NuxtLink>
       </li>
     </ul>

@@ -9,7 +9,6 @@ interface ArticlesDisplayOption {
   id: 'cards' | 'list'
   label: string
   icon: string
-  // layout: LayoutKey
 }
 
 export function useUserPrefer() {
@@ -19,13 +18,11 @@ export function useUserPrefer() {
       id: 'cards',
       label: 'Cards',
       icon: 'i-heroicons-squares-2x2-solid',
-      // layout: 'article-cards-layout',
     },
     {
       id: 'list',
       label: 'List',
       icon: 'i-heroicons-list-bullet',
-      // layout: 'article-list-layout',
     },
   ])
 
