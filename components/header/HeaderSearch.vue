@@ -6,6 +6,10 @@ useEventListener(document, 'keydown', (event) => {
     event.preventDefault()
     openSearch.value = !openSearch.value
   }
+
+  if (event.key === 'Escape') {
+    openSearch.value = false
+  }
 })
 </script>
 
