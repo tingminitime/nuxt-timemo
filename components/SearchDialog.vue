@@ -5,7 +5,6 @@ import {
   ComboboxEmpty,
   ComboboxGroup,
   ComboboxInput,
-  ComboboxItem,
   ComboboxRoot,
   ComboboxViewport,
   DialogClose,
@@ -16,8 +15,17 @@ import {
   DialogRoot,
   DialogTitle,
 } from 'radix-vue'
+import customSearchContent from '~/composables/search'
 
-const options = [
+interface Option {
+  title: string
+  href: string
+}
+
+const runtimeConfig = useRuntimeConfig()
+const { integrity, api } = runtimeConfig.public.content
+
+const options: Option[] = [
   {
     title: 'Option 1',
     href: '/articles',
@@ -64,18 +72,24 @@ const openSearch = defineModel<boolean>()
 
 const searchDialogContentRef = ref(null)
 
-onClickOutside(
-  searchDialogContentRef,
-  () => {
-    openSearch.value = false
-  },
-)
+// onClickOutside(
+//   searchDialogContentRef,
+//   () => {
+//     openSearch.value = false
+//   },
+// )
 
-const v = ref<Record<string, any>>(options[0])
+// const search = ref<Option>(options[0])
+// const results = await searchContent(searchTermDebounced)
 
-function filterFunction(list: typeof options, searchTerm: string) {
-  return list.filter(option => option.title.toLowerCase().includes(searchTerm.toLowerCase()))
-}
+const searchTerm = ref('')
+const searchTermDebounced = refDebounced(searchTerm, 200)
+
+const results = await customSearchContent(searchTermDebounced)
+
+// function filterFunction(list: typeof options, searchTerm: string) {
+//   return list.filter(option => option.title.toLowerCase().includes(searchTerm.toLowerCase()))
+// }
 </script>
 
 <template>
@@ -83,6 +97,7 @@ function filterFunction(list: typeof options, searchTerm: string) {
     <DialogRoot :open="openSearch">
       <DialogPortal>
         <Transition
+          appear
           mode="out-in"
           enter-active-class="transition ease-out duration-200"
           enter-from-class="opacity-0"
@@ -95,6 +110,7 @@ function filterFunction(list: typeof options, searchTerm: string) {
         </Transition>
 
         <Transition
+          appear
           mode="out-in"
           enter-active-class="transition-all ease-out duration-200"
           enter-from-class="scale-90 opacity-0"
@@ -115,8 +131,7 @@ function filterFunction(list: typeof options, searchTerm: string) {
             </DialogDescription>
 
             <ComboboxRoot
-              v-model="v"
-              :filter-function="filterFunction"
+              v-model:search-term="searchTerm"
               class="relative"
             >
               <ComboboxAnchor class="inline-flex w-full items-center justify-between gap-[5px] border-b px-4 text-sm leading-none text-gray-700 outline-none data-[placeholder]:text-gray-300 dark:border-gray-700">
@@ -151,7 +166,7 @@ function filterFunction(list: typeof options, searchTerm: string) {
                     as="ul"
                     class="h-96 divide-y divide-gray-200 overflow-y-scroll dark:divide-gray-700"
                   >
-                    <ComboboxItem
+                    <!-- <ComboboxItem
                       v-for="option in options"
                       :key="option.title"
                       as="li"
@@ -159,11 +174,24 @@ function filterFunction(list: typeof options, searchTerm: string) {
                       class="relative flex w-full select-none items-center px-6 py-3 text-base leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[disabled]:text-gray-300 data-[highlighted]:outline-none dark:data-[highlighted]:bg-sky-700/20"
                     >
                       <span>{{ option.title }}</span>
-                    </ComboboxItem>
+                    </ComboboxItem> -->
+                    <!-- <ComboboxItem
+                      v-for="item in results"
+                      :key="item.id"
+                      :value="item"
+                      as="li"
+                      class="relative flex w-full select-none items-center px-6 py-3 text-base leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[disabled]:text-gray-300 data-[highlighted]:outline-none dark:data-[highlighted]:bg-sky-700/20"
+                    >
+                      <span>{{ item.title }}</span>
+                    </ComboboxItem> -->
                   </ComboboxGroup>
                 </ComboboxViewport>
               </ComboboxContent>
             </ComboboxRoot>
+
+            <div class="h-80 overflow-y-auto">
+              <pre>{{ results }}</pre>
+            </div>
           </DialogContent>
         </Transition>
       </DialogPortal>

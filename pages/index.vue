@@ -7,6 +7,9 @@ const { data: page } = await useAsyncData('home', () => {
 useSeoMeta({
   title: '首頁',
 })
+
+// const search = ref('')
+// const results = await searchContent(search)
 </script>
 
 <template>
@@ -14,6 +17,13 @@ useSeoMeta({
     :title="page?.hero.title"
     :description="page?.hero.description"
   />
+  <!-- <div>
+    <input
+      v-model="search"
+      type="text"
+    >
+    <pre>{{ results }}</pre>
+  </div> -->
 </template>
 
 <style scoped></style>
