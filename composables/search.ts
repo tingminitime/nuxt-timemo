@@ -1,5 +1,12 @@
 /* Refer : https://github.com/nuxt/content/blob/2.x/src/runtime/composables/search.ts#L14 */
-import MiniSearch, { type Options as MiniSearchOptions } from 'minisearch'
+import type { Options as MiniSearchOptions, SearchResult } from 'minisearch'
+import MiniSearch from 'minisearch'
+
+type SearchResultWithTitles = SearchResult & {
+  title: string
+  content: string
+  titles: string[]
+}
 
 function useIndexedMiniSearch<DataItem>(search: MaybeRefOrGetter<string>, indexedData: MaybeRefOrGetter<string>, options: MaybeRefOrGetter<MiniSearchOptions<DataItem>>) {
   const indexedMiniSearch = computed(() => {
@@ -7,7 +14,7 @@ function useIndexedMiniSearch<DataItem>(search: MaybeRefOrGetter<string>, indexe
   })
 
   const results = computed(() => {
-    return indexedMiniSearch.value.search(toValue(search))
+    return indexedMiniSearch.value.search(toValue(search)) as SearchResultWithTitles[]
   })
 
   return results
@@ -21,7 +28,7 @@ function useMiniSearch<T = any>(search: MaybeRefOrGetter<string>, data: MaybeRef
   miniSearch.value.addAll(toValue(data))
 
   const results = computed(() => {
-    return miniSearch.value.search(toValue(search))
+    return miniSearch.value.search(toValue(search)) as SearchResultWithTitles[]
   })
 
   return results
