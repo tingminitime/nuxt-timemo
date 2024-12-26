@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@vueuse/motion/nuxt',
     '@pinia/nuxt',
     '@nuxt/icon',
+    'radix-vue/nuxt',
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
     'dayjs-nuxt',
@@ -68,11 +69,18 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'zh-Hant',
+        dir: 'ltr',
+      },
       meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: appDescription },
+        { name: 'twitter:description', content: appDescription },
       ],
       link: [
         { rel: 'stylesheet', href: 'https://unpkg.com/open-props/easings.min.css' },
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
       ],
     },
   },
@@ -84,7 +92,7 @@ export default defineNuxtConfig({
       siteName: 'timemo',
       siteDescription:
         'My dev notes.',
-      language: 'zh-TW',
+      language: 'zh-Hant',
       titleSeparator: '·',
     },
   },
@@ -93,7 +101,7 @@ export default defineNuxtConfig({
     url: process.env.NUXT_SITE_URL || 'https://timemo.site',
     name: 'timemo',
     description: 'My dev notes.',
-    defaultLocale: 'zh-TW',
+    defaultLocale: 'zh-Hant',
   },
 
   sitemap: {

@@ -1,8 +1,15 @@
 <script setup lang="ts">
-defineProps<{
-  title: string
-  description: string
-}>()
+import { appDescription } from '~/constants'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  title: '首頁',
+  description: appDescription,
+})
 
 // const { isHome } = useActivePath()
 </script>

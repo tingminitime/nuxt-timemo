@@ -1,5 +1,6 @@
 title: 所有文章
 description: Blog posts, dev notes, and other writings.
+ogImage: /og-image.png
 hero:
   description: (Hero) Blog posts, dev notes, and other writings.
 navigation:

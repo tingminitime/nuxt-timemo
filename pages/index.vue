@@ -1,18 +1,25 @@
 <script lang="ts" setup>
-const { data: page } = await useAsyncData('home', () => {
-  return queryContent('/').findOne()
+import type { ParsedPage } from '~/types/common'
+
+const { data: pageData } = await useAsyncData('home', () => {
+  return queryContent<ParsedPage>('/').findOne()
 })
 
 /* SEO */
 useSeoMeta({
   title: '首頁',
+  ogImage: pageData.value?.ogImage,
+  twitterTitle: '首頁',
+  twitterDescription: pageData.value?.description,
+  twitterImage: pageData.value?.ogImage,
+  twitterCard: 'summary_large_image',
 })
 </script>
 
 <template>
   <HomeHero
-    :title="page?.hero.title"
-    :description="page?.hero.description"
+    :title="pageData?.hero?.title || pageData?.title"
+    :description="pageData?.hero?.description || pageData?.description"
   />
 </template>
 

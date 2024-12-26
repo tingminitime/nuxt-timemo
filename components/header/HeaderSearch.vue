@@ -1,4 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const openSearch = ref(false)
+
+useEventListener(document, 'keydown', (event) => {
+  if (event.key === 'k' && event.ctrlKey) {
+    event.preventDefault()
+    openSearch.value = !openSearch.value
+  }
+
+  if (event.key === 'Escape') {
+    openSearch.value = false
+  }
+})
+</script>
 
 <template>
   <UTooltip
@@ -12,12 +25,15 @@
       v-bind="$attrs"
       class="group flex size-10 items-center justify-center"
       hover
+      @click="openSearch = true"
     >
       <Icon
         name="i-heroicons-magnifying-glass"
         class="size-5 fill-sky-50 stroke-zinc-500 group-hover:stroke-zinc-600 group-hover:scale-105 dark:fill-sky-400/10 dark:group-hover:stroke-zinc-400"
       />
     </HeaderItem>
+
+    <SearchDialog v-model="openSearch" />
   </UTooltip>
 </template>
 

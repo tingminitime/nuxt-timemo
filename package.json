@@ -37,6 +37,7 @@
     "dayjs-nuxt": "^2.1.11",
     "eslint": "^9.16.0",
     "eslint-plugin-tailwindcss": "^3.17.5",
+    "minisearch": "^7.1.1",
     "nuxt": "^3.14.1592",
     "nuxt-headlessui": "^1.2.0",
     "nuxt-payload-analyzer": "^0.1.4",
@@ -52,6 +53,7 @@
   "dependencies": {
     "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.19.2",
+    "radix-vue": "^1.9.10",
     "ufo": "^1.5.4"
   }
 }

@@ -10,16 +10,16 @@
 - [x] Navigation
 - [x] Theme mode
 - [ ] Home page
-- [ ] Search
+- [x] Search
 - [ ] Search page
+- [ ] Tags page
 - [x] Articles list page
 - [x] Article page
-- [ ] Add OG Image to pages
-- [ ] Add dynamic OG image to articles
+- [x] Add OG Image to pages and articles
 - [x] Categories and tags page
 - [x] Footer
 
-## Prerequistes
+## Prerequisites
 
 - Node.js >= v22.0.0
 - pnpm >= v9.0.0
