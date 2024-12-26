@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { ParsedPage } from '~/types/common'
+
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-const { data: pageData } = await useAsyncData(route.path, () => queryContent(route.path).findOne())
+const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedPage>(route.path).findOne())
 
 const { getFlatArticleCategories } = useGetArticleCategories()
 const { data: articleFlatCategories } = await getFlatArticleCategories()
@@ -16,9 +18,14 @@ prerenderRoutes(prerenderCategoriesRoutes.value)
 /* SEO */
 useSeoMeta({
   title: pageData.value?.title,
-  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   description: pageData.value?.description,
+  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   ogDescription: pageData.value?.description,
+  ogImage: pageData.value?.ogImage,
+  twitterTitle: pageData.value?.title,
+  twitterDescription: pageData.value?.description,
+  twitterImage: pageData.value?.ogImage,
+  twitterCard: 'summary_large_image',
 })
 
 useSchemaOrg([
@@ -38,7 +45,7 @@ useSchemaOrg([
 <template>
   <AppHero class="mb-8">
     <template #title>
-      分類
+      {{ pageData?.hero?.title || pageData?.title }}
     </template>
   </AppHero>
 

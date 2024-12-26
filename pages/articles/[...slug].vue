@@ -48,6 +48,11 @@ useSeoMeta({
   ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   description: pageData.value?.description,
   ogDescription: pageData.value?.description,
+  ogImage: pageData.value?.image,
+  twitterTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
+  twitterDescription: pageData.value?.description,
+  twitterImage: pageData.value?.image,
+  twitterCard: 'summary_large_image',
 })
 
 useServerHead({
