@@ -87,7 +87,14 @@ useSchemaOrg([
   }),
 ])
 
-/* Surround article data */
+/* Surround article data ( `useContent` cannot use when not use `documentDriven` mode ) */
+const { data: surround } = useAsyncData(`${route.path}-surround`, () => {
+  return queryContent<ParsedContent>(route.path)
+    .where({ _extension: 'md', navigation: { $ne: false } })
+    .only(['_path', 'title'])
+    .sort({ date: 1 })
+    .findSurround(route.path)
+})
 </script>
 
 <template>

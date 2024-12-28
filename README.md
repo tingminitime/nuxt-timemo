@@ -15,6 +15,7 @@
 - [ ] Tags page
 - [x] Articles list page
 - [x] Article page
+- [ ] Next / Prev article navigation
 - [x] Add OG Image to pages and articles
 - [x] Categories and tags page
 - [x] Footer

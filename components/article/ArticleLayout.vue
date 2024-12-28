@@ -40,6 +40,8 @@ defineProps<{
     <ArticleContentBody class="mx-auto xl:col-start-2">
       <slot></slot>
     </ArticleContentBody>
+
+    <ArticleContentPrevNext />
   </div>
 </template>
 
