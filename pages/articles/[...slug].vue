@@ -88,10 +88,9 @@ useSchemaOrg([
 ])
 
 /* Surround article data ( `useContent` cannot use when not use `documentDriven` mode ) */
-const { data: surround } = useAsyncData(`${route.path}-surround`, () => {
-  return queryContent<ParsedContent>(route.path)
-    .where({ _extension: 'md', navigation: { $ne: false } })
-    .only(['_path', 'title'])
+const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
+  return queryContent<ParsedContent>('/articles')
+    .where({ _extension: 'md' })
     .sort({ date: 1 })
     .findSurround(route.path)
 })
@@ -108,6 +107,9 @@ const { data: surround } = useAsyncData(`${route.path}-surround`, () => {
     :toc="pageData?.body?.toc"
   >
     <ContentRenderer :value="(pageData as ParsedContent)" />
+    <template #prev-next>
+      <ArticleContentPrevNext />
+    </template>
   </ArticleLayout>
 </template>
 

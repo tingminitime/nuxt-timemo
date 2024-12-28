@@ -39,9 +39,8 @@ defineProps<{
 
     <ArticleContentBody class="mx-auto xl:col-start-2">
       <slot></slot>
+      <slot name="prev-next"></slot>
     </ArticleContentBody>
-
-    <ArticleContentPrevNext />
   </div>
 </template>
 
