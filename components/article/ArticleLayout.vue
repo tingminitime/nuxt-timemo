@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Toc } from '@nuxt/content'
+import type { ParsedArticle } from '~/types/article'
 import type { Author } from '~/types/author'
 
 defineProps<{
@@ -9,6 +10,7 @@ defineProps<{
   categoryId?: string
   category?: string
   authorData?: Author
+  cover?: ParsedArticle['cover']
   toc: Toc | undefined
 }>()
 </script>
@@ -34,11 +36,16 @@ defineProps<{
         :category-id="categoryId"
         :category="category"
         :author-data="authorData"
+        :cover="cover"
       />
     </header>
 
     <ArticleContentBody class="mx-auto xl:col-start-2">
       <slot></slot>
+      <UDivider
+        :ui="{ border: { base: 'dark:border-gray-600' } }"
+      />
+      <slot name="prev-next"></slot>
     </ArticleContentBody>
   </div>
 </template>

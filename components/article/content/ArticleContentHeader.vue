@@ -1,5 +1,5 @@
-<!-- TODO: 取得作者名、文章發佈、修改日期 -->
 <script setup lang="ts">
+import type { ParsedArticle } from '~/types/article'
 import type { Author } from '~/types/author'
 import { getSocialLinkData } from '~/constants'
 
@@ -10,6 +10,7 @@ const props = defineProps<{
   categoryId?: string
   category?: string
   authorData?: Author
+  cover?: ParsedArticle['cover']
 }>()
 
 const publishDateFormat = computed(() => formatDate(props.publishDate ?? ''))
@@ -34,7 +35,7 @@ const dropdownItems = computed(() => {
 </script>
 
 <template>
-  <div class="space-y-8 xl:sticky xl:top-[5.5rem] xl:max-h-[calc(100dvh-5.5rem)] xl:overflow-y-auto">
+  <div class="space-y-8">
     <div class="space-y-4">
       <h1 class="text-3xl font-bold lg:text-4xl">
         {{ title }}
@@ -130,6 +131,15 @@ const dropdownItems = computed(() => {
         </ClientOnly>
       </div>
     </address>
+
+    <NuxtImg
+      v-if="cover"
+      :src="cover.src"
+      :alt="cover.alt"
+      format="webp"
+      :placeholder="[16, 9, 80, 10]"
+      class="aspect-[16/9] w-full rounded-xl object-cover"
+    />
   </div>
 </template>
 
