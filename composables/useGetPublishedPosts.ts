@@ -47,7 +47,7 @@ export function useGetPublishedPosts() {
   /**
    * 將回傳的文章資料加上分類資訊
    */
-  function processCategoryPosts(posts: ParsedArticle[], categories: NavItem[] | never[]): ParsedArticle[] {
+  function addCategoryInfoToPosts(posts: ParsedArticle[], categories: NavItem[] | never[]): ParsedArticle[] {
     if (!categories)
       return posts
 
@@ -95,7 +95,7 @@ export function useGetPublishedPosts() {
         .find()
         .then((res) => {
           const validPosts = filterValidPosts(res)
-          return processCategoryPosts(validPosts, categories)
+          return addCategoryInfoToPosts(validPosts, categories)
         })
     }
 

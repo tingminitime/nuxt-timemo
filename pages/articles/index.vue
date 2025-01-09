@@ -87,7 +87,7 @@ useSchemaOrg([
 
     <!-- Articles list -->
     <div
-      v-if="groupedArticlesByYear?.length && currentArticlesDisplayOption"
+      v-if="groupedArticlesByYear?.length"
       class="flex flex-col gap-y-6"
     >
       <component
