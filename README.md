@@ -11,11 +11,10 @@
 - [x] Theme mode
 - [ ] Home page
 - [x] Search
-- [ ] Search page
 - [ ] Tags page
 - [x] Articles list page
 - [x] Article page
-- [ ] Next / Prev article navigation
+- [x] Next / Prev article navigation
 - [x] Add OG Image to pages and articles
 - [x] Categories and tags page
 - [x] Footer
