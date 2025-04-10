@@ -63,7 +63,7 @@ export function useGetArticleCategories() {
    * @see https://content.nuxt.com/composables/fetch-content-navigation
    */
   function getFlatArticleCategories() {
-    return useAsyncData('article-flat-categories', () => fetchContentNavigation(), {
+    return useAsyncData('article-flat-categories', () => queryCollectionNavigation(), {
       default: () => [],
       transform,
     })

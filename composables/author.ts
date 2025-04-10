@@ -2,7 +2,7 @@ import type { ParsedAuthor } from '~/types/author'
 
 export function useGetAllAuthors() {
   const getAllAuthors = () => {
-    return queryContent<ParsedAuthor>('/authors')
+    return queryCollection<ParsedAuthor>('/authors')
       .where({ _type: { $eq: 'yaml' } })
       .findOne()
   }

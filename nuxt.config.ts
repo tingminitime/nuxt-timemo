@@ -4,12 +4,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
+    '@nuxtjs/seo',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/color-mode',
     '@nuxt/ui',
     '@nuxt/content',
     '@nuxt/image',
-    '@nuxtjs/color-mode',
-    '@nuxtjs/google-fonts',
-    '@nuxtjs/seo',
     '@vueuse/nuxt',
     '@vueuse/motion/nuxt',
     '@pinia/nuxt',
