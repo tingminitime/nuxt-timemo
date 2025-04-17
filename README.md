@@ -22,7 +22,7 @@
 ## Prerequisites
 
 - Node.js >= v22.0.0
-- pnpm >= v9.0.0
+- pnpm >= v10.0.0
 - [VS Code](https://code.visualstudio.com/)
 
 ### VS Code Extensions
@@ -30,10 +30,9 @@
 - [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-
 ## ESLint Configuration
 
-This template uses [@antfu/eslint-config](https://github.com/antfu/eslint-config).
+This project uses [@antfu/eslint-config](https://github.com/antfu/eslint-config) for linting.
 
 ## Run locally
 

@@ -1,4 +1,4 @@
-import type { NavItem } from '@nuxt/content'
+import type { ContentNavigationItem } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
 
 export function useGetPublishedPosts() {
@@ -39,7 +39,7 @@ export function useGetPublishedPosts() {
    * 基礎的文章查詢配置
    */
   function createBaseQuery(path: string) {
-    return queryContent<ParsedArticle>(path)
+    return queryCollection<ParsedArticle>(path)
       .where({ _type: { $ne: 'yaml' } })
       .sort({ published_date: -1 })
   }
@@ -47,7 +47,10 @@ export function useGetPublishedPosts() {
   /**
    * 將回傳的文章資料加上分類資訊
    */
-  function addCategoryInfoToPosts(posts: ParsedArticle[], categories: NavItem[] | never[]): ParsedArticle[] {
+  function addCategoryInfoToPosts(
+    posts: ParsedArticle[],
+    categories: ContentNavigationItem[] | never[],
+  ): ParsedArticle[] {
     if (!categories)
       return posts
 
@@ -87,7 +90,7 @@ export function useGetPublishedPosts() {
    * 獲取所有已發布的文章（包含子目錄）
    */
   function getAllPublishedPosts(
-    categories: NavItem[] | never[],
+    categories: ContentNavigationItem[] | never[],
     path: string = '/articles/',
   ) {
     const queryAllPublishedPosts = () => {

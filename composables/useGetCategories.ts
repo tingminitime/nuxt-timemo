@@ -1,13 +1,13 @@
-import type { NavItem } from '@nuxt/content'
+import type { ContentNavigationItem } from '@nuxt/content'
 
-interface NavItemWithCategory extends NavItem {
+interface NavItemWithCategory extends ContentNavigationItem {
   slug?: string
   icon?: string
   count?: number
 }
 
 export function useGetArticleCategories() {
-  const countNonDirectoryItems = (node: NavItem): number => {
+  const countNonDirectoryItems = (node: ContentNavigationItem): number => {
     if (!node.children)
       return 0
 
@@ -15,7 +15,7 @@ export function useGetArticleCategories() {
       count + ('children' in child ? countNonDirectoryItems(child) : 1), 0)
   }
 
-  function flatNavigation(node: NavItem | undefined): NavItemWithCategory[] {
+  function flatNavigation(node: ContentNavigationItem | undefined): NavItemWithCategory[] {
     if (!node)
       return []
 
@@ -47,7 +47,7 @@ export function useGetArticleCategories() {
     return result
   }
 
-  function transform(navigation: Array<NavItem>) {
+  function transform(navigation: Array<ContentNavigationItem>) {
     if (!navigation)
       return []
 

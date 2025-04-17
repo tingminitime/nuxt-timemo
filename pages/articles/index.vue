@@ -3,7 +3,7 @@ import type { ParsedPage } from '~/types/common'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
-const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedPage>(route.path).findOne())
+const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
 
 const {
   articlesDisplayOptions,

@@ -60,6 +60,7 @@ const typeClasses: Record<TypeKey, Type> = {
       >
         {{ title }}
       </div>
+      <!-- TODO: `ContentSlot` in v3 is no longer supported`, remove it -->
       <ContentSlot :use="$slots.default" />
     </div>
   </div>

@@ -2,7 +2,7 @@
 import type { ParsedPage } from '~/types/common'
 
 const { data: pageData } = await useAsyncData('home', () => {
-  return queryContent<ParsedPage>('/').findOne()
+  return queryCollection<ParsedPage>('/').findOne()
 })
 
 /* SEO */

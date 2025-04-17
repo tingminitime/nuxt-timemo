@@ -109,18 +109,22 @@ export default defineNuxtConfig({
   },
 
   content: {
-    experimental: {
-      // @ts-expect-error: Unreachable code error
-      search: true,
-    },
-    ignores: ['drafts'],
-    documentDriven: false,
-    highlight: {
-      theme: {
-        default: 'github-light',
-        dark: 'github-dark',
+    // experimental: {
+    //   // @ts-expect-error: Unreachable code error
+    //   search: true,
+    // },
+    // ignores: ['drafts'],
+    // documentDriven: false,
+    build: {
+      markdown: {
+        highlight: {
+          theme: {
+            default: 'github-light',
+            dark: 'github-dark',
+          },
+          langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'scss', 'vue-html', 'python', 'bash', 'javascript', 'typescript'],
+        },
       },
-      langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'scss', 'vue-html', 'python', 'bash', 'javascript', 'typescript'],
     },
   },
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ParsedContent } from '@nuxt/content'
+// import type { ParsedContent } from '@nuxt/content'
 import type { ParsedArticle } from '~/types/article'
 
 const route = useRoute()
@@ -8,9 +8,13 @@ const runtimeConfig = useRuntimeConfig()
 const { getFlatArticleCategories } = useGetArticleCategories()
 const { data: articleFlatCategories } = await getFlatArticleCategories()
 
+// const { data: pageData, error } = await useAsyncData(
+//   route.path,
+//   () => queryCollection<ParsedArticle>(route.path).findOne(),
+// )
 const { data: pageData, error } = await useAsyncData(
   route.path,
-  () => queryContent<ParsedArticle>(route.path).findOne(),
+  () => queryCollection('articles').first(),
 )
 
 const { data: authors } = await useGetAllAuthors()
@@ -26,7 +30,7 @@ if (error.value) {
  * Find category data by the current page path
  */
 const categoryData = computed(() => {
-  if (!pageData.value?._path)
+  if (!pageData.value?.path)
     return
 
   const sliceEnd = pageData.value?._dir === 'articles' ? 2 : 3
@@ -89,7 +93,7 @@ useSchemaOrg([
 
 /* Surround article data ( `useContent` cannot use when not use `documentDriven` mode ) */
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-  return queryContent<ParsedArticle>('/articles')
+  return queryCollection<ParsedArticle>('/articles')
     .where({ _extension: 'md' })
     .sort({ published_date: 1 })
     .only(['_path', 'title', 'cover'])

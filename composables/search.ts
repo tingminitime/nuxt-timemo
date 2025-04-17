@@ -1,3 +1,8 @@
+/**
+ * TODO: TODO: use new API - `queryCollectionSearchSections`
+ * source: https://content.nuxt.com/docs/advanced/fulltext-search
+ */
+
 /* Refer : https://github.com/nuxt/content/blob/2.x/src/runtime/composables/search.ts#L14 */
 import type { Options as MiniSearchOptions, SearchResult } from 'minisearch'
 import MiniSearch from 'minisearch'

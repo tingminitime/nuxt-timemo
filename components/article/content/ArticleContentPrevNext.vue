@@ -1,3 +1,4 @@
+<!-- TODO: Add new API - `queryCollectionItemSurroundings` -->
 <script setup lang="ts">
 import type { ParsedArticle } from '~/types/article'
 

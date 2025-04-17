@@ -1,6 +1,9 @@
-import type { NavItem } from '@nuxt/content'
+import type { ContentNavigationItem } from '@nuxt/content'
 
-export function findCategoryTitleByPath(categories: NavItem, path: string): string {
+export function findCategoryTitleByPath(
+  categories: ContentNavigationItem,
+  path: string,
+): string {
   if (categories._path === path)
     return ''
 
