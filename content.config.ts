@@ -7,6 +7,17 @@ export default defineContentConfig({
       asSeoCollection({
         source: '**/articles/*.md',
         type: 'page',
+        schema: z.object({
+          author: z.string(),
+          tags: z.array(z.string()).optional(),
+          image: z.string().optional(),
+          cover: z.object({
+            src: z.string(),
+            alt: z.string(),
+          }).optional(),
+          published_date: z.string(),
+          modified_date: z.string().optional(),
+        }),
       }),
     ),
 

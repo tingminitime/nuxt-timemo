@@ -33,10 +33,14 @@ const categoryData = computed(() => {
   if (!pageData.value?.path)
     return
 
-  const sliceEnd = pageData.value?._dir === 'articles' ? 2 : 3
-  const postCategoryPath = pageData.value?._path
+  // const sliceEnd = pageData.value?._dir === 'articles' ? 2 : 3
+  // const postCategoryPath = pageData.value?.path
+  //   .split('/')
+  //   .slice(0, sliceEnd)
+  //   .join('/')
+  const postCategoryPath = pageData.value?.path
     .split('/')
-    .slice(0, sliceEnd)
+    .slice(0, 2)
     .join('/')
 
   return articleFlatCategories.value.find(category => category._path === postCategoryPath)
