@@ -14,7 +14,7 @@ const { data: articleFlatCategories } = await getFlatArticleCategories()
 // )
 const { data: pageData, error } = await useAsyncData(
   route.path,
-  () => queryCollection('articles').first(),
+  () => queryCollection('articles').path(route.path).first(),
 )
 
 const { data: authors } = await useGetAllAuthors()
@@ -96,12 +96,16 @@ useSchemaOrg([
 ])
 
 /* Surround article data ( `useContent` cannot use when not use `documentDriven` mode ) */
+// const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
+//   return queryCollection<ParsedArticle>('/articles')
+//     .where({ _extension: 'md' })
+//     .sort({ published_date: 1 })
+//     .only(['_path', 'title', 'cover'])
+//     .findSurround(route.path)
+// })
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-  return queryCollection<ParsedArticle>('/articles')
-    .where({ _extension: 'md' })
-    .sort({ published_date: 1 })
-    .only(['_path', 'title', 'cover'])
-    .findSurround(route.path)
+  return queryCollectionItemSurroundings('articles', route.path)
+    .order('published_date', 'DESC')
 })
 </script>
 
@@ -116,7 +120,10 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
     :cover="pageData?.cover"
     :toc="pageData?.body?.toc"
   >
-    <ContentRenderer :value="(pageData as ParsedContent)" />
+    <ContentRenderer
+      v-if="pageData"
+      :value="pageData"
+    />
     <template #prev-next>
       <ArticleContentPrevNext
         class="mt-8"

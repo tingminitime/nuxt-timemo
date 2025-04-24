@@ -1,5 +1,5 @@
-import type { ContentNavigationItem } from '@nuxt/content'
-import type { ParsedArticle } from '~/types/article'
+import type { ArticlesCollectionItem, ContentNavigationItem } from '@nuxt/content'
+// import type { ParsedArticle } from '~/types/article'
 
 export function useGetPublishedPosts() {
   const IGNORED_PATH: string[] = []
@@ -7,7 +7,7 @@ export function useGetPublishedPosts() {
   /**
    * 轉換文章資料為年份分組格式
    */
-  function transform(articles: ParsedArticle[]) {
+  function transform(articles: ArticlesCollectionItem[]) {
     if (!articles)
       return []
 
@@ -39,7 +39,7 @@ export function useGetPublishedPosts() {
    * 基礎的文章查詢配置
    */
   function createBaseQuery(path: string) {
-    return queryCollection<ParsedArticle>(path)
+    return queryCollection<ArticlesCollectionItem>(path)
       .where({ _type: { $ne: 'yaml' } })
       .sort({ published_date: -1 })
   }
@@ -48,9 +48,9 @@ export function useGetPublishedPosts() {
    * 將回傳的文章資料加上分類資訊
    */
   function addCategoryInfoToPosts(
-    posts: ParsedArticle[],
+    posts: ArticlesCollectionItem[],
     categories: ContentNavigationItem[] | never[],
-  ): ParsedArticle[] {
+  ): ArticlesCollectionItem[] {
     if (!categories)
       return posts
 
@@ -82,7 +82,7 @@ export function useGetPublishedPosts() {
   /**
    * 過濾有效的文章
    */
-  function filterValidPosts(posts: ParsedArticle[]) {
+  function filterValidPosts(posts: ArticlesCollectionItem[]) {
     return posts.filter(post => !IGNORED_PATH.includes(post._path as string) && !post.draft)
   }
 

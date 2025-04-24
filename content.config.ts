@@ -9,6 +9,7 @@ export default defineContentConfig({
         type: 'page',
         schema: z.object({
           author: z.string(),
+          category: z.string(),
           tags: z.array(z.string()).optional(),
           image: z.string().optional(),
           cover: z.object({
@@ -16,7 +17,11 @@ export default defineContentConfig({
             alt: z.string(),
           }).optional(),
           published_date: z.string(),
+          published_date_iso_string: z.string().optional(),
+          published_date_format: z.string().optional(),
           modified_date: z.string().optional(),
+          modified_date_iso_string: z.string().optional(),
+          modified_date_format: z.string().optional(),
         }),
       }),
     ),

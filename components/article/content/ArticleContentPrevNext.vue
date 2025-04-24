@@ -1,11 +1,12 @@
-<!-- TODO: Add new API - `queryCollectionItemSurroundings` -->
 <script setup lang="ts">
-import type { ParsedArticle } from '~/types/article'
+// import type { ParsedArticle } from '~/types/article'
+import type { ContentNavigationItem } from '@nuxt/content'
 
-type PrevNext = Pick<ParsedArticle, '_path' | 'title' | 'cover'>
+// type PrevNext = Pick<ParsedArticle, '_path' | 'title' | 'cover'>
 
 const props = defineProps<{
-  surround: PrevNext[] | null
+  // surround: PrevNext[] | null
+  surround: ContentNavigationItem[] | null
 }>()
 
 const prev = computed(() => props.surround?.[0])
@@ -16,7 +17,7 @@ const next = computed(() => props.surround?.[1])
   <div class="grid w-full gap-4 md:grid-cols-2 lg:gap-8">
     <NuxtLink
       v-if="prev"
-      :to="prev._path"
+      :to="prev.path"
       class="group block w-full rounded-xl border border-gray-300 px-4 pb-3 pt-2 no-underline transition dark:border-gray-600 md:hover:border-sky-500"
       style="overflow: clip;"
     >
@@ -34,7 +35,7 @@ const next = computed(() => props.surround?.[1])
     <div v-else></div>
     <NuxtLink
       v-if="next"
-      :to="next._path"
+      :to="next.path"
       class="group relative block w-full rounded-xl border border-gray-300 px-4 pb-3 pt-2 no-underline transition dark:border-gray-600 md:hover:border-sky-500"
     >
       <div class="grid grid-cols-6 grid-rows-[1fr_2fr] gap-y-2">

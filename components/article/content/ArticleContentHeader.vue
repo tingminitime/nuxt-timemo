@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { ParsedArticle } from '~/types/article'
+// import type { ParsedArticle } from '~/types/article'
+import type { ArticlesCollectionItem } from '@nuxt/content'
 import type { Author } from '~/types/author'
 import { getSocialLinkData } from '~/constants'
 
@@ -10,7 +11,8 @@ const props = defineProps<{
   categoryId?: string
   category?: string
   authorData?: Author
-  cover?: ParsedArticle['cover']
+  // cover?: ParsedArticle['cover']
+  cover?: ArticlesCollectionItem['cover']
 }>()
 
 const publishDateFormat = computed(() => formatDate(props.publishDate ?? ''))

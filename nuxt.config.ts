@@ -1,13 +1,14 @@
+import { _3 } from '#tailwind-config/theme/aspectRatio'
 import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    '@nuxtjs/seo',
     '@nuxtjs/google-fonts',
     '@nuxtjs/color-mode',
     '@nuxt/ui',
+    '@nuxtjs/seo',
     '@nuxt/content',
     '@nuxt/image',
     '@vueuse/nuxt',
@@ -104,10 +105,6 @@ export default defineNuxtConfig({
     defaultLocale: 'zh-Hant',
   },
 
-  sitemap: {
-    strictNuxtContentPaths: true,
-  },
-
   content: {
     // experimental: {
     //   // @ts-expect-error: Unreachable code error
@@ -123,6 +120,10 @@ export default defineNuxtConfig({
             dark: 'github-dark',
           },
           langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'scss', 'vue-html', 'python', 'bash', 'javascript', 'typescript'],
+        },
+        toc: {
+          depth: 3,
+          searchDepth: 3,
         },
       },
     },

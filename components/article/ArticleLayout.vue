@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Toc } from '@nuxt/content'
-import type { ParsedArticle } from '~/types/article'
+import type { ArticlesCollectionItem, Toc } from '@nuxt/content'
+// import type { ParsedArticle } from '~/types/article'
 import type { Author } from '~/types/author'
 
 defineProps<{
@@ -10,7 +10,8 @@ defineProps<{
   categoryId?: string
   category?: string
   authorData?: Author
-  cover?: ParsedArticle['cover']
+  // cover?: ParsedArticle['cover']
+  cover?: ArticlesCollectionItem['cover']
   toc: Toc | undefined
 }>()
 </script>
