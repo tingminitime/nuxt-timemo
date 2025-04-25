@@ -1,12 +1,13 @@
 <script setup lang="ts">
 // import type { ParsedContent } from '@nuxt/content'
-import type { ParsedArticle } from '~/types/article'
+// import type { ParsedArticle } from '~/types/article'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
+// TODO: refactor this with new approach
+// const { getFlatArticleCategories } = useGetArticleCategories()
+// const { data: articleFlatCategories } = await getFlatArticleCategories()
 
 // const { data: pageData, error } = await useAsyncData(
 //   route.path,

@@ -1,13 +1,13 @@
-import type { ContentNavigationItem } from '@nuxt/content'
+import type { NavItem } from '@nuxt/content'
 
-interface NavItemWithCategory extends ContentNavigationItem {
+interface NavItemWithCategory extends NavItem {
   slug?: string
   icon?: string
   count?: number
 }
 
 export function useGetArticleCategories() {
-  const countNonDirectoryItems = (node: ContentNavigationItem): number => {
+  const countNonDirectoryItems = (node: NavItem): number => {
     if (!node.children)
       return 0
 
@@ -15,7 +15,7 @@ export function useGetArticleCategories() {
       count + ('children' in child ? countNonDirectoryItems(child) : 1), 0)
   }
 
-  function flatNavigation(node: ContentNavigationItem | undefined): NavItemWithCategory[] {
+  function flatNavigation(node: NavItem | undefined): NavItemWithCategory[] {
     if (!node)
       return []
 
@@ -47,7 +47,7 @@ export function useGetArticleCategories() {
     return result
   }
 
-  function transform(navigation: Array<ContentNavigationItem>) {
+  function transform(navigation: Array<NavItem>) {
     if (!navigation)
       return []
 
@@ -63,7 +63,7 @@ export function useGetArticleCategories() {
    * @see https://content.nuxt.com/composables/fetch-content-navigation
    */
   function getFlatArticleCategories() {
-    return useAsyncData('article-flat-categories', () => queryCollectionNavigation(), {
+    return useAsyncData('article-flat-categories', () => fetchContentNavigation(), {
       default: () => [],
       transform,
     })

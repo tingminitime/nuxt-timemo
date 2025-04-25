@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGetPublishedPosts } from '~/composables/useGetPublishedPosts'
+// import { useGetPublishedPosts } from '~/composables/useGetPublishedPosts'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
@@ -7,15 +7,17 @@ const runtimeConfig = useRuntimeConfig()
 const isUnclassified = computed(() => route.params.slug === 'articles')
 const queryPath = computed(() => isUnclassified.value ? '/articles/' : `/articles/${route.params.slug}/`)
 
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
+// TODO: refactor this with new approach
+// const { getFlatArticleCategories } = useGetArticleCategories()
+// const { data: articleFlatCategories } = await getFlatArticleCategories()
 
-const { getAllPublishedPosts, getUnclassifiedPosts } = useGetPublishedPosts()
-const { data: groupedArticlesByYear, error } = await (
-  isUnclassified.value
-    ? getUnclassifiedPosts()
-    : getAllPublishedPosts(articleFlatCategories.value, queryPath.value)
-)
+// TODO: refactor this with new approach
+// const { getAllPublishedPosts, getUnclassifiedPosts } = useGetPublishedPosts()
+// const { data: groupedArticlesByYear, error } = await (
+//   isUnclassified.value
+//     ? getUnclassifiedPosts()
+//     : getAllPublishedPosts(articleFlatCategories.value, queryPath.value)
+// )
 
 if (error.value) {
   throw createError({

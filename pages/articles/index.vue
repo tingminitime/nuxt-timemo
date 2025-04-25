@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import type { ParsedPage } from '~/types/common'
+// import type { ParsedPage } from '~/types/common'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
-const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
+// const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
+const { data: pageBase } = await useAsyncData(
+  route.path,
+  () => queryCollection('base').path(route.path).first(),
+)
 
 const {
   articlesDisplayOptions,
@@ -14,22 +18,24 @@ const {
 } = useUserPrefer()
 
 /* Articles data */
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
+// TODO: refactor this with new approach
+// const { getFlatArticleCategories } = useGetArticleCategories()
+// const { data: articleFlatCategories } = await getFlatArticleCategories()
 
-const { getAllPublishedPosts } = useGetPublishedPosts()
-const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
+// TODO: refactor this with new approach
+// const { getAllPublishedPosts } = useGetPublishedPosts()
+// const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
 
 /* SEO */
 useSeoMeta({
-  title: pageData.value?.title,
-  description: pageData.value?.description,
-  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
-  ogDescription: pageData.value?.description,
-  ogImage: pageData.value?.ogImage,
-  twitterTitle: pageData.value?.title,
-  twitterDescription: pageData.value?.description,
-  twitterImage: pageData.value?.ogImage,
+  title: pageBase.value?.title,
+  description: pageBase.value?.description,
+  ogTitle: `${pageBase.value?.title} | ${runtimeConfig.public.siteName}`,
+  ogDescription: pageBase.value?.description,
+  ogImage: pageBase.value?.ogImage,
+  twitterTitle: pageBase.value?.title,
+  twitterDescription: pageBase.value?.description,
+  twitterImage: pageBase.value?.ogImage,
   twitterCard: 'summary_large_image',
 })
 
@@ -50,10 +56,10 @@ useSchemaOrg([
 <template>
   <AppHero class="mb-8">
     <template #title>
-      {{ pageData?.hero?.title || pageData?.title }}
+      {{ pageBase?.hero?.title || pageBase?.title }}
     </template>
     <template #description>
-      {{ pageData?.hero?.description }}
+      {{ pageBase?.hero?.description }}
     </template>
   </AppHero>
 
@@ -99,14 +105,14 @@ useSchemaOrg([
         <component
           :is="currentArticleComponent"
           v-for="article in groupedArticles.articles"
-          :key="article._path"
-          :to="article._path"
+          :key="article.path"
+          :to="article.path"
           :title="article.title"
           :description="article.description"
           :author="article.author"
-          :category-id="article._dir"
+          :category-id="article.stem"
           :category="article.category"
-          :cover-image="article.cover.src"
+          :cover-image="article.cover?.src"
           :published-date-format="article.published_date_format"
           :published-date-iso-string="article.published_date_iso_string"
         />

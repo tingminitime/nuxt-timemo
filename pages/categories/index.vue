@@ -6,8 +6,9 @@ const runtimeConfig = useRuntimeConfig()
 
 const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
 
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
+// TODO: refactor this with new approach
+// const { getFlatArticleCategories } = useGetArticleCategories()
+// const { data: articleFlatCategories } = await getFlatArticleCategories()
 
 const prerenderCategoriesRoutes = computed(() => {
   return articleFlatCategories.value.map(category => `/categories/${category.slug}`)

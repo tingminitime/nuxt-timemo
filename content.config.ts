@@ -26,6 +26,20 @@ export default defineContentConfig({
       }),
     ),
 
+    base: defineCollection({
+      source: '**/base.yml',
+      type: 'data',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        ogImage: z.string().optional(),
+        hero: z.object({
+          title: z.string(),
+          description: z.string(),
+        }).optional(),
+      }),
+    }),
+
     // https://content.nuxt.com/docs/files/yaml#define-collection
     authors: defineCollection({
       source: 'authors.yml',
