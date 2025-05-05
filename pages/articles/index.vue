@@ -96,12 +96,14 @@ useSchemaOrg([
       v-if="groupedArticlesByYear?.length"
       class="flex flex-col gap-y-6"
     >
+      <!-- ArticleCardsLayout or ArticleListLayout -->
       <component
         :is="currentArticleLayoutComponent"
         v-for="groupedArticles in groupedArticlesByYear"
         :key="groupedArticles.year"
         :year="groupedArticles.year"
       >
+        <!-- ArticleCard or ArticleItem -->
         <component
           :is="currentArticleComponent"
           v-for="article in groupedArticles.articles"
