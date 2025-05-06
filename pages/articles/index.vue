@@ -26,6 +26,9 @@ const {
 // const { getAllPublishedPosts } = useGetPublishedPosts()
 // const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
 
+const { getAllPublishedArticles } = useGetPublishedArticles()
+const { data: articles } = await getAllPublishedArticles()
+
 /* SEO */
 useSeoMeta({
   title: pageBase.value?.title,
@@ -92,19 +95,19 @@ useSchemaOrg([
     </div>
 
     <!-- Articles list -->
-    <div
+    <!-- <div
       v-if="groupedArticlesByYear?.length"
       class="flex flex-col gap-y-6"
-    >
-      <!-- ArticleCardsLayout or ArticleListLayout -->
-      <component
+    > -->
+    <!-- ArticleCardsLayout or ArticleListLayout -->
+    <!-- <component
         :is="currentArticleLayoutComponent"
         v-for="groupedArticles in groupedArticlesByYear"
         :key="groupedArticles.year"
         :year="groupedArticles.year"
-      >
-        <!-- ArticleCard or ArticleItem -->
-        <component
+      > -->
+    <!-- ArticleCard or ArticleItem -->
+    <!-- <component
           :is="currentArticleComponent"
           v-for="article in groupedArticles.articles"
           :key="article.path"
@@ -117,11 +120,16 @@ useSchemaOrg([
           :cover-image="article.cover?.src"
           :published-date-format="article.published_date_format"
           :published-date-iso-string="article.published_date_iso_string"
-        />
-      </component>
-    </div>
-    <p
+        /> -->
+    <!-- </component> -->
+    <!-- </div> -->
+    <!-- <p
       v-else
+      class="text-gray-700 dark:text-gray-300"
+    >
+      No articles found.
+    </p> -->
+    <p
       class="text-gray-700 dark:text-gray-300"
     >
       No articles found.

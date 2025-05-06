@@ -1,18 +1,22 @@
-import type { ParsedAuthor } from '~/types/author'
+// import type { ParsedAuthor } from '~/types/author'
+// import type { AuthorsCollectionItem } from '@nuxt/content'
 
 export function useGetAllAuthors() {
-  const getAllAuthors = () => {
-    return queryCollection<ParsedAuthor>('/authors')
-      .where({ _type: { $eq: 'yaml' } })
-      .findOne()
-  }
+  // const getAllAuthors = () => {
+  //   return queryCollection('authors')
+  //     .first()
+  // }
 
-  const transform = (authors: ParsedAuthor) => {
-    return authors.data
-  }
+  // const transform = (authors: AuthorsCollectionItem) => {
+  //   return authors.data
+  // }
 
-  return useAsyncData('authors', getAllAuthors, {
-    default: () => [],
-    transform,
-  })
+  return useAsyncData(
+    'authors',
+    () => queryCollection('authors').first(),
+    {
+      default: () => [],
+      // transform,
+    },
+  )
 }

@@ -6,7 +6,7 @@
 // })
 const { data: pageBase } = await useAsyncData(
   'home',
-  () => queryCollection('base').path('/').first(),
+  () => queryCollection('base').first(),
 )
 
 /* SEO */

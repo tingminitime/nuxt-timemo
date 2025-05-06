@@ -4,9 +4,15 @@ export function useGetPublishedArticles() {
    * 獲取所有已發布的文章（包含子目錄）
    */
   function getAllPublishedArticles() {
-    return queryCollection('articles')
-      .order('published_date', 'DESC')
-      .all()
+    // return queryCollection('articles')
+    //   .order('published_date', 'DESC')
+    //   .all()
+    return useAsyncData(
+      `all-published-articles`,
+      () => queryCollection('articles')
+        .order('published_date', 'DESC')
+        .all(),
+    )
   }
 
   return {

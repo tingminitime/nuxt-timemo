@@ -27,7 +27,7 @@ export default defineContentConfig({
     ),
 
     base: defineCollection({
-      source: '**/base.yml',
+      source: 'base.yml',
       type: 'data',
       schema: z.object({
         title: z.string(),
