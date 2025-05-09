@@ -1,12 +1,7 @@
 <script lang="ts" setup>
-// import type { ParsedPage } from '~/types/common'
-
-// const { data: pageData } = await useAsyncData('home', () => {
-//   return queryCollection<ParsedPage>('/').findOne()
-// })
 const { data: pageBase } = await useAsyncData(
   'home',
-  () => queryCollection('base').first(),
+  () => queryCollection('home').first(),
 )
 
 /* SEO */

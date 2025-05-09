@@ -26,7 +26,7 @@ const {
 // const { getAllPublishedPosts } = useGetPublishedPosts()
 // const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
 
-const { getAllArticlesGroupedByYear } = useGetPublishedArticles()
+const { getAllArticlesGroupedByYear } = useGetArticles()
 const { data: groupedArticlesByYear } = await getAllArticlesGroupedByYear()
 
 /* SEO */

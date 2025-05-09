@@ -1,7 +1,7 @@
 // TODO: 完成新的取得所有文章方法
 import type { ArticlesCollectionItem } from '@nuxt/content'
 
-export function useGetPublishedArticles() {
+export function useGetArticles() {
   /**
    * Basic articles query
    */

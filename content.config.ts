@@ -27,8 +27,22 @@ export default defineContentConfig({
       }),
     ),
 
+    home: defineCollection({
+      source: 'home.yml',
+      type: 'data',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        ogImage: z.string().optional(),
+        hero: z.object({
+          title: z.string(),
+          description: z.string(),
+        }).optional(),
+      }),
+    }),
+
     base: defineCollection({
-      source: 'base.yml',
+      source: '**/base.yml',
       type: 'data',
       schema: z.object({
         title: z.string(),
