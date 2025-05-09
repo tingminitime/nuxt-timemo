@@ -18,6 +18,7 @@ const { data: pageData, error } = await useAsyncData(
   () => queryCollection('articles').path(route.path).first(),
 )
 
+// TODO: refactor this with new approach
 const { data: authors } = await useGetAllAuthors()
 
 if (error.value) {

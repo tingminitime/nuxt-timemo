@@ -5,7 +5,7 @@ export default defineContentConfig({
   collections: {
     articles: defineCollection(
       asSeoCollection({
-        source: '**/articles/*.md',
+        source: 'articles/**/*.md',
         type: 'page',
         schema: z.object({
           author: z.string(),
@@ -22,6 +22,7 @@ export default defineContentConfig({
           modified_date: z.string().optional(),
           modified_date_iso_string: z.string().optional(),
           modified_date_format: z.string().optional(),
+          draft: z.boolean().optional(),
         }),
       }),
     ),
