@@ -1,14 +1,22 @@
 <script setup lang="ts">
-import type { ParsedPage } from '~/types/common'
+// import type { ParsedPage } from '~/types/common'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
+// const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
+const { data: pageBase } = await useAsyncData(
+  route.path,
+  () => queryCollection('base')
+    .where('stem', '=', 'categories/base')
+    .first(),
+)
 
 // TODO: refactor this with new approach
 // const { getFlatArticleCategories } = useGetArticleCategories()
 // const { data: articleFlatCategories } = await getFlatArticleCategories()
+const { getArticleCategories } = useGetCategories()
+const { data: articleFlatCategories } = await getArticleCategories()
 
 const prerenderCategoriesRoutes = computed(() => {
   return articleFlatCategories.value.map(category => `/categories/${category.slug}`)
@@ -18,14 +26,14 @@ prerenderRoutes(prerenderCategoriesRoutes.value)
 
 /* SEO */
 useSeoMeta({
-  title: pageData.value?.title,
-  description: pageData.value?.description,
-  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
-  ogDescription: pageData.value?.description,
-  ogImage: pageData.value?.ogImage,
-  twitterTitle: pageData.value?.title,
-  twitterDescription: pageData.value?.description,
-  twitterImage: pageData.value?.ogImage,
+  title: pageBase.value?.title,
+  description: pageBase.value?.description,
+  ogTitle: `${pageBase.value?.title} | ${runtimeConfig.public.siteName}`,
+  ogDescription: pageBase.value?.description,
+  ogImage: pageBase.value?.ogImage,
+  twitterTitle: pageBase.value?.title,
+  twitterDescription: pageBase.value?.description,
+  twitterImage: pageBase.value?.ogImage,
   twitterCard: 'summary_large_image',
 })
 
@@ -46,7 +54,7 @@ useSchemaOrg([
 <template>
   <AppHero class="mb-8">
     <template #title>
-      {{ pageData?.hero?.title || pageData?.title }}
+      {{ pageBase?.hero?.title || pageBase?.title }}
     </template>
   </AppHero>
 
@@ -54,10 +62,10 @@ useSchemaOrg([
     <ul class="flex flex-col gap-2">
       <li
         v-for="category in articleFlatCategories"
-        :key="category._path"
+        :key="category.path"
       >
         <NuxtLink
-          :to="`/categories/${category.slug}`"
+          :to="`/categories/${category.stem}`"
           :aria-label="`前往分類頁面 - ${category.title}`"
           class="flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200 md:dark:hover:bg-sky-700"
         >

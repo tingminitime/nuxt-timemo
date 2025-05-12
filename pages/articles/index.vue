@@ -6,7 +6,9 @@ const runtimeConfig = useRuntimeConfig()
 // const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
 const { data: pageBase } = await useAsyncData(
   route.path,
-  () => queryCollection('base').first(),
+  () => queryCollection('base')
+    .where('stem', '=', 'articles/base')
+    .first(),
 )
 
 const {

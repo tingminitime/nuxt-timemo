@@ -5,7 +5,7 @@ export default defineContentConfig({
   collections: {
     articles: defineCollection(
       asSeoCollection({
-        source: 'articles/**/*.md',
+        source: 'articles/**/*.{md,yml}',
         type: 'page',
         schema: z.object({
           author: z.string(),
