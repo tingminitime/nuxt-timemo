@@ -10,14 +10,23 @@ const queryPath = computed(() => isUnclassified.value ? '/articles/' : `/article
 // TODO: refactor this with new approach
 // const { getFlatArticleCategories } = useGetArticleCategories()
 // const { data: articleFlatCategories } = await getFlatArticleCategories()
+const { getArticleCategories } = useGetCategories()
+const { data: articleFlatCategories } = await getArticleCategories()
 
 // TODO: refactor this with new approach
 // const { getAllPublishedPosts, getUnclassifiedPosts } = useGetPublishedPosts()
+const {
+  getAllArticlesGroupedByYear,
+  getUnclassifiedArticles,
+} = useGetArticles()
 // const { data: groupedArticlesByYear, error } = await (
 //   isUnclassified.value
 //     ? getUnclassifiedPosts()
 //     : getAllPublishedPosts(articleFlatCategories.value, queryPath.value)
 // )
+
+// TODO: the data is empty, need to check the query
+const { data: groupedArticlesByYear, error } = await getUnclassifiedArticles()
 
 if (error.value) {
   throw createError({
@@ -26,7 +35,10 @@ if (error.value) {
   })
 }
 
-const categoryData = computed(() => articleFlatCategories.value.find(category => category.slug === route.params.slug))
+const categoryData = computed(() => {
+  return articleFlatCategories.value
+    .find(category => category.slug === route.params.slug)
+})
 
 /* SEO */
 useSeoMeta({
@@ -83,14 +95,14 @@ useSchemaOrg([
     >
       <ArticleItem
         v-for="article in groupedArticles.articles"
-        :key="`${article._path}-${categoryData?.slug}`"
-        :to="article._path"
+        :key="`${article.path}-${categoryData?.slug}`"
+        :to="article.path"
         :title="article.title"
         :description="article.description"
         :author="article.author"
-        :category-id="article._dir"
+        :category-id="article.stem"
         :category="article.category"
-        :cover-image="article.cover.src"
+        :cover-image="article.cover?.src"
         :published-date-format="article.published_date_format"
         :published-date-iso-string="article.published_date_iso_string"
       />

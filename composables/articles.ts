@@ -11,10 +11,17 @@ export function useGetArticles() {
       .all()
   }
 
+  function createUnclassifiedArticlesQuery() {
+    return queryCollection('articles')
+      .path('/articles')
+      .order('published_date', 'DESC')
+      .all()
+  }
+
   /**
    * Filtering valid articles
    */
-  function filterValidPosts(posts: ArticlesCollectionItem[]) {
+  function filterValidArticles(posts: ArticlesCollectionItem[]) {
     return posts.filter(post => !post.draft)
   }
 
@@ -53,7 +60,7 @@ export function useGetArticles() {
   function getAllArticlesGroupedByYear() {
     const queryAllArticles = () => {
       return createAllArticlesQuery()
-        .then(articles => filterValidPosts(articles))
+        .then(articles => filterValidArticles(articles))
     }
 
     return useAsyncData(
@@ -66,7 +73,27 @@ export function useGetArticles() {
     )
   }
 
+  /**
+   * Retrieving unclassified articles (only in the `/articles` directory)
+   */
+  function getUnclassifiedArticles() {
+    const queryUnclassifiedArticles = () => {
+      return createUnclassifiedArticlesQuery()
+        .then(articles => filterValidArticles(articles))
+    }
+
+    return useAsyncData(
+      `unclassified-articles`,
+      queryUnclassifiedArticles,
+      {
+        default: () => [],
+        transform: groupArticlesByYear,
+      }
+    )
+  }
+
   return {
     getAllArticlesGroupedByYear,
+    getUnclassifiedArticles,
   }
 }
