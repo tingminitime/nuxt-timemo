@@ -7,13 +7,15 @@ export function useGetArticles() {
    */
   function createAllArticlesQuery() {
     return queryCollection('articles')
+      .where('extension', '=', 'md')
       .order('published_date', 'DESC')
       .all()
   }
 
   function createUnclassifiedArticlesQuery() {
     return queryCollection('articles')
-      .path('/articles')
+      .where('extension', '=', 'md')
+      .where('category', 'IS NULL')
       .order('published_date', 'DESC')
       .all()
   }
@@ -88,7 +90,7 @@ export function useGetArticles() {
       {
         default: () => [],
         transform: groupArticlesByYear,
-      }
+      },
     )
   }
 
