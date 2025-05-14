@@ -5,28 +5,22 @@ const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
 const isUnclassified = computed(() => route.params.slug === 'articles')
-const queryPath = computed(() => isUnclassified.value ? '/articles/' : `/articles/${route.params.slug}/`)
+const queryPath = computed(() => isUnclassified.value ? '/articles/' : route.params.slug)
 
-// TODO: refactor this with new approach
-// const { getFlatArticleCategories } = useGetArticleCategories()
-// const { data: articleFlatCategories } = await getFlatArticleCategories()
 const { getArticleCategories } = useGetCategories()
 const { data: articleFlatCategories } = await getArticleCategories()
 
-// TODO: refactor this with new approach
-// const { getAllPublishedPosts, getUnclassifiedPosts } = useGetPublishedPosts()
 const {
-  getAllArticlesGroupedByYear,
+  getArticlesWithCategory,
   getUnclassifiedArticles,
 } = useGetArticles()
-// const { data: groupedArticlesByYear, error } = await (
-//   isUnclassified.value
-//     ? getUnclassifiedPosts()
-//     : getAllPublishedPosts(articleFlatCategories.value, queryPath.value)
-// )
 
-// TODO: the data is empty, need to check the query
-const { data: groupedArticlesByYear, error } = await getUnclassifiedArticles()
+// TODO: `getArticlesWithCategory` - query by `stem`
+const { data: groupedArticlesByYear, error } = await (
+  isUnclassified.value
+    ? getUnclassifiedArticles()
+    : getArticlesWithCategory(queryPath.value)
+)
 
 if (error.value) {
   throw createError({

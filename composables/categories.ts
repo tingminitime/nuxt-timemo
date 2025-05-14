@@ -1,10 +1,5 @@
 import type { ContentNavigationItem } from '@nuxt/content'
-
-type NavItemWithCategory = ContentNavigationItem & {
-  slug?: string
-  icon?: string
-  count?: number
-}
+import type { NavItemWithCategory } from '~/types/category'
 
 export function useGetCategories() {
   /**
@@ -47,13 +42,13 @@ export function useGetCategories() {
       })
     }
 
-    //
+    // Second, calculate the count of all items in children
     node.children?.forEach((child) => {
       if ('children' in child) {
         result.push({
           path: child.path,
           title: child.title,
-          stem: child.stem,
+          stem: child.stem?.split('/').at(-1),
           icon: child.icon as string | undefined,
           count: countAllItemsInChildren(child),
         })
@@ -73,7 +68,7 @@ export function useGetCategories() {
 
   function getArticleCategories() {
     return useAsyncData(
-      'article-categories',
+      'article-flat-categories',
       () => createCollectionNavigationQuery(),
       {
         default: () => [],

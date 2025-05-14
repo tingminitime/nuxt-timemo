@@ -19,14 +19,9 @@ const {
   currentArticleComponent,
 } = useUserPrefer()
 
-/* Articles data */
-// TODO: refactor this with new approach
-// const { getFlatArticleCategories } = useGetArticleCategories()
-// const { data: articleFlatCategories } = await getFlatArticleCategories()
-
-// TODO: refactor this with new approach
-// const { getAllPublishedPosts } = useGetPublishedPosts()
-// const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
+// TODO: find category title from `articleFlatCategories`
+const { getArticleCategories } = useGetCategories()
+const { data: articleFlatCategories } = await getArticleCategories()
 
 const { getAllArticlesGroupedByYear } = useGetArticles()
 const { data: groupedArticlesByYear } = await getAllArticlesGroupedByYear()

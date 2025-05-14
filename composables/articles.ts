@@ -1,4 +1,3 @@
-// TODO: 完成新的取得所有文章方法
 import type { ArticlesCollectionItem } from '@nuxt/content'
 
 export function useGetArticles() {
@@ -8,6 +7,15 @@ export function useGetArticles() {
   function createAllArticlesQuery() {
     return queryCollection('articles')
       .where('extension', '=', 'md')
+      .order('published_date', 'DESC')
+      .all()
+  }
+
+  function createArticlesWithCategoryQuery(path: string) {
+    return queryCollection('articles')
+      // .where('stem', '=', )
+      .where('extension', '=', 'md')
+      // .where('category', '!=', null)
       .order('published_date', 'DESC')
       .all()
   }
@@ -76,6 +84,28 @@ export function useGetArticles() {
   }
 
   /**
+   * Retrieving all published articles with categroy path
+   */
+  function getArticlesWithCategory(path: string) {
+    const queryAritclesWithCategory = () => {
+      return createArticlesWithCategoryQuery(path)
+        .then((articles) => {
+          console.log('articles with category:', articles)
+          return filterValidArticles(articles)
+        })
+    }
+
+    return useAsyncData(
+      `articles-with-category-${path}`,
+      queryAritclesWithCategory,
+      {
+        default: () => [],
+        // transform: groupArticlesByYear,
+      },
+    )
+  }
+
+  /**
    * Retrieving unclassified articles (only in the `/articles` directory)
    */
   function getUnclassifiedArticles() {
@@ -96,6 +126,7 @@ export function useGetArticles() {
 
   return {
     getAllArticlesGroupedByYear,
+    getArticlesWithCategory,
     getUnclassifiedArticles,
   }
 }
