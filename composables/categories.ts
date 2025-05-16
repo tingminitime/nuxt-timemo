@@ -36,7 +36,7 @@ export function useGetCategories() {
       result.push({
         path: node.path,
         title: node.title,
-        stem: node.stem,
+        category_id: node.stem,
         icon: node.icon as string | undefined,
         count: rootCount,
       })
@@ -48,7 +48,7 @@ export function useGetCategories() {
         result.push({
           path: child.path,
           title: child.title,
-          stem: child.stem?.split('/').at(-1),
+          category_id: child.stem?.split('/').at(-1),
           icon: child.icon as string | undefined,
           count: countAllItemsInChildren(child),
         })
@@ -66,6 +66,9 @@ export function useGetCategories() {
     return flatNavigation(articlesNavigation)
   }
 
+  /**
+   * Use `content/articles/*` directory name as `category_id`
+   */
   function getArticleCategories() {
     return useAsyncData(
       'article-flat-categories',

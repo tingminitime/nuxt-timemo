@@ -4,4 +4,5 @@ export type NavItemWithCategory = ContentNavigationItem & {
   slug?: string
   icon?: string
   count?: number
+  category_id?: string
 }

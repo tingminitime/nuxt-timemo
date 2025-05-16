@@ -65,7 +65,7 @@ useSchemaOrg([
         :key="category.path"
       >
         <NuxtLink
-          :to="`/categories/${category.stem}`"
+          :to="`/categories/${category.category_id}`"
           :aria-label="`前往分類頁面 - ${category.title}`"
           class="flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200 md:dark:hover:bg-sky-700"
         >

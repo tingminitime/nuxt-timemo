@@ -13,17 +13,15 @@ export function useGetArticles() {
 
   function createArticlesWithCategoryQuery(path: string) {
     return queryCollection('articles')
-      // .where('stem', '=', )
       .where('extension', '=', 'md')
-      // .where('category', '!=', null)
       .order('published_date', 'DESC')
       .all()
   }
 
+  // TODO: Perhaps it would be better to go back to including `category` meta in markdown.
   function createUnclassifiedArticlesQuery() {
     return queryCollection('articles')
       .where('extension', '=', 'md')
-      .where('category', 'IS NULL')
       .order('published_date', 'DESC')
       .all()
   }
@@ -35,14 +33,31 @@ export function useGetArticles() {
     return posts.filter(post => !post.draft)
   }
 
+  function addCategoryToArticles(articles: ArticlesCollectionItem[]) {
+    return articles.map((article) => {
+      const pathParts = article.stem.split('/')
+      const category_id = pathParts.length >= 3
+        ? pathParts[1]
+        : pathParts[0]
+
+      return {
+        ...article,
+        category_id,
+      }
+    })
+  }
+
   function groupArticlesByYear(articles: ArticlesCollectionItem[]) {
     if (!articles)
       return []
 
-    const articlesClone = structuredClone(articles)
-    const groupedArticles = Object.groupBy(articlesClone, ({ published_date }) => {
-      return new Date(published_date).getFullYear() || ''
-    })
+    const articlesWithCategoryId = addCategoryToArticles(articles)
+    const groupedArticles = Object.groupBy(
+      articlesWithCategoryId,
+      ({ published_date }) => {
+        return new Date(published_date).getFullYear() || ''
+      },
+    )
 
     const entries = Object.entries(groupedArticles)
 
@@ -78,16 +93,17 @@ export function useGetArticles() {
       queryAllArticles,
       {
         default: () => [],
+        // transform: groupArticlesByYear,
         transform: groupArticlesByYear,
       },
     )
   }
 
   /**
-   * Retrieving all published articles with categroy path
+   * Retrieving all published articles with category path
    */
   function getArticlesWithCategory(path: string) {
-    const queryAritclesWithCategory = () => {
+    const queryArticlesWithCategory = () => {
       return createArticlesWithCategoryQuery(path)
         .then((articles) => {
           console.log('articles with category:', articles)
@@ -97,7 +113,7 @@ export function useGetArticles() {
 
     return useAsyncData(
       `articles-with-category-${path}`,
-      queryAritclesWithCategory,
+      queryArticlesWithCategory,
       {
         default: () => [],
         // transform: groupArticlesByYear,

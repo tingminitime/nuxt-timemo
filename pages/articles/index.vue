@@ -26,6 +26,12 @@ const { data: articleFlatCategories } = await getArticleCategories()
 const { getAllArticlesGroupedByYear } = useGetArticles()
 const { data: groupedArticlesByYear } = await getAllArticlesGroupedByYear()
 
+function getArticleCategoryTitle(categoryId: string) {
+  return articleFlatCategories.value
+    .find(category => category.category_id === categoryId)
+    ?.title
+}
+
 /* SEO */
 useSeoMeta({
   title: pageBase.value?.title,
@@ -112,8 +118,7 @@ useSchemaOrg([
           :title="article.title"
           :description="article.description"
           :author="article.author"
-          :category-id="article.stem"
-          :category="article.category"
+          :category="getArticleCategoryTitle(article.category_id)"
           :cover-image="article.cover?.src"
           :published-date-format="article.published_date_format"
           :published-date-iso-string="article.published_date_iso_string"

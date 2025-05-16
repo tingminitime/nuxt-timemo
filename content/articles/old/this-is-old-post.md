@@ -2,7 +2,6 @@
 title: This is old post
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui. Nullam vel eros sit amet arcu vestibulum accumsan in in leo.
 author: tim
-category: Old Directory
 tags: ["old"]
 image: /assets/articles/nighttime-mountain.jpg
 cover:
