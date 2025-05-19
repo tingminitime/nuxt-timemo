@@ -1,7 +1,43 @@
-import type { ContentNavigationItem } from '@nuxt/content'
+import type { ArticlesCollectionItem, ContentNavigationItem } from '@nuxt/content'
 import type { NavItemWithCategory } from '~/types/category'
+import { categories } from '~/constants'
 
 export function useGetCategories() {
+  /**
+   * Select all categories
+   */
+  function createAllArticlesQuery() {
+    return queryCollection('articles')
+      .where('extension', '=', 'md')
+      .where('draft', 'IS NULL')
+      .select('category')
+      .all()
+  }
+
+  function mergeCategoriesData(
+    data: Pick<ArticlesCollectionItem, 'category'>[],
+  ) {
+    // return categories.filter(category => {
+    //   return data.some(item => {
+    //     return item.category === category.id
+    //   })
+    // })
+  }
+
+  function getArticleCategories() {
+    return useAsyncData(
+      'all-articles',
+      () => createAllArticlesQuery(),
+      {
+        default: () => [],
+        transform: (result) => {
+          const categories = result.map(item => item.category || 'uncategorized')
+          return [...new Set(categories)]
+        },
+      },
+    )
+  }
+
   /**
    * Basic navigation query
    */
@@ -69,9 +105,9 @@ export function useGetCategories() {
   /**
    * Use `content/articles/*` directory name as `category_id`
    */
-  function getArticleCategories() {
+  function getArticleCategoriesByDirectory() {
     return useAsyncData(
-      'article-flat-categories',
+      'article-flat-categories-by-directory',
       () => createCollectionNavigationQuery(),
       {
         default: () => [],
@@ -81,6 +117,7 @@ export function useGetCategories() {
   }
 
   return {
+    getArticleCategoriesByDirectory,
     getArticleCategories,
   }
 }

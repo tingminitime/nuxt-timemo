@@ -1,4 +1,4 @@
-import type { SocialLinkType } from '~/types/common'
+import type { Category, SocialLinkType } from '~/types/common'
 
 export const appName = 'timemo'
 export const appDescription = 'My dev notes.'
@@ -16,6 +16,34 @@ export const navigation = [
   {
     name: '分類',
     path: '/categories',
+  },
+]
+
+export const categories: Category[] = [
+  {
+    id: 'uncategorized',
+    text: '未分類',
+    icon: 'i-heroicons-globe-alt',
+  },
+  {
+    id: 'hello',
+    text: 'Hello Directory',
+    icon: 'i-skill-icons-devto-light',
+  },
+  {
+    id: 'nuxt',
+    text: 'Nuxt',
+    icon: 'i-skill-icons-nuxtjs-light',
+  },
+  {
+    id: 'old',
+    text: 'Old Directory',
+    icon: 'i-skill-icons-react-dark',
+  },
+  {
+    id: 'vue',
+    text: 'Vue',
+    icon: 'i-skill-icons-vuejs-light',
   },
 ]
 

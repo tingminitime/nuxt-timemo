@@ -1,10 +1,9 @@
 <script setup lang="ts">
-// import type { ParsedPage } from '~/types/common'
+import { categories } from '~/constants'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-// const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
 const { data: pageBase } = await useAsyncData(
   route.path,
   () => queryCollection('base')
@@ -12,14 +11,11 @@ const { data: pageBase } = await useAsyncData(
     .first(),
 )
 
-// TODO: refactor this with new approach
-// const { getFlatArticleCategories } = useGetArticleCategories()
-// const { data: articleFlatCategories } = await getFlatArticleCategories()
 const { getArticleCategories } = useGetCategories()
 const { data: articleFlatCategories } = await getArticleCategories()
 
 const prerenderCategoriesRoutes = computed(() => {
-  return articleFlatCategories.value.map(category => `/categories/${category.slug}`)
+  return articleFlatCategories.value.map(category => `/categories/${category}`)
 })
 
 prerenderRoutes(prerenderCategoriesRoutes.value)
@@ -60,7 +56,7 @@ useSchemaOrg([
 
   <div>
     <ul class="flex flex-col gap-2">
-      <li
+      <!-- <li
         v-for="category in articleFlatCategories"
         :key="category.path"
       >
@@ -76,7 +72,7 @@ useSchemaOrg([
           />
           <span class="text-gray-700 dark:text-gray-300">{{ category.title }}&nbsp;({{ category.count || '0' }})</span>
         </NuxtLink>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>

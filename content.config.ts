@@ -9,7 +9,7 @@ export default defineContentConfig({
         type: 'page',
         schema: z.object({
           author: z.string(),
-          category_id: z.string(),
+          category: z.string().optional(),
           tags: z.array(z.string()).optional(),
           image: z.string().optional(),
           cover: z.object({

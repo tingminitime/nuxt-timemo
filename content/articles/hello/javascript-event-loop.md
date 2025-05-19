@@ -2,7 +2,8 @@
 title: JavaScript - Event Loop Lorem Ipsum is simply dummy text of the printing and typesetting industry
 description: Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
 author: tim
-tags: ["hello"]
+category: hello
+tags: ["hello", "javascript"]
 image: /assets/social/cute-penguin.jpg
 cover:
   src: /assets/articles/cute-penguin.jpg

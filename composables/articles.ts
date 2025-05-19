@@ -122,7 +122,7 @@ export function useGetArticles() {
   }
 
   /**
-   * Retrieving unclassified articles (only in the `/articles` directory)
+   * Retrieving uncategorized articles (only in the `/articles` directory)
    */
   function getUnclassifiedArticles() {
     const queryUnclassifiedArticles = () => {
@@ -131,7 +131,7 @@ export function useGetArticles() {
     }
 
     return useAsyncData(
-      `unclassified-articles`,
+      `uncategorized-articles`,
       queryUnclassifiedArticles,
       {
         default: () => [],

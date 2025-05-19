@@ -2,6 +2,7 @@
 title: Vue.js 第一篇文章
 description: Vue.js says 「 Hello World 」 to you.
 author: tim
+category: vue
 tags: ["vue", "hello"]
 image: /assets/articles/vue-banner-1.jpg
 cover:
