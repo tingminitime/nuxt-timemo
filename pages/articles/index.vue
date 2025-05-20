@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// import type { ParsedPage } from '~/types/common'
-
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 // const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
@@ -25,12 +23,6 @@ const { data: articleFlatCategories } = await getArticleCategories()
 
 const { getAllArticlesGroupedByYear } = useGetArticles()
 const { data: groupedArticlesByYear } = await getAllArticlesGroupedByYear()
-
-function getArticleCategoryTitle(categoryId: string) {
-  return articleFlatCategories.value
-    .find(category => category.category_id === categoryId)
-    ?.title
-}
 
 /* SEO */
 useSeoMeta({
@@ -118,7 +110,7 @@ useSchemaOrg([
           :title="article.title"
           :description="article.description"
           :author="article.author"
-          :category="getArticleCategoryTitle(article.category_id)"
+          :category="getCategoryWithCategoryId(article.category)?.text"
           :cover-image="article.cover?.src"
           :published-date-format="article.published_date_format"
           :published-date-iso-string="article.published_date_iso_string"

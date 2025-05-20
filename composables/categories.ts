@@ -14,25 +14,34 @@ export function useGetCategories() {
       .all()
   }
 
-  function mergeCategoriesData(
-    data: Pick<ArticlesCollectionItem, 'category'>[],
+  function getCategoriesWithCount(
+    categoriesFromArticles: string[],
   ) {
-    // return categories.filter(category => {
-    //   return data.some(item => {
-    //     return item.category === category.id
-    //   })
-    // })
+    const countMap = categoriesFromArticles.reduce((map, id) => {
+      map.set(id, (map.get(id) || 0) + 1)
+      return map
+    }, new Map<string, number>())
+
+    return categories
+      .filter(category => countMap.has(category.id))
+      .map(category => ({
+        ...category,
+        count: countMap.get(category.id)!,
+      }))
   }
 
   function getArticleCategories() {
     return useAsyncData(
-      'all-articles',
+      'article-categories',
       () => createAllArticlesQuery(),
       {
         default: () => [],
         transform: (result) => {
-          const categories = result.map(item => item.category || 'uncategorized')
-          return [...new Set(categories)]
+          const categories = result
+            .map(item => item.category || 'uncategorized')
+            .sort((a, b) => a.localeCompare(b))
+
+          return getCategoriesWithCount(categories)
         },
       },
     )

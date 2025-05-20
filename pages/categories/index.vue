@@ -15,7 +15,7 @@ const { getArticleCategories } = useGetCategories()
 const { data: articleFlatCategories } = await getArticleCategories()
 
 const prerenderCategoriesRoutes = computed(() => {
-  return articleFlatCategories.value.map(category => `/categories/${category}`)
+  return articleFlatCategories.value.map(category => `/categories/${category.id}`)
 })
 
 prerenderRoutes(prerenderCategoriesRoutes.value)
@@ -56,13 +56,13 @@ useSchemaOrg([
 
   <div>
     <ul class="flex flex-col gap-2">
-      <!-- <li
+      <li
         v-for="category in articleFlatCategories"
-        :key="category.path"
+        :key="category.id"
       >
         <NuxtLink
-          :to="`/categories/${category.category_id}`"
-          :aria-label="`前往分類頁面 - ${category.title}`"
+          :to="`/categories/${category.id}`"
+          :aria-label="`前往分類頁面 - ${category.text}`"
           class="flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200 md:dark:hover:bg-sky-700"
         >
           <Icon
@@ -70,9 +70,9 @@ useSchemaOrg([
             :name="category.icon"
             class="md:size-6"
           />
-          <span class="text-gray-700 dark:text-gray-300">{{ category.title }}&nbsp;({{ category.count || '0' }})</span>
+          <span class="text-gray-700 dark:text-gray-300">{{ category.text }}&nbsp;({{ category.count || '0' }})</span>
         </NuxtLink>
-      </li> -->
+      </li>
     </ul>
   </div>
 </template>

@@ -1,25 +1,28 @@
 <script setup lang="ts">
-// import { useGetPublishedPosts } from '~/composables/useGetPublishedPosts'
+import { categories } from '~/constants'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-const isUnclassified = computed(() => route.params.slug === 'articles')
-const queryPath = computed(() => isUnclassified.value ? '/articles/' : route.params.slug)
+// const isUnclassified = computed(() => route.params.slug === 'articles')
+// const queryPath = computed(() => isUnclassified.value ? '/articles/' : route.params.slug)
 
-const { getArticleCategories } = useGetCategories()
-const { data: articleFlatCategories } = await getArticleCategories()
+// const { getArticleCategories } = useGetCategories()
+// const { data: articleFlatCategories } = await getArticleCategories()
 
 const {
   getArticlesWithCategory,
-  getUnclassifiedArticles,
+  // getUnclassifiedArticles,
 } = useGetArticles()
 
-// TODO: `getArticlesWithCategory` - query by `stem`
-const { data: groupedArticlesByYear, error } = await (
-  isUnclassified.value
-    ? getUnclassifiedArticles()
-    : getArticlesWithCategory(queryPath.value)
+// const { data: groupedArticlesByYear, error } = await (
+//   isUnclassified.value
+//     ? getUnclassifiedArticles()
+//     : getArticlesWithCategory(queryPath.value)
+// )
+// TODO: Fix uncategorized articles
+const { data: groupedArticlesByYear, error } = await getArticlesWithCategory(
+  route.params.slug as string,
 )
 
 if (error.value) {
@@ -29,17 +32,20 @@ if (error.value) {
   })
 }
 
+// const categoryData = computed(() => {
+//   return articleFlatCategories.value
+//     .find(category => category.slug === route.params.slug)
+// })
 const categoryData = computed(() => {
-  return articleFlatCategories.value
-    .find(category => category.slug === route.params.slug)
+  return categories.find(category => category.id === route.params.slug)
 })
 
 /* SEO */
 useSeoMeta({
-  title: `分類 - ${categoryData.value?.title}`,
-  ogTitle: `分類 - ${categoryData.value?.title} | ${runtimeConfig.public.siteName}`,
-  description: `在 ${categoryData.value?.title} 分類下的文章`,
-  ogDescription: `在 ${categoryData.value?.title} 分類下的文章`,
+  title: `分類 - ${categoryData.value?.text}`,
+  ogTitle: `分類 - ${categoryData.value?.text} | ${runtimeConfig.public.siteName}`,
+  description: `在 ${categoryData.value?.text} 分類下的文章`,
+  ogDescription: `在 ${categoryData.value?.text} 分類下的文章`,
 })
 
 useSchemaOrg([
@@ -47,7 +53,7 @@ useSchemaOrg([
     itemListElement: [
       { name: '首頁', item: '/' },
       { name: '分類' },
-      { name: categoryData.value?.title },
+      { name: categoryData.value?.text },
     ],
   }),
   // Refer : https://unhead.unjs.io/schema-org/schema/webpage
@@ -77,19 +83,19 @@ useSchemaOrg([
         v-if="categoryData?.icon"
         :name="categoryData.icon"
       />
-      <span>{{ categoryData?.title || '未分類' }}</span>
+      <span>{{ categoryData?.text || '未分類' }}</span>
     </template>
   </AppHero>
 
   <div class="flex flex-col gap-y-6">
     <ArticleListLayout
       v-for="groupedArticles in groupedArticlesByYear"
-      :key="`${groupedArticles.year}-${categoryData?.slug}`"
+      :key="`${groupedArticles.year}-${categoryData?.id}`"
       :year="groupedArticles.year"
     >
       <ArticleItem
         v-for="article in groupedArticles.articles"
-        :key="`${article.path}-${categoryData?.slug}`"
+        :key="`${article.path}-${categoryData?.id}`"
         :to="article.path"
         :title="article.title"
         :description="article.description"

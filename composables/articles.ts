@@ -11,20 +11,23 @@ export function useGetArticles() {
       .all()
   }
 
-  function createArticlesWithCategoryQuery(path: string) {
+  function createArticlesWithCategoryQuery(category: string) {
     return queryCollection('articles')
       .where('extension', '=', 'md')
+      .where('draft', 'IS NULL')
+      .where('category', '=', category)
       .order('published_date', 'DESC')
       .all()
   }
 
-  // TODO: Perhaps it would be better to go back to including `category` meta in markdown.
-  function createUnclassifiedArticlesQuery() {
-    return queryCollection('articles')
-      .where('extension', '=', 'md')
-      .order('published_date', 'DESC')
-      .all()
-  }
+  // function createUnclassifiedArticlesQuery() {
+  //   return queryCollection('articles')
+  //     .where('extension', '=', 'md')
+  //     .where('draft', 'IS NULL')
+  //     .where('category', )
+  //     .order('published_date', 'DESC')
+  //     .all()
+  // }
 
   /**
    * Filtering valid articles
@@ -102,9 +105,9 @@ export function useGetArticles() {
   /**
    * Retrieving all published articles with category path
    */
-  function getArticlesWithCategory(path: string) {
+  function getArticlesWithCategory(category: string) {
     const queryArticlesWithCategory = () => {
-      return createArticlesWithCategoryQuery(path)
+      return createArticlesWithCategoryQuery(category)
         .then((articles) => {
           console.log('articles with category:', articles)
           return filterValidArticles(articles)
@@ -112,27 +115,8 @@ export function useGetArticles() {
     }
 
     return useAsyncData(
-      `articles-with-category-${path}`,
+      `articles-with-category-${category}`,
       queryArticlesWithCategory,
-      {
-        default: () => [],
-        // transform: groupArticlesByYear,
-      },
-    )
-  }
-
-  /**
-   * Retrieving uncategorized articles (only in the `/articles` directory)
-   */
-  function getUnclassifiedArticles() {
-    const queryUnclassifiedArticles = () => {
-      return createUnclassifiedArticlesQuery()
-        .then(articles => filterValidArticles(articles))
-    }
-
-    return useAsyncData(
-      `uncategorized-articles`,
-      queryUnclassifiedArticles,
       {
         default: () => [],
         transform: groupArticlesByYear,
@@ -140,9 +124,28 @@ export function useGetArticles() {
     )
   }
 
+  /**
+   * Retrieving uncategorized articles (only in the `/articles` directory)
+   */
+  // function getUnclassifiedArticles() {
+  //   const queryUnclassifiedArticles = () => {
+  //     return createUnclassifiedArticlesQuery()
+  //       .then(articles => filterValidArticles(articles))
+  //   }
+
+  //   return useAsyncData(
+  //     `uncategorized-articles`,
+  //     queryUnclassifiedArticles,
+  //     {
+  //       default: () => [],
+  //       transform: groupArticlesByYear,
+  //     },
+  //   )
+  // }
+
   return {
     getAllArticlesGroupedByYear,
     getArticlesWithCategory,
-    getUnclassifiedArticles,
+    // getUnclassifiedArticles,
   }
 }

@@ -9,6 +9,10 @@ export interface Category {
   icon: string
 }
 
+export interface CategoryWithCount extends Category {
+  count: number
+}
+
 export interface SocialLinks {
   type: SocialLinkType
   url: string
