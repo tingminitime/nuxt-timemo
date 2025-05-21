@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
-// const { data: pageData } = await useAsyncData(route.path, () => queryCollection<ParsedPage>(route.path).findOne())
+
 const { data: pageBase } = await useAsyncData(
   route.path,
   () => queryCollection('base')
@@ -16,10 +16,6 @@ const {
   currentArticleLayoutComponent,
   currentArticleComponent,
 } = useUserPrefer()
-
-// TODO: find category title from `articleFlatCategories`
-const { getArticleCategories } = useGetCategories()
-const { data: articleFlatCategories } = await getArticleCategories()
 
 const { getAllArticlesGroupedByYear } = useGetArticles()
 const { data: groupedArticlesByYear } = await getAllArticlesGroupedByYear()

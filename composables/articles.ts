@@ -7,56 +7,38 @@ export function useGetArticles() {
   function createAllArticlesQuery() {
     return queryCollection('articles')
       .where('extension', '=', 'md')
+      .where('draft', 'IS NULL')
       .order('published_date', 'DESC')
       .all()
   }
 
   function createArticlesWithCategoryQuery(category: string) {
-    return queryCollection('articles')
-      .where('extension', '=', 'md')
-      .where('draft', 'IS NULL')
-      .where('category', '=', category)
-      .order('published_date', 'DESC')
-      .all()
-  }
-
-  // function createUnclassifiedArticlesQuery() {
-  //   return queryCollection('articles')
-  //     .where('extension', '=', 'md')
-  //     .where('draft', 'IS NULL')
-  //     .where('category', )
-  //     .order('published_date', 'DESC')
-  //     .all()
-  // }
-
-  /**
-   * Filtering valid articles
-   */
-  function filterValidArticles(posts: ArticlesCollectionItem[]) {
-    return posts.filter(post => !post.draft)
-  }
-
-  function addCategoryToArticles(articles: ArticlesCollectionItem[]) {
-    return articles.map((article) => {
-      const pathParts = article.stem.split('/')
-      const category_id = pathParts.length >= 3
-        ? pathParts[1]
-        : pathParts[0]
-
-      return {
-        ...article,
-        category_id,
+    switch (category) {
+      case 'uncategorized': {
+        return queryCollection('articles')
+          .where('extension', '=', 'md')
+          .where('draft', 'IS NULL')
+          .where('category', 'IS NULL')
+          .order('published_date', 'DESC')
+          .all()
       }
-    })
+      default: {
+        return queryCollection('articles')
+          .where('extension', '=', 'md')
+          .where('draft', 'IS NULL')
+          .where('category', '=', category)
+          .order('published_date', 'DESC')
+          .all()
+      }
+    }
   }
 
   function groupArticlesByYear(articles: ArticlesCollectionItem[]) {
     if (!articles)
       return []
 
-    const articlesWithCategoryId = addCategoryToArticles(articles)
     const groupedArticles = Object.groupBy(
-      articlesWithCategoryId,
+      articles,
       ({ published_date }) => {
         return new Date(published_date).getFullYear() || ''
       },
@@ -86,17 +68,11 @@ export function useGetArticles() {
    * Retrieving all published articles (including subdirectories)
    */
   function getAllArticlesGroupedByYear() {
-    const queryAllArticles = () => {
-      return createAllArticlesQuery()
-        .then(articles => filterValidArticles(articles))
-    }
-
     return useAsyncData(
       `all-grouped-by-year-articles`,
-      queryAllArticles,
+      createAllArticlesQuery,
       {
         default: () => [],
-        // transform: groupArticlesByYear,
         transform: groupArticlesByYear,
       },
     )
@@ -105,18 +81,12 @@ export function useGetArticles() {
   /**
    * Retrieving all published articles with category path
    */
-  function getArticlesWithCategory(category: string) {
-    const queryArticlesWithCategory = () => {
-      return createArticlesWithCategoryQuery(category)
-        .then((articles) => {
-          console.log('articles with category:', articles)
-          return filterValidArticles(articles)
-        })
-    }
-
+  function getArticlesWithCategory(
+    category: string = 'uncategorized',
+  ) {
     return useAsyncData(
       `articles-with-category-${category}`,
-      queryArticlesWithCategory,
+      () => createArticlesWithCategoryQuery(category),
       {
         default: () => [],
         transform: groupArticlesByYear,
@@ -124,28 +94,8 @@ export function useGetArticles() {
     )
   }
 
-  /**
-   * Retrieving uncategorized articles (only in the `/articles` directory)
-   */
-  // function getUnclassifiedArticles() {
-  //   const queryUnclassifiedArticles = () => {
-  //     return createUnclassifiedArticlesQuery()
-  //       .then(articles => filterValidArticles(articles))
-  //   }
-
-  //   return useAsyncData(
-  //     `uncategorized-articles`,
-  //     queryUnclassifiedArticles,
-  //     {
-  //       default: () => [],
-  //       transform: groupArticlesByYear,
-  //     },
-  //   )
-  // }
-
   return {
     getAllArticlesGroupedByYear,
     getArticlesWithCategory,
-    // getUnclassifiedArticles,
   }
 }

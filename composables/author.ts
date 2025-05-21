@@ -1,22 +1,13 @@
-// import type { ParsedAuthor } from '~/types/author'
 // import type { AuthorsCollectionItem } from '@nuxt/content'
 
 export function useGetAllAuthors() {
-  // const getAllAuthors = () => {
-  //   return queryCollection('authors')
-  //     .first()
-  // }
-
-  // const transform = (authors: AuthorsCollectionItem) => {
-  //   return authors.data
-  // }
+  const getAllAuthors = () => {
+    return queryCollection('authors')
+      .first()
+  }
 
   return useAsyncData(
     'authors',
-    () => queryCollection('authors').first(),
-    {
-      default: () => [],
-      // transform,
-    },
+    getAllAuthors,
   )
 }

@@ -3,24 +3,8 @@ import { categories } from '~/constants'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
+const { getArticlesWithCategory } = useGetArticles()
 
-// const isUnclassified = computed(() => route.params.slug === 'articles')
-// const queryPath = computed(() => isUnclassified.value ? '/articles/' : route.params.slug)
-
-// const { getArticleCategories } = useGetCategories()
-// const { data: articleFlatCategories } = await getArticleCategories()
-
-const {
-  getArticlesWithCategory,
-  // getUnclassifiedArticles,
-} = useGetArticles()
-
-// const { data: groupedArticlesByYear, error } = await (
-//   isUnclassified.value
-//     ? getUnclassifiedArticles()
-//     : getArticlesWithCategory(queryPath.value)
-// )
-// TODO: Fix uncategorized articles
 const { data: groupedArticlesByYear, error } = await getArticlesWithCategory(
   route.params.slug as string,
 )
@@ -32,10 +16,6 @@ if (error.value) {
   })
 }
 
-// const categoryData = computed(() => {
-//   return articleFlatCategories.value
-//     .find(category => category.slug === route.params.slug)
-// })
 const categoryData = computed(() => {
   return categories.find(category => category.id === route.params.slug)
 })

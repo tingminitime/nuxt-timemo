@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import type { ArticlesCollectionItem, Toc } from '@nuxt/content'
-import type { Author } from '~/types/author'
+import type {
+  ArticlesCollectionItem,
+  AuthorsCollectionItem,
+  Toc,
+} from '@nuxt/content'
 
 defineProps<{
   title?: string
@@ -8,7 +11,7 @@ defineProps<{
   modifiedDate?: string | Date
   categoryId?: string
   category?: string
-  authorData?: Author
+  authorData?: AuthorsCollectionItem['data'][number]
   cover?: ArticlesCollectionItem['cover']
   toc: Toc | undefined
 }>()

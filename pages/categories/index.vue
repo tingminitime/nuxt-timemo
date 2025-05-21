@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { categories } from '~/constants'
-
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 

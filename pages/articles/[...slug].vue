@@ -1,18 +1,9 @@
 <script setup lang="ts">
-// import type { ParsedContent } from '@nuxt/content'
-// import type { ParsedArticle } from '~/types/article'
+import { categories } from '~/constants'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-// TODO: refactor this with new approach
-// const { getFlatArticleCategories } = useGetArticleCategories()
-// const { data: articleFlatCategories } = await getFlatArticleCategories()
-
-// const { data: pageData, error } = await useAsyncData(
-//   route.path,
-//   () => queryCollection<ParsedArticle>(route.path).findOne(),
-// )
 const { data: pageData, error } = await useAsyncData(
   route.path,
   () => queryCollection('articles').path(route.path).first(),
@@ -32,24 +23,11 @@ if (error.value) {
  * Find category data by the current page path
  */
 const categoryData = computed(() => {
-  if (!pageData.value?.path)
-    return
-
-  // const sliceEnd = pageData.value?._dir === 'articles' ? 2 : 3
-  // const postCategoryPath = pageData.value?.path
-  //   .split('/')
-  //   .slice(0, sliceEnd)
-  //   .join('/')
-  const postCategoryPath = pageData.value?.path
-    .split('/')
-    .slice(0, 2)
-    .join('/')
-
-  return articleFlatCategories.value.find(category => category._path === postCategoryPath)
+  return categories.find(category => category.id === route.params.slug)
 })
 
 const authorData = computed(() => {
-  return authors.value.find(author => author.id === pageData.value?.author)
+  return authors.value?.data.find(author => author.id === pageData.value?.author)
 })
 
 /* SEO */
@@ -116,8 +94,8 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
     :title="pageData?.title"
     :publish-date="pageData?.published_date"
     :modified-date="pageData?.modified_date"
-    :category-id="categoryData?.slug"
-    :category="categoryData?.title"
+    :category-id="categoryData?.id"
+    :category="categoryData?.text"
     :author-data="authorData"
     :cover="pageData?.cover"
     :toc="pageData?.body?.toc"

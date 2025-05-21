@@ -55,3 +55,45 @@ Copy `.env.example` to `.env.production` and fill in the necessary values.
 ```bash
 pnpm build
 ```
+
+## How to add a new article markdown ?
+
+1. Create a new markdown file in `content/articles/` with the name of your article, for example `my-new-article.md`.
+
+2. Add the following frontmatter to the top of the file:
+    ```yaml
+    ---
+    title: My New Article
+    description: This is a description of my new article.
+    author: <author>
+    category: <category> # Optional
+    tags: ["tag1", "tag2"] # Optional
+    image: /assets/articles/<image>.jpg
+    cover:
+      src: /assets/articles/<image>.jpg
+      alt: <alt>
+    published_date: yyyy-mm-dd HH:MM:ss
+    modified_date: yyyy-mm-dd HH:MM:ss
+    draft: true # Optional
+    ---
+    ```
+
+3. Add your article content below the frontmatter.
+
+### Add new category
+
+1. First, add new category data to `categories` object in `constants/index.ts` file, for example:
+
+```typescript
+// In `constants/index.ts`
+export const categories: Category[] = [
+  // ... existing categories
+  {
+    id: 'new-category',
+    text: 'New Category',
+    icon: 'icon from icones',
+  },
+]
+```
+
+2. Then, add the new category to the `category` field in the frontmatter of your article markdown file.
