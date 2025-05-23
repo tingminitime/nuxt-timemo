@@ -58,7 +58,3 @@ export const socialLinksMap: { type: SocialLinkType, name: string, icon: string 
   { type: 'youtube', name: 'YouTube', icon: 'i-simple-icons-youtube' },
   { type: 'medium', name: 'Medium', icon: 'i-simple-icons-medium' },
 ]
-
-export function getSocialLinkData(type: SocialLinkType = 'website') {
-  return socialLinksMap.find(link => link.type === type) || socialLinksMap[0]
-}

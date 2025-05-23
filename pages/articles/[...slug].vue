@@ -9,7 +9,6 @@ const { data: pageData, error } = await useAsyncData(
   () => queryCollection('articles').path(route.path).first(),
 )
 
-// TODO: refactor this with new approach
 const { data: authors } = await useGetAllAuthors()
 
 if (error.value) {
@@ -75,14 +74,7 @@ useSchemaOrg([
   }),
 ])
 
-/* Surround article data ( `useContent` cannot use when not use `documentDriven` mode ) */
-// const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-//   return queryCollection<ParsedArticle>('/articles')
-//     .where({ _extension: 'md' })
-//     .sort({ published_date: 1 })
-//     .only(['_path', 'title', 'cover'])
-//     .findSurround(route.path)
-// })
+/* Surround article data */
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
   return queryCollectionItemSurroundings('articles', route.path)
     .order('published_date', 'DESC')
