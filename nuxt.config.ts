@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     '@vueuse/motion/nuxt',
     '@pinia/nuxt',
     '@nuxt/icon',
-    'radix-vue/nuxt',
+    'reka-ui/nuxt',
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
     'dayjs-nuxt',

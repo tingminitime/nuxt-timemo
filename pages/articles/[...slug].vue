@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { categories } from '~/constants'
-
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
@@ -22,7 +20,7 @@ if (error.value) {
  * Find category data by the current page path
  */
 const categoryData = computed(() => {
-  return categories.find(category => category.id === route.params.slug)
+  return getCategoryWithCategoryId(pageData.value?.category)
 })
 
 const authorData = computed(() => {
