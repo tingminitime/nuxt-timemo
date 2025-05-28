@@ -1,8 +1,13 @@
-import { _3 } from '#tailwind-config/theme/aspectRatio'
 import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
 
   modules: [
     '@nuxtjs/google-fonts',
@@ -106,12 +111,6 @@ export default defineNuxtConfig({
   },
 
   content: {
-    // experimental: {
-    //   // @ts-expect-error: Unreachable code error
-    //   search: true,
-    // },
-    // ignores: ['drafts'],
-    // documentDriven: false,
     build: {
       markdown: {
         highlight: {

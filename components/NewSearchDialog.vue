@@ -1,12 +1,9 @@
 <!-- Refer: https://lucaong.github.io/minisearch/index.html -->
 <script setup lang="ts">
+import type { SearchResult } from 'minisearch'
 import MiniSearch from 'minisearch'
 
-// TODO: Complete the search functionality
 const openSearch = defineModel<boolean>()
-
-const searchTerm = ref('')
-const searchTermDebounced = refDebounced(searchTerm, 200)
 
 const { data } = await useAsyncData(
   'search',
@@ -17,8 +14,8 @@ const { data } = await useAsyncData(
 )
 
 const miniSearch = new MiniSearch({
-  fields: ['title', 'content'],
-  storeFields: ['title', 'content'],
+  fields: ['title', 'titles', 'content'],
+  storeFields: ['title', 'titles', 'content'],
   searchOptions: {
     prefix: true,
     fuzzy: 0.2,
@@ -28,6 +25,9 @@ const miniSearch = new MiniSearch({
 if (data.value) {
   miniSearch.addAll(toValue(data.value))
 }
+
+const searchTerm = ref('')
+const searchTermDebounced = refDebounced(searchTerm, 200)
 
 const result = computed(() => {
   return miniSearch.search(toValue(searchTermDebounced))
@@ -39,20 +39,49 @@ const filteredResult = computed(() => {
   return result.value
     .filter(item => Math.floor(item.score) >= SEARCH_FILTER_SCORE)
     .slice(0, SEARCH_SLICE_COUNT)
-    // .map((item) => {
-    //   if (item.titles.length <= 3)
-    //     return item
-
-  //   return {
-  //     ...item,
-  //     titles: [
-  //       item.titles[0],
-  //       item.titles[1],
-  //       '...',
-  //     ],
-  //   }
-  // })
+    .map((item) => {
+      if (item.titles.length <= 3)
+        return item
+      return {
+        ...item,
+        titles: [
+          item.titles[0],
+          item.titles[1],
+          '...',
+        ],
+      }
+    })
 })
+
+const isSearchTermEmpty = ref(true)
+const isFilteredResultEmpty = ref(false)
+
+watch (searchTermDebounced, (val) => {
+  if (val)
+    isSearchTermEmpty.value = false
+  else
+    isSearchTermEmpty.value = true
+})
+
+watch(filteredResult, (val) => {
+  if (val.length)
+    isFilteredResultEmpty.value = false
+  else
+    isFilteredResultEmpty.value = true
+})
+
+// TODO:
+// 1. Select item and click to navigate
+// 2. Navigate to anchor section
+const selected = ref<SearchResult>()
+
+function navigate() {
+  if (!selected.value)
+    return
+
+  navigateTo(selected.value.id)
+  openSearch.value = false
+}
 </script>
 
 <template>
@@ -89,7 +118,8 @@ const filteredResult = computed(() => {
           </DialogDescription>
           <!-- Search input -->
           <ComboboxRoot
-            class="relative"
+            :ignore-filter="true"
+            @highlight="(payload) => selected = payload.value"
           >
             <ComboboxAnchor class="relative inline-flex w-full items-center justify-between gap-[5px] border-b px-4 text-sm leading-none text-gray-700 outline-none dark:border-gray-700">
               <label for="search">
@@ -105,6 +135,7 @@ const filteredResult = computed(() => {
                 v-model="searchTerm"
                 name="search"
                 class="block h-11 w-full border-none !bg-transparent py-3 text-gray-700 outline-none selection:bg-gray-300 placeholder:text-gray-300 dark:text-gray-200 dark:placeholder:text-gray-500"
+                @keydown.enter="navigate"
               />
               <button
                 type="button"
@@ -120,18 +151,63 @@ const filteredResult = computed(() => {
             </ComboboxAnchor>
 
             <!-- Search results -->
-            <ComboboxContent>
-              <ComboboxViewport class="p-1">
-                <ComboboxEmpty class="py-2 text-center text-xs font-medium" />
-                <ComboboxItem
-                  v-for="item in result"
-                  :key="item.id"
-                  :value="item"
+            <div class="relative">
+              <div
+                class="absolute left-1/2 top-0 py-3 text-center text-gray-500 -translate-x-1/2"
+              >
+                <template v-if="!isSearchTermEmpty && isFilteredResultEmpty">
+                  No results for "{{ searchTerm }}"
+                </template>
+                <template v-else-if="isSearchTermEmpty">
+                  請輸入關鍵字搜尋
+                </template>
+              </div>
+
+              <ComboboxContent
+                class="h-80"
+                :data-dismissable-layer="false"
+                force-mount
+              >
+                <ComboboxViewport
+                  as="ul"
+                  class="divide-y divide-gray-200 overflow-y-scroll p-1 dark:divide-gray-700"
                 >
-                  {{ item.title }}
-                </ComboboxItem>
-              </ComboboxViewport>
-            </ComboboxContent>
+                  <ComboboxItem
+                    v-for="item in filteredResult"
+                    :key="item.id"
+                    as="li"
+                    :value="item"
+                    class=" group"
+                  >
+                    <NuxtLink
+                      :to="item.id"
+                      class="flex w-full items-center gap-x-2 px-6 py-3 group-data-[highlighted]:bg-gray-200 dark:group-data-[highlighted]:bg-sky-700/20"
+                      @click="openSearch = false"
+                    >
+                      <Icon
+                        name="i-heroicons-hashtag"
+                        class="inline-block shrink-0 group-data-[highlighted]:text-sky-500 dark:group-data-[highlighted]:text-sky-400"
+                      />
+                      <div class="flex flex-wrap items-center gap-x-2 leading-5">
+                        <template
+                          v-for="title in item.titles"
+                          :key="title"
+                        >
+                          <span class="inline-block">{{ title }}</span>
+                          <Icon
+                            name="i-heroicons-chevron-right"
+                            class="inline-block text-gray-500 dark:text-gray-400"
+                          />
+                        </template>
+                        <span class="group-data-[highlighted]:text-sky-500 dark:group-data-[highlighted]:text-sky-400">
+                          {{ item.title }}
+                        </span>
+                      </div>
+                    </NuxtLink>
+                  </ComboboxItem>
+                </ComboboxViewport>
+              </ComboboxContent>
+            </div>
           </ComboboxRoot>
         </DialogContent>
       </Transition>
@@ -139,4 +215,12 @@ const filteredResult = computed(() => {
   </DialogRoot>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep([data-reka-combobox-viewport]::-webkit-scrollbar) {
+  display: block;
+}
+
+:deep([data-reka-combobox-viewport]) {
+  scrollbar-width: thin;
+}
+</style>
