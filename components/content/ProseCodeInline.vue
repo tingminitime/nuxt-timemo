@@ -2,8 +2,6 @@
 
 <template>
   <code class="mx-px rounded-md bg-gray-200 px-[0.375rem] py-[0.2rem] font-mono font-normal text-red-500 before:content-[''] after:content-[''] dark:bg-gray-700 dark:text-red-500">
-    <!-- TODO: `ContentSlot` in v3 is no longer supported`, remove it -->
-    <!-- <ContentSlot :use="$slots.default" /> -->
     <slot></slot>
   </code>
 </template>

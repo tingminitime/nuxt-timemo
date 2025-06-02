@@ -70,9 +70,6 @@ watch(filteredResult, (val) => {
     isFilteredResultEmpty.value = true
 })
 
-// TODO:
-// 1. Select item and click to navigate
-// 2. Navigate to anchor section
 const selected = ref<SearchResult>()
 
 function navigate() {
@@ -107,7 +104,7 @@ function navigate() {
         leave-to-class="opacity-0 scale-90"
       >
         <DialogContent
-          class="fixed left-1/2 top-1/2 z-[100] w-[min(90dvw,40rem)] rounded-[6px] bg-white shadow-lg -translate-x-1/2 -translate-y-1/2 focus:outline-none"
+          class="fixed left-1/2 top-1/2 z-[100] w-[min(90dvw,40rem)] rounded-[6px] bg-white shadow-lg ring-1 -translate-x-1/2 -translate-y-1/2 focus:outline-none dark:bg-gray-800/85 dark:ring-gray-100/15"
           @pointer-down-outside="openSearch = false"
         >
           <DialogTitle class="sr-only">
@@ -119,7 +116,7 @@ function navigate() {
           <!-- Search input -->
           <ComboboxRoot
             :ignore-filter="true"
-            @highlight="(payload) => selected = payload.value"
+            @highlight="(payload) => selected = (payload?.value as SearchResult)"
           >
             <ComboboxAnchor class="relative inline-flex w-full items-center justify-between gap-[5px] border-b px-4 text-sm leading-none text-gray-700 outline-none dark:border-gray-700">
               <label for="search">

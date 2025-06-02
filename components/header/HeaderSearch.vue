@@ -33,7 +33,6 @@ useEventListener(document, 'keydown', (event) => {
       />
     </HeaderItem>
 
-    <!-- TODO: 目前會 500 error -->
     <!-- <SearchDialog v-model="openSearch" /> -->
     <NewSearchDialog v-model="openSearch" />
   </UTooltip>
