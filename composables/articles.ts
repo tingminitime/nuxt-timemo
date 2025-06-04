@@ -33,6 +33,12 @@ export function useGetArticles() {
     }
   }
 
+  function createArticleQuery(path: string) {
+    return queryCollection('articles')
+      .path(path)
+      .first()
+  }
+
   function groupArticlesByYear(articles: ArticlesCollectionItem[]) {
     if (!articles)
       return []
@@ -62,6 +68,19 @@ export function useGetArticles() {
           }),
         }
       })
+  }
+
+  function addDateInfoToArticle(article: ArticlesCollectionItem | null) {
+    if (!article)
+      return null
+
+    return {
+      ...article,
+      published_date_iso_string: article.published_date ? ISODate(article.published_date) : '',
+      published_date_format: article.published_date ? formatDate(article.published_date) : '',
+      modified_date_iso_string: article.modified_date ? ISODate(article.modified_date) : '',
+      modified_date_format: article.modified_date ? formatDate(article.modified_date) : '',
+    }
   }
 
   /**
@@ -94,8 +113,23 @@ export function useGetArticles() {
     )
   }
 
+  /**
+   *
+   */
+  function getArticleWithPath(path: string) {
+    return useAsyncData(
+      path,
+      () => createArticleQuery(path),
+      {
+        default: () => null,
+        transform: addDateInfoToArticle,
+      },
+    )
+  }
+
   return {
     getAllArticlesGroupedByYear,
     getArticlesWithCategory,
+    getArticleWithPath,
   }
 }

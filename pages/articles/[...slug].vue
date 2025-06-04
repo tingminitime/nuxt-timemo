@@ -2,10 +2,12 @@
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-const { data: pageData, error } = await useAsyncData(
-  route.path,
-  () => queryCollection('articles').path(route.path).first(),
-)
+// const { data: pageData, error } = await useAsyncData(
+//   route.path,
+//   () => queryCollection('articles').path(route.path).first(),
+// )
+const { getArticleWithPath } = useGetArticles()
+const { data: pageData, error } = await getArticleWithPath(route.path)
 
 const { data: authors } = await useGetAllAuthors()
 
@@ -30,45 +32,50 @@ const authorData = computed(() => {
 /* SEO */
 useSeoMeta({
   title: pageData.value?.title,
-  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   description: pageData.value?.description,
+  author: authorData.value?.name || runtimeConfig.public.mainAuthor,
+  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   ogDescription: pageData.value?.description,
   ogImage: pageData.value?.image,
+  ogType: 'article',
   twitterTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
   twitterDescription: pageData.value?.description,
   twitterImage: pageData.value?.image,
   twitterCard: 'summary_large_image',
+  articleAuthor: [authorData.value?.name || runtimeConfig.public.mainAuthor],
+  articlePublishedTime: pageData.value?.published_date_iso_string,
+  articleModifiedTime: pageData.value?.modified_date_iso_string,
+  articleTag: pageData.value?.tags || [],
 })
 
-useServerHead({
-  meta: [
-    {
-      name: 'author',
-      content: 'Tim Lin',
-    },
-    {
-      property: 'og:article:author',
-      content: 'Tim Lin',
-    },
-    {
-      name: 'publish_date',
-      property: 'og:article:published_time',
-      content: pageData.value?.published_date_iso_string,
-    },
-    {
-      name: 'modified_date',
-      property: 'og:article:modified_time',
-      content: pageData.value?.modified_date_iso_string,
-    },
-  ],
-})
+if (import.meta.server) {
+  useHead({
+    meta: [
+      {
+        property: 'og:article:author',
+        content: authorData.value?.name || runtimeConfig.public.mainAuthor,
+      },
+      {
+        name: 'publish_date',
+        property: 'og:article:published_time',
+        content: pageData.value?.published_date_iso_string,
+      },
+      {
+        name: 'modified_date',
+        property: 'og:article:modified_time',
+        content: pageData.value?.modified_date_iso_string,
+      },
+    ],
+  })
+}
 
 useSchemaOrg([
-  // Refer : https://unhead.unjs.io/schema-org/schema/article
+  // Refer : https://unhead.unjs.io/docs/typescript/schema-org/api/schema/article
   defineArticle({
     image: pageData.value?.image ?? '',
     datePublished: pageData.value?.published_date_iso_string,
     dateModified: pageData.value?.modified_date_iso_string,
+    keywords: pageData.value?.tags || [],
   }),
 ])
 
@@ -94,6 +101,11 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
       v-if="pageData"
       :value="pageData"
     />
+
+    <template #tags>
+      <ArticleContentTags class="mt-8" />
+    </template>
+
     <template #prev-next>
       <ArticleContentPrevNext
         class="mt-8"

@@ -33,8 +33,7 @@ useEventListener(document, 'keydown', (event) => {
       />
     </HeaderItem>
 
-    <!-- <SearchDialog v-model="openSearch" /> -->
-    <NewSearchDialog v-model="openSearch" />
+    <SearchDialog v-model="openSearch" />
   </UTooltip>
 </template>
 

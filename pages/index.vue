@@ -6,9 +6,9 @@ const { data: pageBase } = await useAsyncData(
 
 /* SEO */
 useSeoMeta({
-  title: '首頁',
+  title: pageBase.value?.title || '首頁',
   ogImage: pageBase.value?.ogImage,
-  twitterTitle: '首頁',
+  twitterTitle: pageBase.value?.title || '首頁',
   twitterDescription: pageBase.value?.description,
   twitterImage: pageBase.value?.ogImage,
   twitterCard: 'summary_large_image',

@@ -1,11 +1,7 @@
 <script setup lang="ts">
-// import type { ParsedArticle } from '~/types/article'
 import type { ContentNavigationItem } from '@nuxt/content'
 
-// type PrevNext = Pick<ParsedArticle, '_path' | 'title' | 'cover'>
-
 const props = defineProps<{
-  // surround: PrevNext[] | null
   surround: ContentNavigationItem[] | null
 }>()
 

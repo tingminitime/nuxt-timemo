@@ -47,6 +47,7 @@ defineProps<{
       <UDivider
         :ui="{ border: { base: 'dark:border-gray-600' } }"
       />
+      <slot name="tags"></slot>
       <slot name="prev-next"></slot>
     </ArticleContentBody>
   </div>

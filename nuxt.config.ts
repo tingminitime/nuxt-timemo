@@ -100,6 +100,7 @@ export default defineNuxtConfig({
         'My dev notes.',
       language: 'zh-Hant',
       titleSeparator: '·',
+      mainAuthor: 'Tim Lin',
     },
   },
 
