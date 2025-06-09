@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
     'dayjs-nuxt',
+    '@nuxt/eslint',
   ],
 
   postcss: {
@@ -137,5 +138,11 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2025-06-02',
+  eslint: {
+    config: {
+      standalone: false,
+    },
+  },
+
+  compatibilityDate: '2025-06-09',
 })

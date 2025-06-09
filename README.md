@@ -10,10 +10,12 @@
 - [x] Navigation
 - [x] Theme mode
 - [ ] Home page
-- [x] Search
+- [x] Search articles
+- [ ] Tag search
 - [ ] Tags page
 - [x] Articles list page
 - [x] Article page
+- [ ] Tags in footer of article page
 - [x] Next / Prev article navigation
 - [x] Add OG Image to pages and articles
 - [x] Categories and tags page
