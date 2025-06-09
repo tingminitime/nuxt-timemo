@@ -2,10 +2,6 @@
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-// const { data: pageData, error } = await useAsyncData(
-//   route.path,
-//   () => queryCollection('articles').path(route.path).first(),
-// )
 const { getArticleWithPath } = useGetArticles()
 const { data: pageData, error } = await getArticleWithPath(route.path)
 
@@ -103,7 +99,11 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
     />
 
     <template #tags>
-      <ArticleContentTags class="mt-8" />
+      <ArticleContentTags
+        v-if="pageData?.tags"
+        class="mt-8"
+        :tags="pageData?.tags"
+      />
     </template>
 
     <template #prev-next>
