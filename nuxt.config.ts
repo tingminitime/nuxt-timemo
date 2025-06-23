@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxtjs/color-mode',
     '@nuxt/ui',
-    '@nuxtjs/seo',
+    '@nuxtjs/robots', // @nuxtjs/seo
+    '@nuxtjs/sitemap', // @nuxtjs/seo
     '@nuxt/content',
     '@nuxt/image',
     '@vueuse/nuxt',
@@ -21,6 +22,11 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/icon',
     'reka-ui/nuxt',
+    'nuxt-og-image', // @nuxtjs/seo
+    'nuxt-schema-org', // @nuxtjs/seo
+    'nuxt-link-checker', // @nuxtjs/seo
+    'nuxt-seo-utils', // @nuxtjs/seo
+    'nuxt-site-config', // @nuxtjs/seo
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
     'dayjs-nuxt',
