@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import type { Toc } from '@nuxt/content'
-import type { ParsedArticle } from '~/types/article'
-import type { Author } from '~/types/author'
+import type {
+  ArticlesCollectionItem,
+  AuthorsCollectionItem,
+  Toc,
+} from '@nuxt/content'
 
 defineProps<{
   title?: string
@@ -9,8 +11,8 @@ defineProps<{
   modifiedDate?: string | Date
   categoryId?: string
   category?: string
-  authorData?: Author
-  cover?: ParsedArticle['cover']
+  authorData?: AuthorsCollectionItem['data'][number]
+  cover?: ArticlesCollectionItem['cover']
   toc: Toc | undefined
 }>()
 </script>
@@ -45,6 +47,7 @@ defineProps<{
       <UDivider
         :ui="{ border: { base: 'dark:border-gray-600' } }"
       />
+      <slot name="tags"></slot>
       <slot name="prev-next"></slot>
     </ArticleContentBody>
   </div>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import type { ParsedArticle } from '~/types/article'
-import type { Author } from '~/types/author'
-import { getSocialLinkData } from '~/constants'
+import type {
+  ArticlesCollectionItem,
+  AuthorsCollectionItem,
+} from '@nuxt/content'
+import { getSocialLinkData } from '~/utils/common'
 
 const props = defineProps<{
   title?: string
@@ -9,8 +11,8 @@ const props = defineProps<{
   modifiedDate?: string | Date
   categoryId?: string
   category?: string
-  authorData?: Author
-  cover?: ParsedArticle['cover']
+  authorData?: AuthorsCollectionItem['data'][number]
+  cover?: ArticlesCollectionItem['cover']
 }>()
 
 const publishDateFormat = computed(() => formatDate(props.publishDate ?? ''))
@@ -21,7 +23,7 @@ const isPublishedDateEqualModifiedDate = computed(() => {
 })
 
 const dropdownItems = computed(() => {
-  const items = props.authorData?.social_links.map((social) => {
+  const items = props.authorData?.social_links?.map((social) => {
     const socialLinkData = getSocialLinkData(social.type)
     return {
       label: socialLinkData.name,

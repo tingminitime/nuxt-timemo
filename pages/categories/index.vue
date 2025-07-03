@@ -1,30 +1,33 @@
 <script setup lang="ts">
-import type { ParsedPage } from '~/types/common'
-
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 
-const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedPage>(route.path).findOne())
+const { data: pageBase } = await useAsyncData(
+  route.path,
+  () => queryCollection('base')
+    .where('stem', '=', 'categories/base')
+    .first(),
+)
 
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
+const { getArticleCategories } = useGetCategories()
+const { data: articleFlatCategories } = await getArticleCategories()
 
 const prerenderCategoriesRoutes = computed(() => {
-  return articleFlatCategories.value.map(category => `/categories/${category.slug}`)
+  return articleFlatCategories.value.map(category => `/categories/${category.id}`)
 })
 
 prerenderRoutes(prerenderCategoriesRoutes.value)
 
 /* SEO */
 useSeoMeta({
-  title: pageData.value?.title,
-  description: pageData.value?.description,
-  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
-  ogDescription: pageData.value?.description,
-  ogImage: pageData.value?.ogImage,
-  twitterTitle: pageData.value?.title,
-  twitterDescription: pageData.value?.description,
-  twitterImage: pageData.value?.ogImage,
+  title: pageBase.value?.title,
+  description: pageBase.value?.description,
+  ogTitle: `${pageBase.value?.title} | ${runtimeConfig.public.siteName}`,
+  ogDescription: pageBase.value?.description,
+  ogImage: pageBase.value?.ogImage,
+  twitterTitle: pageBase.value?.title,
+  twitterDescription: pageBase.value?.description,
+  twitterImage: pageBase.value?.ogImage,
   twitterCard: 'summary_large_image',
 })
 
@@ -45,7 +48,7 @@ useSchemaOrg([
 <template>
   <AppHero class="mb-8">
     <template #title>
-      {{ pageData?.hero?.title || pageData?.title }}
+      {{ pageBase?.hero?.title || pageBase?.title }}
     </template>
   </AppHero>
 
@@ -53,11 +56,11 @@ useSchemaOrg([
     <ul class="flex flex-col gap-2">
       <li
         v-for="category in articleFlatCategories"
-        :key="category._path"
+        :key="category.id"
       >
         <NuxtLink
-          :to="`/categories/${category.slug}`"
-          :aria-label="`前往分類頁面 - ${category.title}`"
+          :to="`/categories/${category.id}`"
+          :aria-label="`前往分類頁面 - ${category.text}`"
           class="flex items-center gap-2 rounded-md p-2 transition-colors md:hover:bg-gray-200 md:dark:hover:bg-sky-700"
         >
           <Icon
@@ -65,7 +68,7 @@ useSchemaOrg([
             :name="category.icon"
             class="md:size-6"
           />
-          <span class="text-gray-700 dark:text-gray-300">{{ category.title }}&nbsp;({{ category.count || '0' }})</span>
+          <span class="text-gray-700 dark:text-gray-300">{{ category.text }}&nbsp;({{ category.count || '0' }})</span>
         </NuxtLink>
       </li>
     </ul>

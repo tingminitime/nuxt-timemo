@@ -2,7 +2,7 @@
 title: 這是一篇2023未分類的文章
 description: 這是一篇2023未分類的文章 這是一篇2023未分類的文章 這是一篇2023未分類的文章
 author: tim
-tags: ["unclassified", "hello"]
+tags: ["uncategorized", "hello"]
 image: /assets/articles/nighttime-mountain.jpg
 cover:
   src: /assets/articles/nighttime-mountain.jpg

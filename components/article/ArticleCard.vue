@@ -4,7 +4,6 @@ defineProps<{
   title?: string
   description?: string
   author?: string
-  categoryId?: string
   category?: string
   coverImage?: string
   publishedDateFormat?: string

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { DefineComponent } from 'vue'
+import type { Component } from 'vue'
 
 defineProps<{
-  is: string | DefineComponent<unknown>
+  is: string | Component
 }>()
 </script>
 

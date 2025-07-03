@@ -2,6 +2,7 @@
 title: Nuxt3 第一篇文章
 description: Nuxt says 「 Hello World 」 to you.
 author: tim
+category: nuxt
 tags: ["vue", "nuxt", "hello"]
 image: /assets/articles/nuxt-cover.webp
 cover:

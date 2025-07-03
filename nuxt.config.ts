@@ -1,23 +1,36 @@
 import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
 
   modules: [
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/color-mode',
     '@nuxt/ui',
+    '@nuxtjs/robots', // @nuxtjs/seo
+    '@nuxtjs/sitemap', // @nuxtjs/seo
     '@nuxt/content',
     '@nuxt/image',
-    '@nuxtjs/color-mode',
-    '@nuxtjs/google-fonts',
-    '@nuxtjs/seo',
     '@vueuse/nuxt',
     '@vueuse/motion/nuxt',
     '@pinia/nuxt',
     '@nuxt/icon',
-    'radix-vue/nuxt',
+    'reka-ui/nuxt',
+    'nuxt-og-image', // @nuxtjs/seo
+    'nuxt-schema-org', // @nuxtjs/seo
+    'nuxt-link-checker', // @nuxtjs/seo
+    'nuxt-seo-utils', // @nuxtjs/seo
+    'nuxt-site-config', // @nuxtjs/seo
     'nuxt-headlessui',
     'nuxt-payload-analyzer',
     'dayjs-nuxt',
+    '@nuxt/eslint',
   ],
 
   postcss: {
@@ -94,6 +107,7 @@ export default defineNuxtConfig({
         'My dev notes.',
       language: 'zh-Hant',
       titleSeparator: '·',
+      mainAuthor: 'Tim Lin',
     },
   },
 
@@ -104,23 +118,21 @@ export default defineNuxtConfig({
     defaultLocale: 'zh-Hant',
   },
 
-  sitemap: {
-    strictNuxtContentPaths: true,
-  },
-
   content: {
-    experimental: {
-      // @ts-expect-error: Unreachable code error
-      search: true,
-    },
-    ignores: ['drafts'],
-    documentDriven: false,
-    highlight: {
-      theme: {
-        default: 'github-light',
-        dark: 'github-dark',
+    build: {
+      markdown: {
+        highlight: {
+          theme: {
+            default: 'github-light',
+            dark: 'github-dark',
+          },
+          langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'scss', 'vue-html', 'python', 'bash', 'javascript', 'typescript'],
+        },
+        toc: {
+          depth: 3,
+          searchDepth: 3,
+        },
       },
-      langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'scss', 'vue-html', 'python', 'bash', 'javascript', 'typescript'],
     },
   },
 
@@ -132,5 +144,11 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2024-11-22',
+  eslint: {
+    config: {
+      standalone: false,
+    },
+  },
+
+  compatibilityDate: '2025-06-09',
 })

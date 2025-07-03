@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import type { ParsedPage } from '~/types/common'
-
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
-const { data: pageData } = await useAsyncData(route.path, () => queryContent<ParsedPage>(route.path).findOne())
+
+const { data: pageBase } = await useAsyncData(
+  route.path,
+  () => queryCollection('base')
+    .where('stem', '=', 'articles/base')
+    .first(),
+)
 
 const {
   articlesDisplayOptions,
@@ -13,23 +17,19 @@ const {
   currentArticleComponent,
 } = useUserPrefer()
 
-/* Articles data */
-const { getFlatArticleCategories } = useGetArticleCategories()
-const { data: articleFlatCategories } = await getFlatArticleCategories()
-
-const { getAllPublishedPosts } = useGetPublishedPosts()
-const { data: groupedArticlesByYear } = await getAllPublishedPosts(articleFlatCategories.value)
+const { getAllArticlesGroupedByYear } = useGetArticles()
+const { data: groupedArticlesByYear } = await getAllArticlesGroupedByYear()
 
 /* SEO */
 useSeoMeta({
-  title: pageData.value?.title,
-  description: pageData.value?.description,
-  ogTitle: `${pageData.value?.title} | ${runtimeConfig.public.siteName}`,
-  ogDescription: pageData.value?.description,
-  ogImage: pageData.value?.ogImage,
-  twitterTitle: pageData.value?.title,
-  twitterDescription: pageData.value?.description,
-  twitterImage: pageData.value?.ogImage,
+  title: pageBase.value?.title,
+  description: pageBase.value?.description,
+  ogTitle: `${pageBase.value?.title} | ${runtimeConfig.public.siteName}`,
+  ogDescription: pageBase.value?.description,
+  ogImage: pageBase.value?.ogImage,
+  twitterTitle: pageBase.value?.title,
+  twitterDescription: pageBase.value?.description,
+  twitterImage: pageBase.value?.ogImage,
   twitterCard: 'summary_large_image',
 })
 
@@ -50,10 +50,10 @@ useSchemaOrg([
 <template>
   <AppHero class="mb-8">
     <template #title>
-      {{ pageData?.hero?.title || pageData?.title }}
+      {{ pageBase?.hero?.title || pageBase?.title }}
     </template>
     <template #description>
-      {{ pageData?.hero?.description }}
+      {{ pageBase?.hero?.description }}
     </template>
   </AppHero>
 
@@ -90,23 +90,24 @@ useSchemaOrg([
       v-if="groupedArticlesByYear?.length"
       class="flex flex-col gap-y-6"
     >
+      <!-- ArticleCardsLayout or ArticleListLayout -->
       <component
         :is="currentArticleLayoutComponent"
         v-for="groupedArticles in groupedArticlesByYear"
         :key="groupedArticles.year"
         :year="groupedArticles.year"
       >
+        <!-- ArticleCard or ArticleItem -->
         <component
           :is="currentArticleComponent"
           v-for="article in groupedArticles.articles"
-          :key="article._path"
-          :to="article._path"
+          :key="article.path"
+          :to="article.path"
           :title="article.title"
           :description="article.description"
           :author="article.author"
-          :category-id="article._dir"
-          :category="article.category"
-          :cover-image="article.cover.src"
+          :category="getCategoryWithCategoryId(article.category)?.text"
+          :cover-image="article.cover?.src"
           :published-date-format="article.published_date_format"
           :published-date-iso-string="article.published_date_iso_string"
         />

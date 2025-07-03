@@ -1,4 +1,4 @@
-import type { SocialLinkType } from '~/types/common'
+import type { Category, SocialLinkType } from '~/types/common'
 
 export const appName = 'timemo'
 export const appDescription = 'My dev notes.'
@@ -19,6 +19,34 @@ export const navigation = [
   },
 ]
 
+export const categories: Category[] = [
+  {
+    id: 'uncategorized',
+    text: '未分類',
+    icon: 'i-heroicons-globe-alt',
+  },
+  {
+    id: 'hello',
+    text: 'Hello Directory',
+    icon: 'i-skill-icons-devto-light',
+  },
+  {
+    id: 'nuxt',
+    text: 'Nuxt',
+    icon: 'i-skill-icons-nuxtjs-light',
+  },
+  {
+    id: 'old',
+    text: 'Old Directory',
+    icon: 'i-skill-icons-react-dark',
+  },
+  {
+    id: 'vue',
+    text: 'Vue',
+    icon: 'i-skill-icons-vuejs-light',
+  },
+]
+
 export const socialLinksMap: { type: SocialLinkType, name: string, icon: string }[] = [
   { type: 'website', name: 'Website', icon: 'i-heroicons-globe-alt' },
   { type: 'linkedin', name: 'LinkedIn', icon: 'i-simple-icons-linkedin' },
@@ -30,7 +58,3 @@ export const socialLinksMap: { type: SocialLinkType, name: string, icon: string 
   { type: 'youtube', name: 'YouTube', icon: 'i-simple-icons-youtube' },
   { type: 'medium', name: 'Medium', icon: 'i-simple-icons-medium' },
 ]
-
-export function getSocialLinkData(type: SocialLinkType = 'website') {
-  return socialLinksMap.find(link => link.type === type) || socialLinksMap[0]
-}
