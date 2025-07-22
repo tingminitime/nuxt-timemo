@@ -1,4 +1,4 @@
-import { appDescription } from './constants/index'
+import { appDescription } from './app/constants/index'
 
 export default defineNuxtConfig({
   devtools: {
